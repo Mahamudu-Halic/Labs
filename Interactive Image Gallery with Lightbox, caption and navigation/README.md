@@ -1,42 +1,68 @@
-# Week 1.2
+# Week 1.4
 
-## Lab Activity: : Functional Data Transformation Playground
+## Lab Activity: Interactive Image Gallery with Lightbox, Captions, and Navigation
+
+<img src="./thumbnails.png" alt="gallery" style="border-radius: 20px">
+<img src="./carousel.png" alt="carousel" style="border-radius: 20px"/>
 
 ### Learning Objectives
 
-- Master essential JavaScript functions for working with strings, arrays, and objects.
-- Understand and apply functional programming principles:
-  - Pure functions: Always produce the same output for a given input, no side
-    effects.
-  - Higher-order functions: Take or return functions.
-  - Immutability: Avoid modifying original data, and create new transformed copies
-
-- Practice function composition to create complex transformations from simpler one
+- Master DOM manipulation to dynamically create, modify, and interact with image gallery
+  elements.
+- Practice event handling to trigger actions like opening the lightbox, navigating between
+  images, and closing the lightbox.
+- Utilize JavaScript data structures (e.g., arrays, objects) to store and manage image data.
+- Gain experience with CSS styling to create visually appealing layouts and effects.
 
 ### Scenario:
-You are given a dataset containing various types of information: strings, arrays of numbers, and
-objects representing people. Your task is to build a set of pure functions to extract, transform,
-and functionally analyze this data.
+Build an interactive image gallery that displays a thumbnail grid of images. When a
+thumbnail is clicked, it should open a lightbox that displays the full-sized image along
+with its caption. The lightbox should have "Next" and "Previous" buttons for navigation
+between images.
 
 ### Tasks:
-1. String Transformations:
-   - `capitalize(str)`: Capitalizes the first letter of a string.
-   - `reverse(str)`: Reverses a string.
-   - `isPalindrome(str)`: Checks if a string is a palindrome (reads the same
-   backward as forward).
-   - `wordCount(str)`: Counts the number of words in a string.
-2. Array Transformations:
-   - `double(arr)`: Doubles every number in an array.
-   - `filterEven(arr)`: Filters out even numbers from an array.
-   - `sum(arr)`: Calculates the sum of all numbers in an array.
-   - `average(arr)`: Calculates the average of all numbers in an array.
-3. Object Transformations:
-   - `fullName(person)`: Returns the full name of a person object (given
-   properties firstName and lastName).
-   - `isAdult(person)`: Checks if a person is 18 or older (given property age).
-   - `filterByAge(people, minAge)`: Filters an array of person objects to keep
-   only those at least minAge years old.
-4. Function Composition:
-  - Use the `compose(...fns)` function (you can find implementations online) to
-   combine your functions in interesting ways. For example, create a function to
-   reverse and capitalize a string, or to double all the even numbers in an array.
+1. HTML Structure:
+   - Create the basic HTML structure:
+       - A container for the image gallery.
+       - Thumbnail elements with attributes pointing to the thumbnail images.
+       - Alt text for accessibility and captions.
+       - The lightbox container is initially hidden.
+       - Elements within the lightbox:
+         1. Full-sized image container.
+         2. Caption container.
+         3. “Next” and “Previous” buttons.
+         4. Close button.
+2. CSS Styling:
+   - Style the gallery to your liking:
+       - Thumbnail grid layout (e.g., using Flexbox or CSS Grid).
+       - Lightbox overlay effect (e.g., darkening the background).
+       - Lightbox content positioning (e.g., centered).
+       - Button styles and hover effects.
+3. JavaScript Functionality:
+   - Image Data:
+     - Create an array or object to store image information:
+       1. Image URL (full-size)
+       2. Thumbnail URL
+       3. Caption
+
+   - DOM Manipulation:
+        - Write functions to:
+          1. Dynamically create thumbnail elements and add them to the
+             gallery container.
+          2. Open the lightbox when a thumbnail is clicked:
+             - Display the full-sized image in the lightbox container.
+             - Update the caption in the lightbox.
+          3. Handle navigation (next/previous buttons):
+             - Load the correct image and caption based on the current
+             index.
+             - Disable buttons at the beginning and end of the gallery.
+          4. Close the lightbox.
+   - Event Handling:
+        - Add event listeners to:
+          1. Thumbnails (click to open lightbox).
+          2. Next and Previous buttons (click to navigate).
+          3. Close button (click to close the lightbox).
+   - Date/Time Handling:
+     - Use JavaScript’s Date object or a library like Moment.js to work with
+              due dates/times.
+     - Ensure proper formatting and validation of date/time input.
