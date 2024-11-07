@@ -83,7 +83,6 @@ const average = (arr) => {
 const fullName = (person) => {
     return `${person?.firstName} ${person?.lastName}`;
 }
-let name = "halic"
 
 //checks if a person is 18 or older
 const isAdult = (person) => {
