@@ -1,6 +1,6 @@
 # Week 1.2
 
-## Lab Activity: : Functional Data Transformation Playground
+## Lab Activity: Functional Data Transformation Playground
 
 ### Learning Objectives
 
