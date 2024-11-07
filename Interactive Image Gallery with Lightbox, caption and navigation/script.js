@@ -11,45 +11,20 @@ const carousel = document.getElementById("carousel");
 
 let currentIndex = 0;
 
-
 /**
- * Renders a list of images as thumbnails and attaches event listeners for carousel functionality.
+ * Renders all the images in the gallery.
+ * Creates a figure element for each image in the 'images' array and appends it to the
+ * 'thumbnailContainer' element. The figure contains the image and its corresponding
+ * caption. The image is also given an event listener for a click event, which sets
+ * the current index to the index of the clicked image and renders the carousel.
  */
 const renderImages = () => {
-  // Iterate over the list of images
-  images.forEach((img, index) => {
-    // Create a new figure element to contain the thumbnail
-    const figure = document.createElement("figure");
-    figure.className = "thumbnail-item";
-
-    // Set the inner HTML of the figure element to include the image and caption
-    figure.innerHTML = `
-            <img src="${img.imageUrl}" alt="${img.caption}" class="thumbnail"/>
-            <figcaption class="caption">${img.caption}</figcaption>
-        `;
-    // Append the figure element to the thumbnail container
-    thumbnailContainer.appendChild(figure);
-
-    // Get a reference to the thumbnail image element
-    const thumbnailItem = figure.querySelector(".thumbnail");
-
-    // Attach an event listener to the thumbnail image to handle clicks
-    thumbnailItem.addEventListener("click", () => {
-      // Update the currentIndex to the index of the clicked image
-      currentIndex = index;
-      // Show the carousel container
-      carousel.classList.add("active");
-      // Update the carousel with the selected image
-      renderCarousel();
-    });
-  });
-};const renderImages = () => {
   images.forEach((img, index) => {
     const figure = document.createElement("figure");
     figure.className = "thumbnail-item";
 
     figure.innerHTML = `
-            <img src="${img.imageUrl}" alt="${img.caption}" class="thumbnail"/>
+            <img src="${img.thumbnailUrl}" alt="${img.caption}" class="thumbnail"/>
             <figcaption class="caption">${img.caption}</figcaption>
         `;
     thumbnailContainer.appendChild(figure);
