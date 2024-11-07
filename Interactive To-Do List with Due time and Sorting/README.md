@@ -1,42 +1,50 @@
-# Week 1.2
+# Week 1.3
 
-## Lab Activity: : Functional Data Transformation Playground
+## Lab Activity: Interactive To-Do List with Due Time and Sorting
+
+<img src="./img.png" alt="todo page" style="border-radius: 20px"/>
 
 ### Learning Objectives
 
-- Master essential JavaScript functions for working with strings, arrays, and objects.
-- Understand and apply functional programming principles:
-  - Pure functions: Always produce the same output for a given input, no side
-    effects.
-  - Higher-order functions: Take or return functions.
-  - Immutability: Avoid modifying original data, and create new transformed copies
+- Master DOM manipulation to dynamically create, update, and remove elements in the
+  to-do list.
 
-- Practice function composition to create complex transformations from simpler one
-
+- Utilize JavaScript data structures (e.g., arrays, objects) to store and manage to-do items.
+-Implement sorting algorithms to order to-do items by due time or other criteria.
+- Gain experience with user input handling, form validation, and date/time manipulation.
 ### Scenario:
-You are given a dataset containing various types of information: strings, arrays of numbers, and
-objects representing people. Your task is to build a set of pure functions to extract, transform,
-and functionally analyze this data.
+Build a to-do list application that allows users to:
+- **Create** new to-do items with a title, description (optional), and due date/time.
+- **Read** the list of to-do items, and display them in a clear and organized manner.
+- **Update** existing to-do items (title, description, due date/time).
+- **Delete** to-do items.
+- **Sort** the to-do list by due date/time (ascending or descending).
+- **Mark** to-do items as complete.
 
 ### Tasks:
-1. String Transformations:
-   - `capitalize(str)`: Capitalizes the first letter of a string.
-   - `reverse(str)`: Reverses a string.
-   - `isPalindrome(str)`: Checks if a string is a palindrome (reads the same
-   backward as forward).
-   - `wordCount(str)`: Counts the number of words in a string.
-2. Array Transformations:
-   - `double(arr)`: Doubles every number in an array.
-   - `filterEven(arr)`: Filters out even numbers from an array.
-   - `sum(arr)`: Calculates the sum of all numbers in an array.
-   - `average(arr)`: Calculates the average of all numbers in an array.
-3. Object Transformations:
-   - `fullName(person)`: Returns the full name of a person object (given
-   properties firstName and lastName).
-   - `isAdult(person)`: Checks if a person is 18 or older (given property age).
-   - `filterByAge(people, minAge)`: Filters an array of person objects to keep
-   only those at least minAge years old.
-4. Function Composition:
-  - Use the `compose(...fns)` function (you can find implementations online) to
-   combine your functions in interesting ways. For example, create a function to
-   reverse and capitalize a string, or to double all the even numbers in an array.
+1. HTML Structure:
+   - Create the basic HTML structure for the to-do list:
+     - Input fields for title, description, and due date/time.
+     - A button to add new items.
+     - A container to display the list of to-do items.
+     - (Optional) Buttons for sorting and filtering.
+2. JavaScript Functionality:
+   - Data Storage
+     - Use an array to store to-do item objects.
+     - Each object should have properties for title, description, due
+       date/time, and completion status 
+   - DOM Manipulation
+      - Write functions to
+        1. Create new to-do list item elements from the data.
+        2. Add new items to the list.
+        3. Update existing items in the list.
+        4. Sort the list based on the due date/time.
+3. Event Handling
+   - Add event listeners to:
+     1. The “add” button to trigger item creation.
+     2. List items for editing and deleting.
+     3. Sorting and filtering buttons.
+4. Date/Time Handling:
+  - Use JavaScript’s Date object or a library like Moment.js to work with
+    due dates/times.
+  - Ensure proper formatting and validation of date/time input.
