@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="" />
+    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interactive Image Gallery with Lightbox, caption and navigation/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/Interactive Image Gallery with Lightbox, caption and navigation/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Interactive To-Do List with Due time and Sorting/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Interactive To-Do List with Due time and Sorting/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,9 +17,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2oWACXgkaSjQvwNOuaH53MhmgsC" />
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
@@ -28,8 +32,8 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/HalicMahamudu/Desktop/Labs",
+    "git-widget-placeholder": "week1",
+    "last_opened_file_path": "C:/Users/HalicMahamudu/Desktop/Labs/Interactive To-Do List with Due time and Sorting",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -39,6 +43,15 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\Interactive To-Do List with Due time and Sorting" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\Interactive Image Gallery with Lightbox, caption and navigation" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\Functional Data Transformation Playground" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -55,6 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1730974830953</updated>
       <workItem from="1730974831955" duration="1771000" />
+      <workItem from="1730976625757" duration="5856000" />
     </task>
     <servers />
   </component>
