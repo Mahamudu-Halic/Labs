@@ -65,7 +65,7 @@ const sum = (arr) => {
         if (typeof num === "number") {
             return acc + num;
         } else {
-            return "invalid array input"
+            return "invalid array input" // You don't want to return this as the new accumulated value when the input is valid.
         }
     }, 0)
 }
