@@ -2,7 +2,7 @@
 //capitalize the first letter of a string
 const capitalize = (str) => {
     if (typeof str !== "string") {
-        return "invalid input"
+        throw new Error("invalid input")
     }
     return str.split(" ").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
 }
@@ -10,7 +10,7 @@ const capitalize = (str) => {
 //reverse a string
 const reverseString = (str) => {
     if (typeof str !== "string") {
-        return "invalid input"
+        throw new Error("invalid input")
     }
     return str.split("").reverse().join("")
 }
@@ -18,7 +18,7 @@ const reverseString = (str) => {
 //check if a string is a palindrome
 const isPalindrome = (str) => {
     if (typeof str !== "string") {
-        return "invalid input"
+        throw new Error("invalid input")
     }
     return str === reverseString(str);
 }
@@ -26,7 +26,7 @@ const isPalindrome = (str) => {
 //counts the number of words in a string
 const wordCount = (str) => {
     if (typeof str !== "string") {
-        return "invalid input"
+        throw new Error("invalid input")
     }
 
     return str.split(" ").length;
@@ -36,7 +36,7 @@ const wordCount = (str) => {
 //doubles every number in an array
 const doubleNumbers = (arr) => {
     if (!Array.isArray(arr)) {
-        return "invalid input"
+        throw new Error("invalid input")
     }
     return arr.map(num => {
         if (typeof num === "number") {
@@ -48,7 +48,7 @@ const doubleNumbers = (arr) => {
 //filters out even numbers from an array
 const filterEven = (arr) => {
     if (!Array.isArray(arr)) {
-        return "invalid input"
+        throw new Error("invalid input")
     }
     return arr.filter(num => {
         if (typeof num === "number") {
@@ -59,13 +59,13 @@ const filterEven = (arr) => {
 //calculate the sum of all numbers in an array
 const sum = (arr) => {
     if (!Array.isArray(arr)) {
-        return "invalid input"
+        throw new Error("invalid input")
     }
     return arr.reduce((acc, num) => {
         if (typeof num === "number") {
             return acc + num;
         } else {
-            return "invalid array input" // You don't want to return this as the new accumulated value when the input is valid.
+            throw new Error("invalid array input")
         }
     }, 0)
 }
@@ -73,7 +73,7 @@ const sum = (arr) => {
 //calculate the average of all numbers in an array
 const average = (arr) => {
     if (!Array.isArray(arr)) {
-        return "invalid input"
+        throw new Error("invalid input")
     }
     return sum(arr) / arr.length;
 }
@@ -87,7 +87,7 @@ const fullName = (person) => {
 //checks if a person is 18 or older
 const isAdult = (person) => {
     if (typeof person?.age !== "number") {
-        return "invalid input for age"
+        throw new Error("invalid input for age")
     }
 
     return person?.age >= 18;
@@ -106,7 +106,7 @@ const compose = (...fns) => {
 
 //composite function to reverse and capitalize a string
 const reverseAndCapitalize = compose(capitalize, reverseString)
-const revCapStringsResult = reverseAndCapitalize("Halic")
+const reverseAndCapitalizeResult = reverseAndCapitalize("Halic")
 
 //composite function to filter and double even numbers
 const doubleEvenNumbers = compose(doubleNumbers, filterEven)
