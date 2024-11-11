@@ -4,7 +4,7 @@ const capitalize = (str) => {
     if (typeof str !== "string") {
         throw new Error("invalid input")
     }
-    return str.split(" ").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
+    return str.toLowerCase().split(" ").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
 }
 
 //reverse a string
