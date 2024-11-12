@@ -1,15 +1,36 @@
 //TODO: String Transformations
 //capitalize the first letter of a string
-const capitalize = (str) => (typeof str !== "string") ? "invalid input" : str.split(" ").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
+const capitalize = (str) => {
+    if (typeof str !== "string") {
+        throw new Error("invalid input")
+    }
+    return str.split(" ").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
+}
 
 //reverse a string
-const reverseString = (str) => (typeof str !== "string") ? "invalid input" : str.split("").reverse().join("");
+const reverseString = (str) => {
+    if (typeof str !== "string") {
+        throw new Error("invalid input")
+    }
+    return str.split("").reverse().join("")
+}
 
 //check if a string is a palindrome
-const isPalindrome = (str) => (typeof str !== "string") ? "invalid input" : str === reverseString(str);
+const isPalindrome = (str) => {
+    if (typeof str !== "string") {
+        throw new Error("invalid input")
+    }
+    return str === reverseString(str);
+}
 
 //counts the number of words in a string
-const wordCount = (str) => (typeof str !== "string") ? "invalid input" : str.split(" ").length;
+const wordCount = (str) => (typeof str !== "string") 
+    if (typeof str !== "string") {
+        throw new Error("invalid input")
+    }
+
+    return str.split(" ").length;
+}
 
 //TODO: Array Transformations
 //doubles every number in an array
