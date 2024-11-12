@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/JavaScript Hero Time Master/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JavaScript Hero Time Master/script.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/JavaScript Hero Time Master/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,7 +64,7 @@
       <updated>1730974830953</updated>
       <workItem from="1730974831955" duration="1438000" />
       <workItem from="1731006988188" duration="5310000" />
-      <workItem from="1731397127801" duration="10467000" />
+      <workItem from="1731397127801" duration="11366000" />
     </task>
     <servers />
   </component>
