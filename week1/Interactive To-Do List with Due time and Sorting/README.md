@@ -2,7 +2,7 @@
 
 ## Lab Activity: Interactive To-Do List with Due Time and Sorting
 
-<img src="./img.png" alt="todo page" style="border-radius: 20px"/>
+<img src="img.png" alt="todo page" style="border-radius: 20px"/>
 
 ### Learning Objectives
 
