@@ -25,13 +25,13 @@ const average = (arr) => (!Array.isArray(arr)) ? "invalid input" : sum(arr) / ar
 
 //TODO: Object Transformations
 //returns the full name of a person object
-const fullName = (person) =>  `${person?.firstName} ${person?.lastName}`;
+const fullName = ({firstName, lastName}) =>  `${firstName} ${lastName}`;
 
 //checks if a person is 18 or older
-const isAdult = (person) => (typeof person?.age !== "number") ? "invalid input for age" : person?.age >= 18;
+const isAdult = ({age}) => (typeof age !== "number") ? "invalid input for age" : age >= 18;
 
 //filters an array of person objects by miniAge
-const filterByAge = (people, minAge) => people.filter(person => person.age >= minAge)
+const filterByAge = (people, minAge) => people.filter(({age}) => age >= minAge)
 
 
 //TODO: Function Composition

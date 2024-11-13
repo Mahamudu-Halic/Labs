@@ -1,6 +1,7 @@
 //TODO: String Transformations
 //capitalize the first letter of a string
 const capitalize = (str) => (typeof str !== "string") ? "invalid input" : str.split(" ").map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(" ");
+
 //reverse a string
 const reverseString = (str) => (typeof str !== "string") ? "invalid input" : str.split("").reverse().join("");
 
@@ -24,10 +25,10 @@ const average = (arr) => (!Array.isArray(arr)) ? "invalid input" : sum(arr) / ar
 
 //TODO: Object Transformations
 //returns the full name of a person object
-const fullName = (person) =>  `${person?.firstName} ${person?.lastName}`;
+const fullName = ({firstName, lastName}) =>  `${firstName} ${lastName}`;
 
 //checks if a person is 18 or older
-const isAdult = (person) => (typeof person?.age !== "number") ? "invalid input for age" : person?.age >= 18;
+const isAdult = ({age}) => (typeof age !== "number") ? "invalid input for age" : age >= 18;
 
 //filters an array of person objects by miniAge
 const filterByAge = (people, minAge) => people.filter(person => person.age >= minAge)
