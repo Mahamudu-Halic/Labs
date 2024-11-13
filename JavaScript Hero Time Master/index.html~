@@ -19,7 +19,7 @@
 
 <div id="time-master">
     <div id="display-time"></div>
-    <input id="alarm-time" type="time">
+    <input type="time" id="alarm-time">
     <audio id="alarm-sound" loop src="./alarm.mp3"></audio>
 </div>
 

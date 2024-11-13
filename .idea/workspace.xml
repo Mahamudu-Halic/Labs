@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="" />
+    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/JavaScript Hero Time Master/alarm.mp3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaScript Hero Time Master/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript Hero Time Master/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaScript Hero Time Master/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript Hero Time Master/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaScript Hero Time Master/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/JavaScript Hero Time Master/style.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -36,7 +42,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
     "git-widget-placeholder": "week2",
-    "last_opened_file_path": "/Users/halicmahamudu/Desktop/Labs",
+    "last_opened_file_path": "C:/Users/HalicMahamudu/Desktop/Labs/JavaScript Hero Time Master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -47,6 +53,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\JavaScript Hero Time Master" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
