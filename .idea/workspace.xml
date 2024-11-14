@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Functional Data Transformation Playground/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/Functional Data Transformation Playground/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +35,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
     "git-widget-placeholder": "week1",
-    "last_opened_file_path": "C:/Users/HalicMahamudu/Desktop/Labs/Interactive To-Do List with Due time and Sorting",
+    "last_opened_file_path": "C:/Users/HalicMahamudu/Desktop/newLabs",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -73,6 +72,7 @@
       <workItem from="1730974831955" duration="1771000" />
       <workItem from="1730976625757" duration="6597000" />
       <workItem from="1731482899744" duration="361000" />
+      <workItem from="1731569655319" duration="34000" />
     </task>
     <servers />
   </component>
