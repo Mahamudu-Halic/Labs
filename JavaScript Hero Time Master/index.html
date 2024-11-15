@@ -5,25 +5,23 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
-    <title>Document</title>
-    <link href="style.css" rel="stylesheet">
+    <title>Time Master</title>
+    <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<select id="time-format">
+    <option value="24">24 Hours</option>
+    <option value="12">12 Hours</option>
+</select>
 
-<div id="select-hours-container">
-    <select id="select-hours" name="hours-selected">
-        <option value="24">24 Hours</option>
-        <option value="12">12 Hours</option>
-    </select>
+<div class="time">
+    <div id="clock">Loading...</div>
+    <input id="alarm-input" type="time">
+    <button id="set-alarm-btn">Set Alarm</button>
+    <button id="clear-alarm-btn">Clear Alarm</button>
 </div>
+<audio id="audio-player" loop src="alarm.mp3"></audio>
 
-<div id="time-master">
-    <div id="display-time"></div>
-    <!--    <input id="alarm-time" type="time">-->
-    <!--    <button id="set-alarm">Set Alarm</button>-->
-    <!--    <audio id="alarm-sound" loop src="./alarm.mp3"></audio>-->
-</div>
-
-<script src="script.js" type="module"></script>
+<script src="main.js"></script>
 </body>
 </html>

@@ -1,16 +1,27 @@
+// Define a JavaScript object to represent a superhero
 const hero = {
-    name: 'Batman',
-    secretIdentity: "Bruce Wayne",
-    powers: ["strength", "speed", "money"],
-    weakness: 'women',
+    // Properties to describe the hero
+    name: 'Batman', // Hero's public name
+    secretIdentity: "Bruce Wayne", // Hero's secret identity
+    powers: ["strength", "speed", "money"], // Hero's superpowers
+    weakness: 'women', // Hero's weakness
+
+    // Method to use a specific power
     usePower(powerName) {
-        if (this.powers.includes(powerName)) console.log(`${this.name} uses ${powerName}}`)
+        // Check if the hero has the specified power
+        if (this.powers.includes(powerName))
+            // Log a message to the console if they do
+            console.log(`${this.name} uses ${powerName}`);
     },
+
+    // Method to reveal the hero's secret identity
     revealIdentity() {
+        // Log a message to the console revealing the hero's secret identity
         console.log(`${this.name} is actually ${this.secretIdentity}`);
     }
 }
 
+// Create a constructor to create new superheroes
 function SuperHero(name, secretIdentity, powers, weakness) {
     this.name = name;
     this.secretIdentity = secretIdentity;
@@ -18,17 +29,24 @@ function SuperHero(name, secretIdentity, powers, weakness) {
     this.weakness = weakness;
 }
 
+// Add a method to use a specific power
 SuperHero.prototype.usePower = function (powerName) {
     if (this.powers.includes(powerName)) console.log(`${this.name} uses ${powerName}`)
 }
 
+
+// Add a method to reveal the hero's secret identity'
 SuperHero.prototype.revealIdentity = function () {
     console.log(`${this.name} is actually ${this.secretIdentity}`);
 }
 
+
+// Create instance of SuperHero
 const superman = new SuperHero('Superman', 'Clark Kent', ['flight', 'heat vision', 'superhuman strength'], 'kryptonite');
 superman.usePower('flight');
 
+
+// Create an array of SuperHero instances
 const superHeroes = [
     new SuperHero('Superman', 'Clark Kent', ['flight', 'heat vision', 'superhuman strength'], 'kryptonite'),
     new SuperHero('Batman', 'Bruce Wayne', ['strength', 'speed', 'money'], 'women'),
@@ -40,3 +58,15 @@ const superHeroes = [
     new SuperHero('Joker', 'Jack Napier', ['cunning', 'unpredictability', 'toxic laughing gas'], 'batman'),
     new SuperHero('Green Goblin', 'Norman Osborn', ['genius intellect', 'wealth', 'glider'], 'spider-man'),
 ]
+
+
+// Log all superheroes and their powers
+superHeroes.forEach(hero => console.log(hero))
+
+
+// Filter and log superheroes with the power of agility
+superHeroes.filter(hero => hero.powers.includes("agility") && console.log(hero.name))
+
+
+// Map and log all superheroes' powers'
+superHeroes.map(hero => hero.powers.map(power => console.log(power)))
