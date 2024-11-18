@@ -1,0 +1,237 @@
+@import url("../assets/fonts/JetBrainsMono-VariableFont_wght.ttf");
+@import url("../assets/fonts/JetBrainsMono-Italic-VariableFont_wght.ttf");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "JetBrains Mono", monospace;
+  background-color: #18171F;
+  color: #E6E5EA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #817D92;
+  font-size: 18px;
+  font-weight: 200;
+}
+
+button {
+  cursor: pointer;
+}
+
+.password-generator {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.password-container {
+  background: #24232C;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  width: 100%;
+}
+
+.password-container #password {
+  font-size: 23px;
+}
+
+.password-container #copy-password-btn {
+  border: none;
+  background: none;
+}
+
+.password-settings {
+  background: #24232C;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.char-length {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.char-length-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.char-length #char-length-value {
+  font-size: 23px;
+  color: #A4FFAF;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.slider-container input {
+  width: 100%;
+}
+
+.password-input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Hide the default checkbox */
+input[type=checkbox] {
+  display: none;
+}
+
+/* Style the label to position the custom check element */
+label {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+}
+
+/* Custom check element */
+.custom-check {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #E6E5EA; /* Border color for the unchecked state */
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Green background with the custom check icon when checked */
+input[type=checkbox]:checked + label .custom-check {
+  background-color: #A4FFAF;
+  border-color: #A4FFAF;
+  background-image: url("../assets/images/icon-check.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.strength-meter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  background: #18171F;
+}
+
+.strength-meter p {
+  font-size: 18px;
+  color: #817D92;
+  text-transform: uppercase;
+}
+
+.strength-meter #strength-status {
+  font-size: 23px;
+  color: #E6E5EA;
+}
+
+.strength-bar {
+  display: flex;
+  gap: 16px;
+}
+
+.bars {
+  display: flex;
+  gap: 8px;
+}
+
+.bar {
+  width: 10px;
+  height: 100%;
+  border: solid 1px white;
+}
+
+#generate-btn {
+  text-transform: uppercase;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background-color: #A4FFAF;
+  font-weight: 600;
+  border: solid 1px #A4FFAF;
+  width: 100%;
+}
+
+#generate-btn:hover {
+  background-color: transparent;
+  color: #A4FFAF;
+}
+
+#generate-btn:hover img {
+  filter: invert(90%) sepia(50%) saturate(296%) hue-rotate(90deg) brightness(100%) contrast(100%);
+}
+
+#slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: none;
+  border-radius: 4px;
+  outline: none;
+  position: relative;
+}
+
+/* Highlighted range before the thumb */
+#slider::-webkit-slider-runnable-track {
+  background: #18171F;
+  height: 8px;
+  border-radius: 10px;
+}
+
+/* Thumb styling */
+#slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background-color: #E6E5EA;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #E6E5EA;
+  position: relative;
+}
+
+#slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #1a1a1a;
+}
+
+/* Fine-tune the highlighted range on input change */
+.custom-slider:focus {
+  outline: none;
+}
+
+/*# sourceMappingURL=styles.css.map */

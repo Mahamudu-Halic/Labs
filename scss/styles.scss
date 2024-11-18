@@ -1,0 +1,243 @@
+@use "variables";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  font-family: variables.$font;
+  background-color: variables.$primaryBg;
+  color: variables.$primaryText;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: variables.$secondaryText;
+  font-size: variables.$text-sm;
+  font-weight: 200;
+}
+
+button{
+  cursor: pointer;
+}
+
+.password-generator{
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$space-md;
+}
+
+.password-container{
+  background: variables.$secondaryBg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: variables.$space-sm;
+  width: 100%;
+}
+
+.password-container #password{
+  font-size: variables.$text-md;
+}
+
+.password-container #copy-password-btn{
+  border: none;
+  background: none;
+}
+
+.password-settings{
+  background: variables.$secondaryBg;
+  padding: variables.$space-md;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$space-md;
+}
+
+.char-length{
+  display: flex;
+  flex-direction: column;
+  gap: variables.$space-md;
+}
+
+.char-length-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.char-length #char-length-value{
+  font-size: variables.$text-md;
+  color: variables.$strongColor;
+}
+
+.slider-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+}
+
+.slider-container input{
+  width: 100%;
+}
+
+.password-input-group{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: variables.$space-md;
+}
+
+/* Hide the default checkbox */
+input[type="checkbox"] {
+  display: none;
+}
+
+/* Style the label to position the custom check element */
+label {
+  display: flex;
+  align-items: center;
+  gap: variables.$space-sm;
+  cursor: pointer;
+}
+
+/* Custom check element */
+.custom-check {
+  width: 15px;
+  height: 15px;
+  border: 2px solid variables.$primaryText; /* Border color for the unchecked state */
+  background: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Green background with the custom check icon when checked */
+input[type="checkbox"]:checked + label .custom-check {
+  background-color: variables.$strongColor;
+  border-color: variables.$strongColor;
+  background-image: url('../assets/images/icon-check.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.strength-meter{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: variables.$space-md;
+  background: variables.$primaryBg
+}
+
+.strength-meter p{
+  font-size: variables.$text-sm;
+  color: variables.$secondaryText;
+  text-transform: uppercase;
+}
+
+.strength-meter #strength-status{
+  font-size: variables.$text-md;
+  color: variables.$primaryText;
+}
+
+.strength-bar{
+  display: flex;
+  gap: variables.$space-sm;
+  //align-items: center;
+}
+
+.bars{
+  display: flex;
+  gap: variables.$space-xs;
+}
+
+.bar{
+  width: 10px;
+  height: 100%;
+  border: solid 1px white;
+}
+
+#generate-btn{
+  text-transform: uppercase;
+  display: flex;
+  gap: variables.$space-md;
+  align-items: center;
+  justify-content: center;
+  padding: variables.$space-md;
+  background-color: variables.$strongColor;
+  font-weight: 600;
+  border: solid 1px variables.$strongColor;
+  width: 100%;
+}
+
+#generate-btn:hover{
+  background-color: transparent;
+  color: variables.$strongColor;
+}
+#generate-btn:hover img{
+  filter: invert(90%) sepia(50%) saturate(296%) hue-rotate(90deg)
+  brightness(100%) contrast(100%);
+}
+
+#slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: none;
+  border-radius: 4px;
+  outline: none;
+  position: relative;
+}
+
+/* Highlighted range before the thumb */
+#slider::-webkit-slider-runnable-track {
+  background: variables.$primaryBg;
+  height: 8px;
+  border-radius: 10px;
+}
+
+/* Thumb styling */
+#slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background-color: variables.$primaryText;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid variables.$primaryText;
+  position: relative;
+}
+
+#slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #1a1a1a;
+}
+
+/* Fine-tune the highlighted range on input change */
+//.custom-slider::-webkit-slider-runnable-track {
+//  background: linear-gradient(to right, #aaffaa 0%, #aaffaa calc(var(--value) * 1%), #282828 calc(var(--value) * 1%)
+//  );
+//}
+
+.custom-slider:focus {
+  outline: none;
+}
+
+
