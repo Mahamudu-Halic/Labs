@@ -1,105 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 
     <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="./assets/images/favicon-32x32.png"
+            href="./assets/images/favicon-32x32.png"
+            rel="icon"
+            sizes="32x32"
+            type="image/png"
     />
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link href="./css/styles.css" rel="stylesheet"/>
     <title>Frontend Mentor | Password generator app</title>
-  </head>
-  <body>
-    <div id="toast"></div>
-    <!--  Password Generator-->
-    <main class="password-generator">
-      <h1 class="title">Password Generator</h1>
+</head>
+<body>
+<!--  Password Generator-->
+<main class="password-generator">
+    <h1 class="title">Password Generator</h1>
 
-      <div class="password-container">
-        <p id="password"></p>
+    <div class="password-container">
+        <input disabled id="password" placeholder="P4$5W0rD!" type="text"/>
+        <p id="copy-status"></p>
         <button id="copy-password-btn">
-          <img src="./assets/images/icon-copy.svg" alt="" />
+            <img alt="" src="./assets/images/icon-copy.svg"/>
         </button>
-      </div>
+    </div>
 
-      <section class="password-settings">
+    <section class="password-settings">
         <!--  Character Length    -->
         <div class="char-length">
-          <div class="char-length-info">
-            <p>Character Length</p>
-            <p id="char-length-value">10</p>
-          </div>
+            <div class="char-length-info">
+                <p>Character Length</p>
+                <p id="char-length-value">0</p>
+            </div>
 
-          <div class="slider-container">
-            <input type="range" id="slider" min="10" max="20" value="10" />
-          </div>
+            <div class="slider-container">
+                <input id="slider" max="20" min="0" type="range" value="0"/>
+            </div>
         </div>
 
         <!-- password input group-->
         <div class="password-input-group">
-          <div class="group-item">
-            <input checked type="checkbox" id="uppercase-checkbox" />
-            <label for="uppercase-checkbox">
-              <span class="custom-check"></span>
-              Include Uppercase Letters
-            </label>
-          </div>
+            <div class="group-item">
+                <input checked id="uppercase-checkbox" type="checkbox"/>
+                <label for="uppercase-checkbox">
+                    <span class="custom-check"></span>
+                    Include Uppercase Letters
+                </label>
+            </div>
 
-          <div class="group-item">
-            <input checked type="checkbox" id="lowercase-checkbox" />
-            <label for="lowercase-checkbox"
-              ><span class="custom-check"></span> Include Lowercase
-              Letters</label
-            >
-          </div>
-          <div class="group-item">
-            <input checked type="checkbox" id="number-checkbox" />
-            <label for="number-checkbox"
-              ><span class="custom-check"></span>Include Numbers</label
-            >
-          </div>
-          <div class="group-item">
-            <input checked type="checkbox" id="symbol-checkbox" />
-            <label for="symbol-checkbox"
-              ><span class="custom-check"></span>Include Symbols</label
-            >
-          </div>
+            <div class="group-item">
+                <input checked id="lowercase-checkbox" type="checkbox"/>
+                <label for="lowercase-checkbox"
+                ><span class="custom-check"></span> Include Lowercase
+                    Letters</label
+                >
+            </div>
+            <div class="group-item">
+                <input checked id="number-checkbox" type="checkbox"/>
+                <label for="number-checkbox"
+                ><span class="custom-check"></span>Include Numbers</label
+                >
+            </div>
+            <div class="group-item">
+                <input checked id="symbol-checkbox" type="checkbox"/>
+                <label for="symbol-checkbox"
+                ><span class="custom-check"></span>Include Symbols</label
+                >
+            </div>
         </div>
 
         <!--  Strength-->
         <div class="strength-meter">
-          <p>Strength</p>
-          <div id="strength-bar" class="strength-bar">
-            <p id="strength-status">Strong</p>
-            <div class="bars">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+            <p>Strength</p>
+            <div class="strength-bar" id="strength-bar">
+                <p id="strength-status"></p>
+                <div class="bars">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
             </div>
-          </div>
         </div>
         <!--  Generate  -->
         <button id="generate-btn">
-          Generate <img src="./assets/images/icon-arrow-right.svg" alt="" />
+            Generate <img alt="" src="./assets/images/icon-arrow-right.svg"/>
         </button>
-      </section>
-    </main>
+    </section>
+</main>
 
-    <!--  P4$5W0rD!-->
 
-    <!--  Character Length-->
-
-    <!--  Include Uppercase Letters-->
-    <!--  Include Lowercase Letters-->
-    <!--  Include Numbers-->
-    <!--  Include Symbols-->
-
-    <!--  Generate-->
-    <script src="main.js"></script>
-  </body>
+<script src="main.js"></script>
+</body>
 </html>

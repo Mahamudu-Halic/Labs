@@ -14,7 +14,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 20px;
+  padding: 8px;
+  user-select: none;
 }
 
 h1 {
@@ -34,96 +35,115 @@ button {
   flex-direction: column;
   gap: 24px;
 }
-
-.password-container {
+.password-generator .password-container {
   background: #24232C;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 16px;
   width: 100%;
+  gap: 10px;
+  position: relative;
 }
-
-.password-container #password {
+.password-generator .password-container #password {
   font-size: 23px;
+  user-focus-pointer: none;
+  background: none;
+  border: none;
+  color: #E6E5EA;
 }
-
-.password-container #copy-password-btn {
+.password-generator .password-container #copy-password-btn {
   border: none;
   background: none;
 }
-
-.password-settings {
+.password-generator .password-container #copy-password-btn:hover img {
+  filter: brightness(200%);
+}
+.password-generator .password-container #copy-status {
+  position: absolute;
+  right: 50px;
+  color: #E6E5EA;
+  background: #24232C;
+}
+.password-generator .password-settings {
   background: #24232C;
   padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  width: 100%;
 }
-
-.char-length {
+.password-generator .password-settings .char-length {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-
-.char-length-info {
+.password-generator .password-settings .char-length .char-length-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-
-.char-length #char-length-value {
+.password-generator .password-settings .char-length #char-length-value {
   font-size: 23px;
   color: #A4FFAF;
 }
-
-.slider-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 10px;
-}
-
-.slider-container input {
+.password-generator .password-settings .char-length .slider-container {
   width: 100%;
 }
-
-.password-input-group {
+.password-generator .password-settings .char-length .slider-container input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  border: none;
+  border-radius: 15px;
+  background: #18171F;
+  cursor: pointer;
+}
+.password-generator .password-settings .char-length .slider-container input::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: 5px;
+}
+.password-generator .password-settings .char-length .slider-container input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #E6E5EA;
+  border: solid 1px #E6E5EA;
+  cursor: pointer;
+  margin: -5px 0;
+}
+.password-generator .password-settings .char-length .slider-container input::-webkit-slider-thumb:hover {
+  background-color: #18171F;
+  border-color: #A4FFAF;
+}
+.password-generator .password-settings .password-input-group {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
-
-/* Hide the default checkbox */
-input[type=checkbox] {
+.password-generator .password-settings input[type=checkbox] {
   display: none;
 }
-
-/* Style the label to position the custom check element */
-label {
+.password-generator .password-settings label {
   display: flex;
   align-items: center;
   gap: 16px;
   cursor: pointer;
 }
-
-/* Custom check element */
-.custom-check {
+.password-generator .password-settings .custom-check {
   width: 15px;
   height: 15px;
-  border: 2px solid #E6E5EA; /* Border color for the unchecked state */
+  border: 2px solid #E6E5EA;
   background: none;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
-
-/* Green background with the custom check icon when checked */
-input[type=checkbox]:checked + label .custom-check {
+.password-generator .password-settings input[type=checkbox]:checked + label .custom-check {
   background-color: #A4FFAF;
   border-color: #A4FFAF;
   background-image: url("../assets/images/icon-check.svg");
@@ -131,43 +151,53 @@ input[type=checkbox]:checked + label .custom-check {
   background-position: center;
   background-size: contain;
 }
-
-.strength-meter {
+.password-generator .password-settings .strength-meter {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 24px;
   background: #18171F;
 }
-
-.strength-meter p {
+.password-generator .password-settings .strength-meter p {
   font-size: 18px;
   color: #817D92;
   text-transform: uppercase;
 }
-
-.strength-meter #strength-status {
+.password-generator .password-settings .strength-meter #strength-status {
   font-size: 23px;
   color: #E6E5EA;
 }
-
-.strength-bar {
+.password-generator .password-settings .strength-bar {
   display: flex;
   gap: 16px;
+  align-items: center;
 }
-
-.bars {
+.password-generator .password-settings .strength-bar .bars {
   display: flex;
   gap: 8px;
 }
-
-.bar {
+.password-generator .password-settings .strength-bar .bars div {
   width: 10px;
-  height: 100%;
-  border: solid 1px white;
+  height: 35px;
+  border: solid 1px #E6E5EA;
 }
-
-#generate-btn {
+.password-generator .password-settings .strength-bar .bars .very-weak-password {
+  background: #F64A4A;
+  border-color: #F64A4A;
+}
+.password-generator .password-settings .strength-bar .bars .weak-password {
+  background: #FB7C58;
+  border-color: #FB7C58;
+}
+.password-generator .password-settings .strength-bar .bars .medium-password {
+  background: #F8CD65;
+  border-color: #F8CD65;
+}
+.password-generator .password-settings .strength-bar .bars .strong-password {
+  background: #A4FFAF;
+  border-color: #A4FFAF;
+}
+.password-generator .password-settings #generate-btn {
   text-transform: uppercase;
   display: flex;
   gap: 24px;
@@ -179,59 +209,34 @@ input[type=checkbox]:checked + label .custom-check {
   border: solid 1px #A4FFAF;
   width: 100%;
 }
-
-#generate-btn:hover {
+.password-generator .password-settings #generate-btn:hover {
   background-color: transparent;
   color: #A4FFAF;
 }
-
-#generate-btn:hover img {
+.password-generator .password-settings #generate-btn:hover img {
   filter: invert(90%) sepia(50%) saturate(296%) hue-rotate(90deg) brightness(100%) contrast(100%);
 }
-
-#slider {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 100%;
-  height: 8px;
-  background: none;
-  border-radius: 4px;
-  outline: none;
-  position: relative;
-}
-
-/* Highlighted range before the thumb */
-#slider::-webkit-slider-runnable-track {
-  background: #18171F;
-  height: 8px;
+.password-generator .password-settings #toast {
+  color: white;
+  padding: 10px;
+  border: none;
   border-radius: 10px;
+  position: fixed;
+  top: 20px;
+  opacity: 0;
+  scale: 0.8;
+  transition: all 0.5s ease-in-out;
 }
-
-/* Thumb styling */
-#slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  background-color: #E6E5EA;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid #E6E5EA;
-  position: relative;
+.password-generator .password-settings #toast.success {
+  color: #24232C;
+  background: #A4FFAF;
+  opacity: 1;
+  scale: 1;
 }
-
-#slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  background-color: #f5f5f5;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2px solid #1a1a1a;
-}
-
-/* Fine-tune the highlighted range on input change */
-.custom-slider:focus {
-  outline: none;
+.password-generator .password-settings #toast.error {
+  opacity: 1;
+  scale: 1;
+  background: #F64A4A;
 }
 
 /*# sourceMappingURL=styles.css.map */
