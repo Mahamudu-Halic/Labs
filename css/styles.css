@@ -155,16 +155,30 @@ input[type=checkbox]:checked + label .custom-check {
   display: flex;
   gap: 16px;
 }
-
-.bars {
+.strength-bar .bars {
   display: flex;
   gap: 8px;
 }
-
-.bar {
+.strength-bar .bars div {
   width: 10px;
   height: 100%;
-  border: solid 1px white;
+  border: solid 1px #E6E5EA;
+}
+.strength-bar .bars .very-weak-password {
+  background: #F64A4A;
+  border-color: #F64A4A;
+}
+.strength-bar .bars .weak-password {
+  background: #FB7C58;
+  border-color: #FB7C58;
+}
+.strength-bar .bars .medium-password {
+  background: #F8CD65;
+  border-color: #F8CD65;
+}
+.strength-bar .bars .strong-password {
+  background: #A4FFAF;
+  border-color: #A4FFAF;
 }
 
 #generate-btn {
@@ -232,6 +246,29 @@ input[type=checkbox]:checked + label .custom-check {
 /* Fine-tune the highlighted range on input change */
 .custom-slider:focus {
   outline: none;
+}
+
+#toast {
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  position: fixed;
+  top: 20px;
+  opacity: 0;
+  scale: 0.8;
+  transition: all 0.5s ease-in-out;
+}
+#toast.success {
+  color: #24232C;
+  background: #A4FFAF;
+  opacity: 1;
+  scale: 1;
+}
+#toast.error {
+  opacity: 1;
+  scale: 1;
+  background: #F64A4A;
 }
 
 /*# sourceMappingURL=styles.css.map */
