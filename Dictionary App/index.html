@@ -14,13 +14,17 @@
     <nav>
         <img alt="logo" src="./assets/images/logo.svg">
         <ul class="nav-list">
-            <li class="select-wrapper">
-                <select id="" name="">
-                    <option value="sans-serif">Sans Serif</option>
-                    <option value="serif">Serif</option>
-                    <option value="monospace">Mono</option>
-                </select>
-            </li>
+            <div class="custom-dropdown">
+                <div class="dropdown-trigger">
+                    <p id="selected-option">Sans Serif</p>
+                    <img alt="" src="./assets/images/icon-arrow-down.svg">
+                </div>
+                <ul class="dropdown-options">
+                    <li class="dropdown-option sans active">Sans Serif</li>
+                    <li class="dropdown-option serif">Serif</li>
+                    <li class="dropdown-option mono">Mono</li>
+                </ul>
+            </div>
             <li id="vertical-divider"></li>
             <li class="toggle-switch">
                 <label for="toggle">
@@ -35,69 +39,15 @@
 
 <section class="wrapper searchbar">
     <input id="search-input" placeholder="Search for any word..." type="text">
+    <p id="error-message"></p>
     <button id="search-btn">
         <img alt="" src="./assets/images/icon-search.svg">
     </button>
 </section>
 
-<section class="wrapper word-result-wrapper">
-    <div class="word-container">
-        <h2 id="word">keyboard</h2>
-        <p id="pronunciations">/ˈkiːbɔːd/</p>
-    </div>
+<section class="wrapper" id="results-wrapper"></section>
 
-    <button id="play-btn">
-        <img alt="play" src="./assets/images/icon-play.svg">
-    </button>
-</section>
-
-<section class="wrapper results">
-    <div class="results-item">
-        <div class="title">
-            <h3>noun</h3>
-            <hr>
-        </div>
-
-        <p class="meaning-paragraph">Meaning</p>
-        <ul class="content">
-            <li>A device for typing, especially one used on a computer keyboard.</li>
-            <li>A type of computer keyboard.</li>
-            <li>A device for typing, especially one used on a computer keyboard.</li>
-        </ul>
-
-        <div class="synonyms-container">
-            <p>Synonyms</p>
-            <div class="synonyms">
-                <span>electronic keyboard</span>
-                <span>electronic keyboard</span>
-                <span>electronic keyboard</span>
-            </div>
-        </div>
-    </div>
-    <div class="results-item">
-        <div class="title">
-            <h3>noun</h3>
-            <hr>
-        </div>
-
-        <p class="meaning-paragraph">Meaning</p>
-        <ul class="content">
-            <li>A device for typing, especially one used on a computer keyboard.</li>
-            <li>A type of computer keyboard.</li>
-            <p class="example">“Keyboarding is the part of this job I hate the most.”</p>
-            <li>A device for typing, especially one used on a computer keyboard.</li>
-        </ul>
-
-        <div class="synonyms-container">
-            <p>Synonyms</p>
-            <div class="synonyms">
-                <span>electronic keyboard</span>
-                <span>electronic keyboard</span>
-                <span>electronic keyboard</span>
-            </div>
-        </div>
-    </div>
-</section>
+<section class="not-found-wrapper"></section>
 
 <script src="main.js" type="module"></script>
 </body>
