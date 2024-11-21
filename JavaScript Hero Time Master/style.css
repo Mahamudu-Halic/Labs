@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #121212;
+    color: #fff;
+    font-family: Helvetica Neue, Helvetica, sans-serif;
+    height: 100vh;
+    position: relative;
+    padding: 30px;
+}
+
+body, .time {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+.time-container {
+    align-items: center;
+    justify-content: center;
+    gap: 0.8em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+select {
+    margin-left: auto;
+    background: #ffffff;
+    color: #000000;
+    font-size: 1.2rem;
+}
+
+#clock {
+    font-size: 6rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#alarm-input, #clear-alarm-btn, #set-alarm-btn, select {
+    width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px #fff;
+}
+
+#set-alarm-btn {
+    background: #218c2c;
+    color: #fff;
+}
+
+#clear-alarm-btn {
+    background: #d30e0e;
+    color: #fff;
+}
