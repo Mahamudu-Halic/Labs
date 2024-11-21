@@ -26,7 +26,7 @@ button:hover {
     opacity: 0.8;
 }
 
-.time {
+.time-container {
     align-items: center;
     justify-content: center;
     gap: 0.8em;
