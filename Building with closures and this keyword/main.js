@@ -16,27 +16,42 @@ Person.greet.apply({name: 'Jane Doe', age: 25}); // Output: Hello, my name is Ja
 Person.greet.bind({name: 'John Doe', age: 25})(); // Output: Hello, my name is Jane Doe and my age
 
 
+/**
+ * Logs the id and text content of the element that triggered this event handler to the console.
+ * @this {HTMLElement} The element that triggered the event handler.
+ */
 function handleClick() {
     console.log(this.id)
     console.log(this.textContent)
 }
 
-
-// const handleClick = (e) => {
-//     console.log(this.id)
-//     console.log(this.textContent)
-// } // TypeError: Cannot read properties of undefined (reading 'id')
-
-
+/**
+ * Creates a counter object with two methods: increment and getCount.
+ *
+ * The returned object has two methods:
+ *  - `increment()`: increments the counter and logs the new count to the console.
+ *  - `getCount()`: returns the current count.
+ *
+ * @returns {Object} An object with two methods: `increment()` and `getCount()`.
+ */
 function createCounter() {
     let count = 0;
 
     return {
+        /**
+         * Increments the counter by one and logs the new count to the console.
+         * @returns {undefined}
+         */
         increment() {
             count++;
             console.log(this.count)
         },
 
+        /**
+         * Returns the current count of the counter.
+         *
+         * @returns {number} The current count.
+         */
         getCount() {
             return count
         }
@@ -44,6 +59,8 @@ function createCounter() {
 }
 
 function createTimer(duration, elementId) {
+    if(typeof timer !== "number" && typeof elementId !== "string") return "invalid inputs"
+
     const timer = document.createElement('div')
     timer.id = elementId
     document.body.appendChild(timer)
