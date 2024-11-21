@@ -65,8 +65,10 @@ superHeroes.forEach(hero => console.log(hero))
 
 
 // Filter and log superheroes with the power of agility
-superHeroes.filter(hero => hero.powers.includes("agility") && console.log(hero.name))
+const agilityHeroes = superHeroes.filter(hero => hero.powers.includes("agility"))
+console.log(agilityHeroes)
 
 
 // Map and log all superheroes' powers'
-superHeroes.map(hero => hero.powers.map(power => console.log(power)))
+const powers = superHeroes.map(hero => hero.powers.map(power => power))
+console.log(powers)
