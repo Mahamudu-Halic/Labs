@@ -28,10 +28,16 @@ const displayNotFound = (data) => {
     `
 }
 
-const displayCannotBeEmpty = () => {
+const displayCannotBeEmpty = (errMsg) => {
     searchbar.classList.add("error");
     errorMessage.style.display = "block";
-    errorMessage.textContent = "Whoops, can’t be empty…";
+    errorMessage.textContent = errMsg;
+
+    setTimeout(() => {
+        searchbar.classList.remove("error");
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
+    }, 3000)
 }
 
 const renderResults = ({data, status}) => {
@@ -113,13 +119,15 @@ const handleSearch = () => {
     errorMessage.style.display = "none";
     notFoundWrapper.style.display = "none";
     notFoundWrapper.innerHTML = "";
+    if (!word) return displayCannotBeEmpty("Whoops, can’t be empty...")
 
-    if (word) {
-        searchInput.disabled = true
-        fetchApi(word).then(result => renderResults(result));
-    } else {
-        displayCannotBeEmpty()
-    }
+    const hasNumber = /\d/.test(word);
+    const hasSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(word);
+
+    if(hasSymbol || hasNumber) return displayCannotBeEmpty("Cannot include special characters or numbers...")
+
+    searchInput.disabled = true
+    fetchApi(word).then(result => renderResults(result));
 };
 
 // Toggle dropdown open/close
