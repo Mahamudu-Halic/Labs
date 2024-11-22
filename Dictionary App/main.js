@@ -37,11 +37,14 @@ const displayCannotBeEmpty = () => {
 const renderResults = ({data, status}) => {
     resultsWrapper.innerHTML = "";
     searchInput.value = "";
+    searchInput.disabled = false;
 
     if (status === 404) return displayNotFound(data);
     if (status === "offline") return displayNotFound(data);
+    if (status === "error") return displayNotFound(data);
 
     const {word, phonetic, phonetics} = data[0];
+    sessionStorage.setItem("word", word)
 
     const wordWrapper = document.createElement("section");
     wordWrapper.className = "wrapper word-result-wrapper";
@@ -106,13 +109,13 @@ const renderResults = ({data, status}) => {
 
 const handleSearch = () => {
     const word = searchInput.value.trim().toLowerCase();
-
     searchbar.classList.remove("error");
     errorMessage.style.display = "none";
     notFoundWrapper.style.display = "none";
     notFoundWrapper.innerHTML = "";
 
     if (word) {
+        searchInput.disabled = true
         fetchApi(word).then(result => renderResults(result));
     } else {
         displayCannotBeEmpty()
@@ -153,15 +156,16 @@ searchInput.addEventListener("keydown", (event) => {
     event.key === "Enter" && handleSearch()
 });
 
-fetchApi("keyboard").then(result => renderResults(result))
 window.addEventListener("load", () => {
     const theme = sessionStorage.getItem("theme");
     const font = sessionStorage.getItem("font");
     const fontName = sessionStorage.getItem("fontName");
+    const word = sessionStorage.getItem("word");
 
     theme && body.classList.add(theme);
     toggleInput.checked = !!theme;
 
-    font ? body.style.fontFamily = font : "";
-    fontName ? selectedOption.textContent = fontName : "";
+    body.style.fontFamily = font || fonts.sans;
+    selectedOption.textContent = fontName || "Sans Serif";
+    fetchApi(word || "search").then(result => renderResults(result))
 })

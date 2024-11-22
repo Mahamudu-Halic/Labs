@@ -20,8 +20,9 @@ export const fetchApi = async (word) => {
                     resolution: "Check your device internet connection"
                 }
             };
-        } else {
-            return {status: 'error', data: {title: "", message: error.message, resolution: ""}};
         }
+
+        return {status: 'error', data: {title: "Something went wrong", message: error.message, resolution: ""}};
+
     }
 }

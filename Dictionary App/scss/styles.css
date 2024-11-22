@@ -222,6 +222,9 @@ header nav .nav-list .toggle-switch input[type=checkbox]:checked + svg path {
   outline: none;
   font-weight: bold;
 }
+.searchbar input:disabled {
+  cursor: not-allowed;
+}
 .searchbar button {
   border: none;
   background: transparent;

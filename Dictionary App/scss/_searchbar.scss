@@ -25,6 +25,10 @@
     background: transparent;
     outline: none;
     font-weight: bold;
+
+    &:disabled{
+      cursor: not-allowed;
+    }
   }
 
   button {
