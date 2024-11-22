@@ -1,54 +1,11 @@
-@use "sass:map";
 @use "variables";
-@import url("../assets/fonts/inconsolata/Inconsolata-VariableFont_wdth,wght.ttf");
-@import url("../assets/fonts/inter/Inter-VariableFont_slnt,wght.ttf");
-@import url("../assets/fonts/lora/Lora-VariableFont_wght.ttf");
-@import url("../assets/fonts/lora/Lora-VariableFont_wght.ttf");
+@use "default";
+@use "dark-mode";
+@use "header";
+@use "custom-dropdown";
+@use "searchbar";
+@use "definitions";
 
-//        inconsolata: "Inconsolata, monospace",
-//        inter: "Inter, sans-serif",
-//        lora: "Lora, serif",
-//        sans: "sans-serif",
-//        serif: "serif",
-//        mono: "monospace"
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-button {
-  cursor: pointer;
-}
-
-hr {
-  width: 100%;
-  max-width: 700px;
-  background: variables.$light-secondaryBg;
-  border: none;
-  height: 2px;
-}
-
-.inconsolata {
-  font-family: Inconsolata, monospace;
-}
-
-.inter {
-  font-family: Inter, sans-serif;
-}
-
-.serif {
-  font-family: serif;
-}
-
-.sans {
-  font-family: sans-serif;
-}
-
-.mono {
-  font-family: monospace;
-}
 
 body, #results-wrapper {
   display: flex;
@@ -58,244 +15,21 @@ body, #results-wrapper {
   padding: 20px;
 }
 
-body {
-  font-family: Inter, sans-serif;
-  color: variables.$tertiaryColor;
-  background: variables.$light-primaryBg;
-
-  #not-found-message, .synonyms-container, .source, .content, .meaning-paragraph, .title, .pronunciation, input[type="text"], .custom-dropdown {
-    font-size: variables.$heading-xs;
-  }
-
-  .word {
-    font-size: variables.$heading-sm;
-  }
-
-
-  .custom-dropdown {
-    color: variables.$tertiaryColor;
-
-    .dropdown-options {
-      box-shadow: 0 0 10px 10px #12121212;
-      background: variables.$light-primaryBg;
-    }
-  }
-
-
-  a, input[type="text"] {
-    color: variables.$tertiaryColor;
-  }
-
-  .searchbar {
-    background: variables.$light-secondaryBg;
-  }
-}
-
-body.dark {
-  background: variables.$dark-primaryBg;
-  color: variables.$dark-primaryText;
-
-  .custom-dropdown {
-    color: variables.$dark-primaryText;
-
-    .dropdown-options {
-      background: variables.$dark-primaryBg;
-      box-shadow: 0 0 15px 5px #A445EDBD;
-    }
-  }
-
-  a, input[type="text"] {
-    color: variables.$dark-primaryText;
-  }
-
-  .searchbar {
-    background: variables.$dark-secondaryBg;
-    border-color: variables.$dark-secondaryBg;
-
-    input {
-      color: variables.$dark-primaryText;
-    }
-
-    &:focus-within {
-      border-color: variables.$accentColor;
-    }
-
-    &.error {
-      border-color: variables.$dangerColor;
-    }
-  }
-}
-
-
-.wrapper {
-  width: 100%;
-  max-width: 700px;
-  margin: 0 auto;
-}
-
-header {
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-
-    .nav-list {
-      display: flex;
-      align-items: center;
-      gap: variables.$space-md;
-      list-style: none;
-
-      #vertical-divider {
-        width: 1px;
-        height: 25px;
-        border: solid 1px variables.$secondaryColor;
-      }
-
-      .custom-dropdown {
-        position: relative;
-        width: 120px;
-        font-weight: bold;
-
-        &.open .dropdown-options {
-          display: flex;
-        }
-
-        .dropdown-trigger {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          cursor: pointer;
-        }
-
-        .dropdown-options {
-          list-style: none;
-          border-radius: 10px;
-          padding: 10px;
-          display: none;
-          flex-direction: column;
-          gap: 10px;
-          position: absolute;
-          width: 100%;
-          top: 130%;
-          z-index: 10;
-
-          .dropdown-option {
-            cursor: pointer;
-
-            &:hover {
-              color: variables.$accentColor;
-            }
-          }
-        }
-      }
-
-
-      .toggle-switch {
-        display: flex;
-        align-items: center;
-
-
-        label {
-          position: relative;
-          width: 40px;
-          height: 20px;
-          margin-right: 10px;
-
-          input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-          }
-
-          input:checked + .slider {
-            background-color: variables.$accentColor;
-          }
-
-          input:checked + .slider:before {
-            transform: translateX(20px);
-          }
-
-          .slider {
-            position: absolute;
-            cursor: pointer;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: variables.$secondaryColor;
-            transition: all 0.4s ease-in-out;
-            border-radius: 34px;
-
-            &:before {
-              position: absolute;
-              content: "";
-              height: 13px;
-              width: 13px;
-              border-radius: 50%;
-              left: 3px;
-              bottom: 3.5px;
-              background-color: white;
-              transition: all 0.4s ease-in-out;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-.searchbar {
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 15px;
-  border-radius: 16px;
-  border: solid 1px variables.$light-secondaryBg;
-  position: relative;
-
-  &:focus-within {
-    border-color: variables.$accentColor;
-  }
-
-  &.error {
-    border-color: variables.$dangerColor;
-  }
-
-  input {
-    //padding: 10px;
-    border: none;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    outline: none;
-    font-weight: bold;
-  }
-
-  button {
-    border: none;
-    background: transparent;
-    cursor: pointer;
-  }
-
-  #error-message {
-    position: absolute;
-    top: 110%;
-    left: 0;
-    color: variables.$dangerColor;
-    display: none;
-  }
-}
-
 .word-result-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  button {
-    border: none;
-    background: none;
+  .play-btn {
+    &:hover svg {
+      path{
+        fill: variables.$light-primaryBg;
+      }
+
+      circle {
+        opacity: 1;
+      }
+    }
   }
 
 
@@ -309,79 +43,7 @@ header {
   }
 }
 
-.definitions {
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
 
-  .definition-item {
-    display: flex;
-    flex-direction: column;
-    gap: variables.$space-sm;
-
-    .title {
-      display: flex;
-      align-items: center;
-      gap: variables.$space-md;
-      width: 100%;
-      font-style: italic;
-    }
-
-    .meaning-paragraph {
-      color: variables.$secondaryColor;
-      font-weight: lighter;
-    }
-
-    .content {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      list-style: none;
-
-      li {
-        position: relative;
-        padding-left: 20px;
-
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 25%;
-          transform: translateY(-50%);
-          width: 5px;
-          height: 5px;
-          background: variables.$accentColor;
-          border-radius: 50%;
-        }
-      }
-
-      .example {
-        color: variables.$secondaryColor;
-        padding-left: 20px;
-      }
-    }
-
-    .synonyms-container {
-      display: flex;
-      align-items: center;
-      gap: variables.$space-sm;
-      flex-wrap: wrap;
-
-
-      p {
-        color: variables.$secondaryColor;
-      }
-
-      .synonyms {
-        display: flex;
-        gap: 2px;
-        color: variables.$accentColor;
-        font-weight: bold;
-      }
-    }
-
-  }
-}
 
 .source {
   display: flex;
