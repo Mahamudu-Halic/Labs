@@ -1,3 +1,5 @@
+import PasswordGenerator from "./password-generator.js";
+
 const password = document.getElementById("password");
 const copyBtn = document.getElementById("copy-password-btn");
 const charLength = document.getElementById("char-length-value");
@@ -10,51 +12,47 @@ const strengthStatus = document.getElementById("strength-status");
 const generateBtn = document.getElementById("generate-btn");
 const bars = document.querySelectorAll(".bars div");
 
-let lowercaseLetters = "abcdefghijklmnopqrstuvwxyz";
-let uppercaseLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-let numbers = "0123456789";
-let symbols = "!@#$%^&*()_+";
+const status = {
+  statusMessage: document.querySelector("#status"),
+  /**
+   * Show a success statusMessage message
+   * @param {string} [message="success"] - the message to show in the statusMessage
+   * @returns {void}
+   */
+  success(message = "success") {
+    this.statusMessage.style.color = "#A4FFAF";
+    this.statusMessage.textContent = message;
 
-const toast = {
-    copyStatus: document.querySelector("#copy-status"),
-    /**
-     * Show a success copyStatus message
-     * @param {string} [message="success"] - the message to show in the copyStatus
-     * @returns {void}
-     */
-    success(message = "success") {
-        this.copyStatus.style.color = "#A4FFAF"
-        this.copyStatus.textContent = message;
+    setTimeout(() => {
+      this.statusMessage.textContent = "";
+    }, 2000);
+  },
+  /**
+   * Show an error statusMessage message
+   * @param {string} [message="something went wrong"] - the message to show in the statusMessage
+   * @returns {void}
+   */
+  error(message = "something went wrong") {
+    this.statusMessage.style.color = "#F64A4A";
+    this.statusMessage.textContent = message;
+    password.value = "";
+    updateStrengthStatus("", "");
 
-        setTimeout(() => {
-            this.copyStatus.textContent = "";
-        }, 2000);
-    },
-    /**
-     * Show an error copyStatus message
-     * @param {string} [message="something went wrong"] - the message to show in the copyStatus
-     * @returns {void}
-     */
-    error(message = "something went wrong") {
-        this.copyStatus.style.color = "#F64A4A"
-        this.copyStatus.textContent = message;
-        password.value = ""
-
-        setTimeout(() => {
-            this.copyStatus.textContent = "";
-        }, 2000);
-    },
+    setTimeout(() => {
+      this.statusMessage.textContent = "";
+    }, 2000);
+  },
 };
 
 function updateSliderBackground() {
-    const min = slider.min;
-    const max = slider.max;
-    const value = slider.value;
-    const percentage = ((value - min) / (max - min)) * 100;
+  const min = slider.min;
+  const max = slider.max;
+  const value = slider.value;
+  const percentage = ((value - min) / (max - min)) * 100;
 
-    charLength.textContent = slider.value;
+  charLength.textContent = slider.value;
 
-    slider.style.background = `linear-gradient(to right, #A4FFAF ${percentage}%, #18171F ${percentage}%)`;
+  slider.style.background = `linear-gradient(to right, #A4FFAF ${percentage}%, #18171F ${percentage}%)`;
 }
 
 /**
@@ -62,142 +60,62 @@ function updateSliderBackground() {
  * @returns {void}
  */
 const copyPassword = () => {
-    const copyStatus = document.getElementById("copy-status");
-    if (!password.value.trim()) return toast.error("no password provided")
-    navigator.clipboard.writeText(password.value);
-    toast.success("copied")
+  if (!password.value.trim()) return status.error("no password provided");
+  navigator.clipboard.writeText(password.value);
+  status.success("copied");
 };
 
-/**
- *
- * @param {string} str - the string to get a random character from
- * @returns string
- */
-const getRandomChar = (str) => str[Math.floor(Math.random() * str.length)];
+const passwordGenerator = new PasswordGenerator();
 
-/**
- * @param {Array<string>} password - the password to shuffle
- * @returns {Array<string>}
- */
-const shufflePassword = (password) => password.sort(() => Math.random() - 0.5);
+function updateStrengthStatus(className, strength) {
+  bars.forEach((bar) => (bar.className = className));
+  strengthStatus.textContent = strength;
+}
 
-/**
- * Add a character from the given character set to the password, and add it to the pool
- * of available characters. Increment the count of selected options.
- * @param {string} charSet - the set of characters to select from
- * @param {Array<string>} passwordArray - the array of characters to add to
- * @param {string} availableCharacters - the string of all characters that have been selected
- * @param {number} selectedOptions - the number of options that have been selected
- * @returns {{passwordArray: Array<string>, availableCharacters: string, selectedOptions: number}}
- */
-const addCharactersToPool = (
-    charSet,
-    passwordArray,
-    availableCharacters,
-    selectedOptions
-) => {
-    passwordArray.push(getRandomChar(charSet));
-    availableCharacters += charSet;
-    selectedOptions++;
+const handleGeneratePassword = () => {
+  let selectedOptions = 0;
+  const passwordLength = Number(slider.value);
 
-    return {passwordArray, availableCharacters, selectedOptions};
-};
+  if (passwordLength === 0) return status.error("no password length provided");
 
-/**
- * Generate a password based on the currently selected options
- * @returns {void}
- */
-const generatePassword = () => {
-    if (slider.value === '0') return toast.error("select character length")
-    let passwordArray = [];
-    let availableCharacters = "";
-    let selectedOptions = 0;
+  uppercaseCheck.checked && selectedOptions++;
+  lowercaseCheck.checked && selectedOptions++;
+  numberCheck.checked && selectedOptions++;
+  symbolCheck.checked && selectedOptions++;
 
-    // Add uppercase letters if checked
-    if (uppercaseCheck.checked) {
-        ({passwordArray, availableCharacters, selectedOptions} = addCharactersToPool(
-            uppercaseLetters,
-            passwordArray,
-            availableCharacters,
-            selectedOptions
-        ));
-    }
+  if (selectedOptions > passwordLength)
+    return status.error("not enough characters");
 
-    // Add lowercase letters if checked
-    if (lowercaseCheck.checked) {
-        ({passwordArray, availableCharacters, selectedOptions} = addCharactersToPool(
-            lowercaseLetters,
-            passwordArray,
-            availableCharacters,
-            selectedOptions
-        ));
-    }
+  if (selectedOptions === 0) return status.error("select at least one option");
 
-    // Add numbers if checked
-    if (numberCheck.checked) {
-        ({passwordArray, availableCharacters, selectedOptions} = addCharactersToPool(
-            numbers,
-            passwordArray,
-            availableCharacters,
-            selectedOptions
-        ));
-    }
+  const generatedPassword = passwordGenerator.generatePassword(passwordLength, {
+    uppercaseCheck: uppercaseCheck.checked,
+    lowercaseCheck: lowercaseCheck.checked,
+    numberCheck: numberCheck.checked,
+    symbolCheck: symbolCheck.checked,
+  });
 
-    // Add symbols if checked
-    if (symbolCheck.checked) {
-        ({passwordArray, availableCharacters, selectedOptions} = addCharactersToPool(
-            symbols,
-            passwordArray,
-            availableCharacters,
-            selectedOptions
-        ));
-    }
+  password.value = generatedPassword;
 
-    if (selectedOptions > Number(slider.value)) return toast.error("not enough characters")
+  const passwordStrength =
+    passwordGenerator.calatePasswordStrength(generatedPassword);
 
-    // Handle password strength based on checked checkboxes
-    switch (selectedOptions) {
-        case 0:
-            toast.error("Check at least one checkbox");
-            return; // Exit if no checkbox is selected
-        case 1:
-            bars.forEach((bar) => (bar.className = ""));
-            bars[0].className = "very-weak-password";
-            strengthStatus.textContent = "too weak";
-            break;
-        case 2:
-            bars.forEach((bar) => (bar.className = ""));
-            bars[0].className = "weak-password";
-            bars[1].className = "weak-password";
-            strengthStatus.textContent = "Weak";
-            break;
-        case 3:
-            bars.forEach((bar) => (bar.className = "medium-password"));
-            bars[3].className = "";
-            strengthStatus.textContent = "Medium";
-            break;
-        default:
-            bars.forEach((bar) => (bar.className = "strong-password"));
-            strengthStatus.textContent = "Strong";
-    }
-
-    const passwordLength = slider.value - passwordArray.length;
-
-    for (let i = 0; i < passwordLength; i++) {
-        passwordArray.push(
-            availableCharacters[Math.floor(Math.random() * availableCharacters.length)]
-        );
-    }
-
-    // Shuffle the password characters for randomness
-    passwordArray = shufflePassword(passwordArray);
-
-    // Display the generated password
-    password.value = passwordArray.join("");
+  if (passwordStrength === "strong") {
+    updateStrengthStatus("strong-password", passwordStrength);
+  } else if (passwordLength >= 8 && selectedOptions >= 2) {
+    updateStrengthStatus("medium-password", passwordStrength);
+    bars[3].className = "";
+  } else if (passwordLength >= 8 && selectedOptions === 1) {
+    updateStrengthStatus("", passwordStrength);
+    bars[0].className = "weak-password";
+    bars[1].className = "weak-password";
+  } else {
+    updateStrengthStatus("", passwordStrength);
+    bars[0].className = "very-weak-password";
+  }
 };
 
 // event handlers
 copyBtn.addEventListener("click", copyPassword);
-
 slider.addEventListener("input", updateSliderBackground);
-generateBtn.addEventListener("click", generatePassword);
+generateBtn.addEventListener("click", handleGeneratePassword);

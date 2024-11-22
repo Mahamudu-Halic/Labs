@@ -47,10 +47,10 @@ button {
 }
 .password-generator .password-container #password {
   font-size: 23px;
-  user-focus-pointer: none;
   background: none;
   border: none;
   color: #E6E5EA;
+  width: 100%;
 }
 .password-generator .password-container #copy-password-btn {
   border: none;
@@ -59,7 +59,7 @@ button {
 .password-generator .password-container #copy-password-btn:hover img {
   filter: brightness(200%);
 }
-.password-generator .password-container #copy-status {
+.password-generator .password-container #status {
   position: absolute;
   right: 50px;
   color: #E6E5EA;

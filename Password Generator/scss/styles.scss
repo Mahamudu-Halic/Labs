@@ -47,10 +47,10 @@ button {
 
     #password {
       font-size: variables.$text-md;
-      user-focus-pointer: none;
       background: none;
       border: none;
-      color: variables.$primaryText
+      color: variables.$primaryText;
+      width: 100%;
     }
 
     #copy-password-btn {
@@ -62,7 +62,7 @@ button {
       }
     }
 
-    #copy-status {
+    #status {
       position: absolute;
       right: 50px;
       color: variables.$primaryText;
