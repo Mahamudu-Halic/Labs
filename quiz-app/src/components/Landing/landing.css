@@ -1,0 +1,35 @@
+.landing__page {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.welcome__message {
+  font-size: 2em;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.options__item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  border: solid 1px red;
+  min-width: 350px;
+}
