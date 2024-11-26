@@ -17,12 +17,23 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    --red: #ee5454;
+    --green: #26D782;
+    --dark-navy: #313E51;
+    --navy: #3B4D66;
+    --gray-navy: #626C7F;
+    --purple: #A729F5;
+    --light-bluish: #ABC1E1;
+    --light-gray: #F4F6FA;
+    --pure-white: #FFFFFF;
 }
 
 a {
     font-weight: 500;
     text-decoration: none;
 }
+
 
 body {
     display: flex;
@@ -47,4 +58,54 @@ button {
     cursor: pointer;
     transition: border-color 0.25s;
     background: none;
+    color: var(--dark-navy);
+    background: var(--pure-white);
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.17);
 }
+
+.wrapper {
+    width: 800px;
+}
+
+.light {
+    background: var(--light-gray);
+    background-image: url("/assets/images/pattern-background-desktop-light.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: var(--dark-navy);
+}
+
+
+.dark {
+    background: var(--dark-navy);
+    background-image: url("/assets/images/pattern-background-desktop-dark.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: var(--pure-white);
+}
+
+.dark button {
+    color: var(--pure-white);
+    background: var(--navy);
+}
+
+
+.HTML {
+    background: #FF7E3520;
+}
+
+.CSS {
+    background: #2FD88720;
+}
+
+.JavaScript {
+    background: #306AFF20;
+}
+
+.Accessibility {
+    background: #A729F520;
+}
+
