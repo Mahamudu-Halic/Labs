@@ -1,42 +1,44 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+:root {
+    --red: #ee5454;
+    --green: #26D782;
+    --dark-navy: #313E51;
+    --navy: #3B4D66;
+    --gray-navy: #626C7F;
+    --purple: #A729F5;
+    --light-bluish: #ABC1E1;
+    --light-gray: #F4F6FA;
+    --pure-white: #FFFFFF;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.wrapper {
+    width: 800px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.light {
+    background: var(--light-gray);
+    background-image: url("/assets/pattern-background-desktop-light.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: var(--dark-navy);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.light button {
+    color: var(--dark-navy);
+    background: var(--pure-white);
+    border-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.17);
 }
 
-.card {
-  padding: 2em;
+.dark {
+    background: var(--dark-navy);
+    background-image: url("/assets/pattern-background-desktop-dark.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    color: var(--pure-white);
 }
 
-.read-the-docs {
-  color: #888;
+.dark button {
+    color: var(--pure-white);
 }
