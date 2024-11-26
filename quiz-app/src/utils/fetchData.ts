@@ -1,18 +1,8 @@
 import data from "../../data.json";
+import {Data, DataResponse} from "../../types.ts";
 
-type Questions = {
-    question: string;
-    options: string[];
-    answer: string;
-}
 
-type Data = {
-    title: string;
-    icon: string;
-    questions: Questions[]
-}
-
-const fetchData = (req: string): { status: string, data?: Data, message?: string } => {
+const fetchData = (req: string): DataResponse => {
     try {
         const hasNumber: boolean = /\d/.test(req);
         const hasSymbol: boolean = /[!@#$%^&*(),.?":{}|<>]/.test(req);
@@ -33,8 +23,7 @@ const fetchData = (req: string): { status: string, data?: Data, message?: string
         }
 
         return {status: "success", data: question};
-    } catch (e) {
-        console.error(e);
+    } catch {
         return {status: "failed", message: "oops, something went wrong"};
     }
 };
