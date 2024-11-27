@@ -4,42 +4,8 @@
     gap: 50px;
 }
 
-.welcome__message-title {
-    font-size: 3rem;
-    font-weight: 200;
-    line-height: 50px;
-    margin-bottom: 2rem;
-}
-
-.welcome__message {
-    color: var(--dark-navy)
-}
-
-.dark .welcome__message {
-    color: var(--light-bluish)
-}
-
-.welcome__message-title span {
-    display: block;
-    font-weight: 700;
-}
-
 main {
     display: flex;
     justify-content: space-between;
     gap: 30px;
-}
-
-.options {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.options__item {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    min-width: 350px;
-    font-size: 1.3rem;
 }
