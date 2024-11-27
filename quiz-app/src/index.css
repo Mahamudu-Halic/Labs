@@ -1,111 +1,119 @@
+/* @import url("/assets/fonts/Rubik/Rubik-Italic-VariableFont_wght.ttf");
+@import url("/assets/fonts/Rubik/Rubik-VariableFont_wght.ttf"); */
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 :root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    line-height: 1.5;
-    font-weight: 400;
+  /* font-family: "Rubik", sans-serif; */
+  line-height: 1.5;
+  font-weight: 400;
 
-    color-scheme: light dark;
-    color: #121212;
-    background-color: #fff;
+  color-scheme: light dark;
+  color: #121212;
+  background-color: #fff;
 
-    font-synthesis: none;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-    --red: #ee5454;
-    --green: #26D782;
-    --dark-navy: #313E51;
-    --navy: #3B4D66;
-    --gray-navy: #626C7F;
-    --purple: #A729F5;
-    --light-bluish: #ABC1E1;
-    --light-gray: #F4F6FA;
-    --pure-white: #FFFFFF;
+  --red: #ee5454;
+  --green: #26d782;
+  --dark-navy: #313e51;
+  --navy: #3b4d66;
+  --gray-navy: #626c7f;
+  --purple: #a729f5;
+  --light-bluish: #abc1e1;
+  --light-gray: #f4f6fa;
+  --pure-white: #ffffff;
 }
 
 a {
-    font-weight: 500;
-    text-decoration: none;
+  font-weight: 500;
+  text-decoration: none;
 }
 
-
 body {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
 }
 
 h1 {
-    font-size: 3.2em;
-    line-height: 1.1;
+  font-size: 3.2em;
+  line-height: 1.1;
 }
 
 button {
-    border-radius: 8px;
-    border: 1px solid transparent;
-    padding: 0.6em 1.2em;
-    font-size: 1em;
-    font-weight: 500;
-    font-family: inherit;
-    cursor: pointer;
-    transition: border-color 0.25s;
-    background: none;
-    color: var(--dark-navy);
-    background: var(--pure-white);
-    border-radius: 10px;
-    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.17);
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  background: none;
+  color: var(--dark-navy);
+  background: var(--pure-white);
+  border-radius: 10px;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.17);
+  min-height: 60px;
 }
 
 .wrapper {
-    width: 800px;
+  width: 800px;
 }
 
 .light {
-    background: var(--light-gray);
-    background-image: url("/assets/images/pattern-background-desktop-light.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    color: var(--dark-navy);
+  background: var(--light-gray);
+  background-image: url("/assets/images/pattern-background-desktop-light.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: var(--dark-navy);
 }
 
-
 .dark {
-    background: var(--dark-navy);
-    background-image: url("/assets/images/pattern-background-desktop-dark.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    color: var(--pure-white);
+  background: var(--dark-navy);
+  background-image: url("/assets/images/pattern-background-desktop-dark.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  color: var(--pure-white);
 }
 
 .dark button {
-    color: var(--pure-white);
-    background: var(--navy);
+  color: var(--pure-white);
+  background: var(--navy);
 }
 
+.dark .options-container .option__char {
+  background: var(--light-gray);
+}
+
+.dark .error-message {
+  color: var(--pure-white);
+}
 
 .HTML {
-    background: #FF7E3520;
+  background: #ff7e3520;
 }
 
 .CSS {
-    background: #2FD88720;
+  background: #2fd88720;
 }
 
 .JavaScript {
-    background: #306AFF20;
+  background: #306aff20;
 }
 
 .Accessibility {
-    background: #A729F520;
+  background: #a729f520;
 }
-
