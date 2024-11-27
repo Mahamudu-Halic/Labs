@@ -1,21 +1,12 @@
 import ThemeToggler from "../ThemeToggler/ThemeToggler.component.tsx";
-import IconComponent from "../Icon/Icon.component.tsx";
-
-import {Data} from "../../../types.ts";
+import SelectedQuiz from "../Selected Quiz/SelectedQuiz.component.tsx";
 
 import "./header.styles.css"
 
-const HeaderComponent = ({quiz}: { quiz?: Data | undefined }) => {
+const HeaderComponent = ({title, icon}: { title?: string, icon?: string }) => {
     return (
         <header className={"header"}>
-            {
-                quiz && (
-                    <div className={"header__icon-container"}>
-                        <IconComponent icon={quiz?.icon} customClassName={quiz?.title}/>
-                        <p className={"header__icon-title"}>{quiz?.title}</p>
-                    </div>
-                )
-            }
+            {title && icon && <SelectedQuiz title={title} icon={icon}/>}
             <ThemeToggler/>
         </header>
     )
