@@ -1,76 +1,103 @@
-import {Data} from "../../../types.ts";
+import { useEffect, useState } from "react";
 
-import "./quiz.styles.css"
-import {useEffect, useState} from "react";
+import Options from "../Options/Options.component.tsx";
+import Question from "../Question/Question.component.tsx";
 
-type Question = {
-    question: string;
-    options: string[];
-    answer: string;
-}
+import { Data } from "../../../types.ts";
 
-const OptionChars = ["A", "B", "C", "D"]
+import errorIconSvg from "/assets/images/icon-error.svg";
 
-const QuizComponent = ({quiz}: { quiz: Data }) => {
-    const {questions} = quiz
+import "./quiz.styles.css";
 
-    const [currentQuestion, setCurrentQuestion] = useState<string>("")
-    const [options, setOptions] = useState<string[] | undefined>(undefined)
-    const [questionNumber, setQuestionNumber] = useState<number>(0)
-    const [answer, setAnswer] = useState<string>("")
-    const [selectedAnswer, setSelectedAnswer] = useState<string>("")
-    const [score, setScore] = useState<number>(0)
 
-    const handleNextQuestion = () => {
-        if (questionNumber === questions.length - 1) {
-            // Display final score or show results
-            console.log("complete")
-            return;
-        }
-        setQuestionNumber(questionNumber + 1)
+const QuizComponent = ({ quiz }: { quiz: Data }) => {
+  const { questions } = quiz;
+
+  const [currentQuestion, setCurrentQuestion] = useState<string>("");
+  const [options, setOptions] = useState<string[] | undefined>(undefined);
+  const [questionNumber, setQuestionNumber] = useState<number>(
+    () => Number(sessionStorage.getItem("questionNumber")) || 0
+  );
+  const [answer, setAnswer] = useState<string>("");
+
+  const [selectedAnswer, setSelectedAnswer] = useState<string>("");
+  const [showError, setShowError] = useState<boolean>(false);
+
+  const [score, setScore] = useState<number>(
+    () => Number(sessionStorage.getItem("score")) || 0
+  );
+
+  const handleNextQuestion = () => {
+    if (questionNumber === questions.length - 1) {
+      // Display final score or show results
+      console.log("complete");
+      return;
+    }
+    setQuestionNumber(questionNumber + 1);
+  };
+
+  const handleSubmit = () => {
+    if (!selectedAnswer) {
+      return setShowError(true);
     }
 
-    const handleSubmit = () => {
-        if (selectedAnswer === answer) {
-            setScore(prev => prev += 1)
-        }
+    setAnswer(questions[questionNumber].answer);
+
+    if (selectedAnswer === questions[questionNumber].answer) {
+      setScore((prev) => (prev += 1));
+      sessionStorage.setItem("score", String(score + 1));
     }
 
-    const handleSelection = (value: string) => {
-        setSelectedAnswer(value)
-    }
+    questionNumber < questions.length - 1 &&
+      sessionStorage.setItem("questionNumber", String(questionNumber + 1));
+  };
 
+  const handleSelection = (value: string) => {
+    setShowError(false);
+    setSelectedAnswer(value);
+  };
 
-    useEffect(() => {
-        setCurrentQuestion(questions[questionNumber].question)
-        setOptions(questions[questionNumber].options)
-        setAnswer(questions[questionNumber].answer)
-        setSelectedAnswer("")
-    }, [questionNumber])
+  useEffect(() => {
+    setCurrentQuestion(questions[questionNumber].question);
+    setOptions(questions[questionNumber].options);
+    setAnswer("");
+    setSelectedAnswer("");
+  }, [questionNumber]);
 
-    return (
-        <div className={"quiz"}>
-            <div className={"question-container"}>
-                <p className="question__number">Question {questionNumber + 1} of {questions.length}</p>
-                <h2 className={"question"}>{currentQuestion}</h2>
-                <input type="range" className={"question__progress_bar"}/>
-            </div>
+  return (
+    <div className={"quiz"}>
+      <Question
+        questionNumber={questionNumber}
+        totalQuestions={questions.length}
+        currentQuestion={currentQuestion}
+      />
 
-            <div className={"options-container"}>
-                <div className={"options"}>
-                    {
-                        options && options.map((option, index) => (
-                            <button key={option} className={"options__item"} onClick={() => handleSelection(option)}>
-                                <div className={"option__char"}><p>{OptionChars[index]}</p></div>
-                                {option}
-                            </button>
-                        ))
-                    }
-                </div>
-                <button className={"submit__btn"} onClick={handleSubmit}>Submit answer</button>
-            </div>
-        </div>
-    )
-}
+      <div className={"options-container"}>
+        <Options
+          answer={answer}
+          selectedAnswer={selectedAnswer}
+          options={options}
+          handleSelection={handleSelection}
+        />
+        <button
+          className={"submit__btn"}
+          onClick={answer ? handleNextQuestion : handleSubmit}
+        >
+          {answer
+            ? questionNumber === questions.length - 1
+              ? "Complete"
+              : "Next question"
+            : "Submit answer"}
+        </button>
+        {!selectedAnswer && showError && (
+          <p className="error-message">
+            <img src={errorIconSvg} alt={"error icon"} /> Please select an
+            answer
+          </p>
+        )}
+      </div>
+    </div>
+  );
+};
 
 export default QuizComponent;
