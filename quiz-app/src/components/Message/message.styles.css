@@ -1,0 +1,16 @@
+.message__title {
+    font-size: 3rem;
+    font-weight: 200;
+    line-height: 50px;
+    margin-bottom: 2rem;
+}
+
+.message__title span {
+    display: block;
+    font-weight: 700;
+}
+
+.message {
+    color: var(--dark-navy)
+}
+
