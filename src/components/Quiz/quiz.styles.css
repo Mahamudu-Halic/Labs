@@ -34,11 +34,25 @@
     gap: 20px;
 }
 
-.question__progress_bar {
-    margin-top: 100px;
+.question__progress_bar-container {
+    width: 100%;
+    background: var(--pure-white);
+    padding: 3px;
+    border-radius: 10px;
+
 }
 
+.question__progress_bar {
+    background: var(--purple);
+    height: 10px;
+    border-radius: 10px;
+}
+
+
 .question__number {
+    color: var(--gray-navy);
+    font-style: italic;
+    font-size: 13px;
 }
 
 

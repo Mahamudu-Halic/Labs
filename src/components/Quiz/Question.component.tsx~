@@ -16,7 +16,7 @@ const Question = ({
             </p>
             <h2 className={"question"}>{currentQuestion}</h2>
             <div className="question__progress_bar-container">
-                <div className={`question__progress_bar`} style={{width: percentage + "%"}}/>
+                <div className={`question__progress_bar`} style={{width: percentage}}/>
             </div>
         </div>
     );

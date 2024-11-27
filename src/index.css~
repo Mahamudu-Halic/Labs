@@ -109,7 +109,7 @@ button {
     background: var(--navy)
 }
 
-.dark .question__progress_bar-container {
+.dark .question__progress_bar-container{
     background: var(--navy);
 }
 
