@@ -46,7 +46,7 @@ const HomepageComponent = ({setQuiz}: { setQuiz: (value: Data | undefined) => vo
             console.log(response?.message)
             return
         }
-
+        sessionStorage.setItem("quiz", JSON.stringify(response.data))
         return response.status === "success" && response?.data && setQuiz(response.data)
     }
     return (

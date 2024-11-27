@@ -21,4 +21,4 @@ const HeaderComponent = ({quiz}: { quiz?: Data | undefined }) => {
     )
 }
 
-export default HeaderComponent
+export default HeaderComponent 

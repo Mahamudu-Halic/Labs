@@ -12,3 +12,6 @@
     gap: 10px;
 }
 
+.header__icon-title{
+    font-weight: bold;
+}
