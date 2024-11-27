@@ -1,9 +1,9 @@
 import HomepageComponent from "./components/Homepage/Homepage.component.tsx";
 import {useEffect, useState} from "react";
 import {Data} from "../types.ts";
-import QuizComponent from "./components/Quiz/Quiz.component.tsx";
 import HeaderComponent from "./components/Header/Header.component.tsx";
 import getQuiz from "./utils/getQuiz.ts";
+import QuizContainer from "./components/Quiz/QuizContainer.component.tsx";
 
 function App() {
     const [quiz, setQuiz] = useState<Data | undefined>(undefined);
@@ -11,16 +11,16 @@ function App() {
     useEffect(() => {
         getQuiz({callback: setQuiz, value: ""});
     }, []);
-    
+
     return (
         <div className="wrapper">
-            <HeaderComponent quiz={quiz}/>
+            <HeaderComponent title={quiz?.title || ""} icon={quiz?.icon || ""}/>
             {
                 !quiz && <HomepageComponent setQuiz={setQuiz}/>
             }
 
             {
-                quiz && <QuizComponent quiz={quiz}/>
+                quiz && <QuizContainer quiz={quiz} setQuiz={setQuiz}/>
             }
         </div>
     )
