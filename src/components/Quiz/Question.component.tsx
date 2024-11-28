@@ -3,12 +3,20 @@ interface QuestionProps {
   questionNumber: number;
   totalQuestions: number;
 }
+/**
+ * Displays a question with a progress bar
+ * @param currentQuestion The current question string
+ * @param questionNumber The current question number
+ * @param totalQuestions The total number of questions
+ * @returns A JSX element containing the question and a progress bar
+ */
 const Question = ({
   currentQuestion,
   questionNumber,
   totalQuestions,
 }: QuestionProps) => {
     
+  // Calculate the progress bar percentage based on the current question number and total questions.
   const percentage = ((questionNumber + 1) / totalQuestions) * 100;
 
   return (

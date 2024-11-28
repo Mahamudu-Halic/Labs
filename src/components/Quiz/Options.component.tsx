@@ -10,6 +10,15 @@ interface OptionsProps {
   handleSelection: (value: string) => void;
 }
 
+/**
+ * Options component. Displays a list of options for the user to select,
+ * with the correct/incorrect status displayed if the answer is known.
+ *
+ * @param {string} answer - The correct answer.
+ * @param {string} selectedAnswer - The user's selected answer.
+ * @param {function(string)} handleSelection - The function to be called when the user selects an answer.
+ * @param {string[]} options - The list of options to display.
+ */
 const Options = ({
   answer,
   selectedAnswer,
