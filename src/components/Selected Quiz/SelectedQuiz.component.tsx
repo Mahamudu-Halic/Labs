@@ -6,7 +6,7 @@ const SelectedQuiz = ({title, icon}: { title: string, icon: string }) => {
     return (
         <div className={"selected__icon-container"}>
             <IconComponent icon={icon} customClassName={title}/>
-            <p className={"selected__icon-title"}>{title}</p>
+            <h4 className={"selected__icon-title"}>{title}</h4>
         </div>
     )
 }

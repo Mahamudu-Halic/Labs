@@ -3,6 +3,7 @@
     justify-content: space-between;
     width: 100%;
     gap: 50px;
+    margin-bottom: auto;
 }
 
 .question-container,
@@ -39,7 +40,8 @@
     background: var(--pure-white);
     padding: 3px;
     border-radius: 10px;
-
+    margin-top: auto;
+    margin-bottom: 60px;
 }
 
 .question__progress_bar {
@@ -51,8 +53,6 @@
 
 .question__number {
     color: var(--gray-navy);
-    font-style: italic;
-    font-size: 13px;
 }
 
 
@@ -95,4 +95,18 @@
 
 .score {
     font-size: 5rem;
+}
+
+@media (width <= 850px) {
+    .quiz{
+        flex-direction: column;
+    }
+
+    .question__progress_bar-container{
+        margin-bottom: 0;
+    }
+
+    .question__progress_bar{
+        height: 7px;
+    }
 }

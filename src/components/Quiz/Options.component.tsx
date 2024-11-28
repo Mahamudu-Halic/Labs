@@ -38,9 +38,9 @@ const Options = ({
                 onClick={() => handleSelection(option)}
             >
                 <div className={"option__char"}>
-                    <p>{OptionChars[index]}</p>
+                    <span>{OptionChars[index]}</span>
                 </div>
-                {option}
+                <h4>{option}</h4>
                 {answer && answer === option && (
                     <img className="answer-icon" src={correctIconSvg} alt={"correct"}/>
                 )}

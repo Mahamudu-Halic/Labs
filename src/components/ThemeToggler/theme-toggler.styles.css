@@ -17,10 +17,6 @@
     height: 0;
 }
 
-/*.theme__toggle input:checked + .theme__toggle-slider {*/
-/*    background-color: blue;*/
-/*}*/
-
 .theme__toggle input:checked + .theme__toggle-slider:before {
     transform: translateX(20px);
 }

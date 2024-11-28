@@ -1,8 +1,12 @@
+.message-container{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    flex: 1;
+}
+
 .message__title {
-    font-size: 3rem;
     font-weight: 200;
-    line-height: 50px;
-    margin-bottom: 2rem;
 }
 
 .message__title span {
