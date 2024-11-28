@@ -5,31 +5,10 @@ import MessageComponent from "../Message/Message.component.tsx";
 
 import getQuiz from "../../utils/getQuiz.ts";
 
-import jsSvg from "/assets/images/icon-js.svg";
-import htmlSvg from "/assets/images/icon-html.svg";
-import cssSvg from "/assets/images/icon-css.svg";
-import accessibilitySvg from "/assets/images/icon-accessibility.svg";
-
 import "./homepage.styles.css";
+import { Topics } from "../../constants.ts";
 
-const Topics = [
-  {
-    label: "HTML",
-    icon: htmlSvg,
-  },
-  {
-    label: "CSS",
-    icon: cssSvg,
-  },
-  {
-    label: "JavaScript",
-    icon: jsSvg,
-  },
-  {
-    label: "Accessibility",
-    icon: accessibilitySvg,
-  },
-];
+
 
 const HomepageComponent = ({ setQuiz }: { setQuiz: (value: Data) => void }) => {
   return (
