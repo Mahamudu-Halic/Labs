@@ -24,7 +24,7 @@ const QuizCompleted = ({title, icon, score, totalQuestions, setQuiz}: QuizComple
             <div className="results-container">
                 <div className={"score-container"}>
                     <SelectedQuiz title={title} icon={icon}/>
-                    <h3 className="score">{score}</h3>
+                    <h1 className="score">{score}</h1>
                     <p className="totalScore">out of {totalQuestions}</p>
                 </div>
                 <button className={"submit__btn reset__btn"} onClick={reset}>Play Again</button>

@@ -49,7 +49,7 @@ a {
 }
 
 h1 {
-  font-size: 9rem;
+  font-size: 7rem;
 }
 
 h2 {
@@ -168,6 +168,11 @@ button {
     background-image: url("/assets/images/pattern-background-tablet-dark.svg");
   }
 
+  h1 {
+    font-size: 6rem;
+  }
+  
+
   h2 {
     font-size: 3rem;
   }
@@ -193,6 +198,11 @@ button {
   .dark {
     background-image: url("/assets/images/pattern-background-mobile-dark.svg");
   }
+
+  h1 {
+    font-size: 5rem;
+  }
+  
 
   h2 {
     font-size: 2rem;
