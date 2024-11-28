@@ -1,6 +1,12 @@
 import "./message.styles.css"
 
-const MessageComponent = ({title, subtitle, message}: { title: string, subtitle: string, message: string }) => {
+interface MessageComponentProps{
+    title?: string;
+    subtitle?: string;
+    message?: string;  
+}
+
+const MessageComponent = ({title, subtitle, message}: MessageComponentProps) => {
     return (
         <section className="message-container">
             <h2 className="message__title">

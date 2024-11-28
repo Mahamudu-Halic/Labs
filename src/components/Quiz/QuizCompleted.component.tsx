@@ -2,13 +2,15 @@ import {Data} from "../../../types.ts";
 import SelectedQuiz from "../Selected Quiz/SelectedQuiz.component.tsx";
 import MessageComponent from "../Message/Message.component.tsx";
 
-const QuizCompleted = ({title, icon, score, totalQuestions, setQuiz}: {
-    setQuiz: (value: Data | undefined) => void,
-    score: number,
-    totalQuestions: number,
-    title: string,
-    icon: string
-}) => {
+
+interface QuizCompletedProps {
+    setQuiz: (value: Data | undefined) => void;
+    score: number;
+    totalQuestions: number;
+    title: string;
+    icon: string;
+}
+const QuizCompleted = ({title, icon, score, totalQuestions, setQuiz}: QuizCompletedProps) => {
     const reset = () => {
         sessionStorage.removeItem("score");
         sessionStorage.removeItem("questionNumber");

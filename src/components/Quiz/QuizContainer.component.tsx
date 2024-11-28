@@ -8,8 +8,12 @@ import "./quiz.styles.css";
 import Quiz from "./Quiz.component.tsx";
 import QuizCompleted from "./QuizCompleted.component.tsx";
 
+interface QuizContainerProps{
+    quiz: Data;
+    setQuiz: (value: Data | undefined) => void;
+}
 
-const QuizContainer = ({quiz, setQuiz}: { quiz: Data, setQuiz: (value: Data | undefined) => void }) => {
+const QuizContainer = ({quiz, setQuiz}: QuizContainerProps) => {
     const {questions} = quiz;
 
 

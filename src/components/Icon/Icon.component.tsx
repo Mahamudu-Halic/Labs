@@ -1,6 +1,11 @@
 import "./icon.styles.css"
 
-const IconComponent = ({icon, customClassName}: { icon?: string, customClassName?: string }) => {
+interface IconComponentProps{
+    icon?: string;
+    customClassName?: string;
+}
+
+const IconComponent = ({icon, customClassName}: IconComponentProps) => {
     return (
         <div className={`icon ${customClassName}`}>
             <img src={icon} alt={"icon"}/>
