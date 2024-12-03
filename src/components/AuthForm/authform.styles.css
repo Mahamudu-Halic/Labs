@@ -1,0 +1,59 @@
+.auth__form {
+  width: 900px;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  gap: 30px;
+
+  .step-container {
+    background-image: url("/assets/images/bg-sidebar-desktop.svg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 400px;
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 15px;
+    padding: 40px;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 10px;
+    font-size: 1.2rem;
+
+    .step__number {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: solid 1px var(--white);
+      color: var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 700;
+      text-transform: uppercase;
+
+      &.active {
+        background: var(--sky-blue);
+        color: var(--demin);
+        border-color: var(--sky-blue);
+      }
+    }
+
+    .step__container {
+      p {
+        color: var(--light-blue);
+      }
+
+      .step__description {
+        color: var(--white);
+      }
+    }
+  }
+}
