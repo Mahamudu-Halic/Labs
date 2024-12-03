@@ -5,5 +5,3 @@ function AuthForm() {
         </div>
     )
 }
-
-export default AuthForm;
