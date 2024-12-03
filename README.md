@@ -1,31 +1,50 @@
+# React + TypeScript + Vite
 
-<table>
-    <thead>
-        <th>Weeks</th>
-        <th>Chapters</th>
-        <th>Tasks</th>
-        <th>Url</th>
-    </thead>
-    <tbody>
-        <tr style="background: rgba(23,60,152,0.23);">
-            <td rowspan="3" style="transform: rotate(-90deg); letter-spacing: 7px; height: 200px;"><a href="https://github.com/Mahamudu-Halic/Labs/tree/week1" style="display: block; width: 150px; padding: 10px">WEEK ONE</a></td>
-            <td>1.2</td>
-            <td>Functional Data Transformation Playground</td>
-            <td>
-            <a href="https://github.com/Mahamudu-Halic/Labs/tree/week1/Functional%20Data%20Transformation%20Playground" >Functional Data Transformation Playground</a>
-            </td>
-        </tr><tr>
-            <td>1.3</td>
-            <td>Interactive To-Do List with Due Time and Sorting</td>
-            <td>
-            <a href="https://github.com/Mahamudu-Halic/Labs/tree/week1/Interactive%20To-Do%20List%20with%20Due%20time%20and%20Sorting" >Interactive To-Do List with Due Time and Sorting</a>
-            </td>
-        </tr><tr>
-            <td>1.4</td>
-            <td>Interactive Image Gallery with Lightbox, caption and navigation</td>
-            <td>
-            <a href="https://github.com/Mahamudu-Halic/Labs/tree/week1/Interactive%20Image%20Gallery%20with%20Lightbox%2C%20caption%20and%20navigation" >Interactive Image Gallery with Lightbox, caption and navigation</a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+
+- Configure the top-level `parserOptions` property like this:
+
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
+
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
+
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
+```
