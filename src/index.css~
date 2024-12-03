@@ -12,6 +12,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
+
     --bg: #EFF5FF;
     --border-color: #D6D9E6;
     --white: #ffffff;
