@@ -1,10 +1,11 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import "./authform.styles.css";
 import PersonalInfo from "./PersonalInfo/PersonalInfo.component";
-import {UpdateFieldType} from "../../types";
+import {ServiceType, UpdateFieldType} from "../../types";
 import personalInfoValidation from "../../utils/personalInfo.validation";
 import Plan from "./Plan/Plan.component";
 import StepContainer from "./PersonalInfo/Step/StepContainer.component";
+import AddOns from "./Add-ons/AddOns.component.tsx";
 
 function AuthForm() {
     const [currentStep, setCurrentStep] = useState<number>(
@@ -14,7 +15,7 @@ function AuthForm() {
     const [userName, setUserName] = useState<string>(
         () => localStorage.getItem("userName") || ""
     );
-    
+
     const [userErrorMsg, setUserErrorMsg] = useState<string>("");
 
     const [email, setEmail] = useState<string>(
@@ -27,9 +28,34 @@ function AuthForm() {
     );
     const [phoneErrorMsg, setPhoneErrorMsg] = useState<string>("");
 
+    const [addons, setAddons] = useState<ServiceType[]>(() =>
+        JSON.parse(localStorage.getItem("addOns") || "[]")
+    );
+
+    const handleAddons = ({title, price}: ServiceType) => {
+        const currentAddons = [...addons];
+
+        const existingAddon = currentAddons.find((item: ServiceType) => item.title === title)
+
+        if (existingAddon) {
+            setAddons(currentAddons.filter(item => item.title !== title))
+            return
+        } else {
+            currentAddons.push({title, price: Number(price)});
+            setAddons(currentAddons)
+        }
+    };
+
+    useEffect(() => {
+        localStorage.setItem("currentStep", String(currentStep));
+        localStorage.setItem("userName", userName.trim());
+        localStorage.setItem("email", email.trim());
+        localStorage.setItem("phoneNumber", phoneNumber.trim());
+        localStorage.setItem("addOns", JSON.stringify(addons).trim());
+    }, [currentStep, userName, email, phoneNumber, addons])
+
     const handlePreviousStep = () => {
         if (currentStep === 1) return;
-        localStorage.setItem("currentStep", String(currentStep - 1));
         setCurrentStep((prevStep) => prevStep - 1);
     };
 
@@ -47,16 +73,18 @@ function AuthForm() {
             if (!isValid) return;
         }
 
-        localStorage.setItem("currentStep", String(currentStep + 1));
+        if (currentStep == 3) {
+            const addonsExist = addons.length > 0;
+            if (!addonsExist) {
+                alert("Please select at least one add-on");
+                return;
+            }
+        }
+
         setCurrentStep((prevStep) => prevStep + 1);
     };
 
-    const updateField: UpdateFieldType =
-        (fieldName, setState) => (event: React.ChangeEvent<HTMLInputElement>) => {
-            const value = event.target.value;
-            setState(value);
-            localStorage.setItem(fieldName, value.trim());
-        };
+    const updateField: UpdateFieldType = (setState) => (event: React.ChangeEvent<HTMLInputElement>) => setState(event.target.value);
 
     return (
         <div className="auth__form">
@@ -71,9 +99,9 @@ function AuthForm() {
                         userErrorMsg={userErrorMsg}
                         emailErrorMsg={emailErrorMsg}
                         phoneErrorMsg={phoneErrorMsg}
-                        updateUserName={updateField("userName", setUserName)}
-                        updateEmail={updateField("email", setEmail)}
-                        updatePhoneNumber={updateField("phoneNumber", setPhoneNumber)}
+                        updateUserName={updateField(setUserName)}
+                        updateEmail={updateField(setEmail)}
+                        updatePhoneNumber={updateField(setPhoneNumber)}
                     />
                 )}
 
@@ -81,7 +109,7 @@ function AuthForm() {
                 {currentStep === 2 && <Plan/>}
 
                 {/*add-ons*/}
-                {currentStep === 3 && <div>Add-ons</div>}
+                {currentStep === 3 && <AddOns addons={addons} handleAddons={handleAddons}/>}
 
                 {/*summary*/}
                 {currentStep === 4 && <div>Summary</div>}
