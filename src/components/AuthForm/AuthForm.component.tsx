@@ -6,6 +6,7 @@ import personalInfoValidation from "../../utils/personalInfo.validation";
 import Plan from "./Plan/Plan.component";
 import StepContainer from "./PersonalInfo/Step/StepContainer.component";
 import AddOns from "./Add-ons/AddOns.component.tsx";
+import Summary from "./Summary/Summary.component.tsx";
 
 function AuthForm() {
     const [currentStep, setCurrentStep] = useState<number>(
@@ -86,6 +87,8 @@ function AuthForm() {
 
     const updateField: UpdateFieldType = (setState) => (event: React.ChangeEvent<HTMLInputElement>) => setState(event.target.value);
 
+    const redirectToStep2 = () => setCurrentStep(2)
+
     return (
         <div className="auth__form">
             <StepContainer currentStep={currentStep}/>
@@ -112,7 +115,7 @@ function AuthForm() {
                 {currentStep === 3 && <AddOns addons={addons} handleAddons={handleAddons}/>}
 
                 {/*summary*/}
-                {currentStep === 4 && <div>Summary</div>}
+                {currentStep === 4 && <Summary redirectToStep2={redirectToStep2}/>}
 
                 <div className="auth__form-button-container">
                     {currentStep !== 1 && (
