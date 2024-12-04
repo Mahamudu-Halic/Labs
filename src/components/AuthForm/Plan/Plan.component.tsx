@@ -3,13 +3,18 @@ import Cards from "./Card/Cards.component.tsx";
 import "./plan.styles.css"
 import TimeFrameToogler from "./TimeFrameToggler/TimeFrameToggler.component.tsx";
 import {useEffect, useState} from "react";
+import {ServiceType} from "../../../types.ts";
 
 const Plan = () => {
-    const [plan, setPlan] = useState<string>(() => localStorage.getItem("plan") || "arcade")
+    const [plan, setPlan] = useState<ServiceType>(() => {
+        const storedPlan = localStorage.getItem("plan");
+        return storedPlan ? JSON.parse(storedPlan) : {title: "arcade", price: 9};
+    });
+
     const [timeFrame, setTimeFrame] = useState<string>(() => localStorage.getItem("timeframe") || "monthly");
 
-    const handlePlan = (title: string) => {
-        setPlan(title)
+    const handlePlan = ({title, price}: ServiceType) => {
+        setPlan({title, price})
     };
 
     const handleTimeFrame = () => {
@@ -17,7 +22,7 @@ const Plan = () => {
     }
 
     useEffect(() => {
-        localStorage.setItem('plan', plan);
+        localStorage.setItem('plan', JSON.stringify(plan));
         localStorage.setItem('timeframe', timeFrame);
     }, [plan, timeFrame])
 

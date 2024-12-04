@@ -1,74 +1,48 @@
-import {PlanCardType} from "../../../../types.ts";
+import {ServiceType, PlanCardType} from "../../../../types.ts";
 
 import "./card.styles.css"
 
-const cardItems = {
-    monthly: [
-        {
-            icon: "./assets/images/icon-arcade.svg",
-            plan: "arcade",
-            price: 9,
-            freeTrial: ""
-        },
-        {
-            icon: "./assets/images/icon-advanced.svg",
-            plan: "advanced",
-            price: 12,
-            freeTrial: ""
-        },
-        {
-            icon: "./assets/images/icon-pro.svg",
-            plan: "pro",
-            price: 15,
-            freeTrial: ""
-        },
-    ],
-
-    yearly: [
-        {
-            icon: "./assets/images/icon-arcade.svg",
-            plan: "arcade",
-            price: 90,
-            freeTrial: "2 months free",
-        },
-        {
-            icon: "./assets/images/icon-advanced.svg",
-            plan: "advanced",
-            price: 120,
-            freeTrial: "2 months free",
-        },
-        {
-            icon: "./assets/images/icon-pro.svg",
-            plan: "pro",
-            price: 150,
-            freeTrial: "2 months free",
-        },
-    ],
-};
+const cardItems = [
+    {
+        icon: "./assets/images/icon-arcade.svg",
+        title: "arcade",
+        price: 9,
+    },
+    {
+        icon: "./assets/images/icon-advanced.svg",
+        title: "advanced",
+        price: 12,
+    },
+    {
+        icon: "./assets/images/icon-pro.svg",
+        title: "pro",
+        price: 15,
+    },
+]
 
 const Cards = ({plan, handlePlan, timeFrame}: {
-    plan: string;
+    plan: ServiceType;
     timeFrame: string;
-    handlePlan: (value: string) => void
+    handlePlan: ({title, price}: ServiceType) => void
 }) => {
 
-    let cards;
-    if (plan) {
-        cards = cardItems[timeFrame].map((item: PlanCardType) => (
-            <div
-                key={item.plan}
-                className={`card ${plan === item.plan ? "active" : ""}`}
-                onClick={() => handlePlan(item.plan)}
-            >
-                <img src={item.icon} alt="Plan icon"/>
-                <div className="card__plan">
-                    <h2 className="card__plan-name">{item.plan}</h2>
-                    <p className="card__plan-price">${item.price}/{timeFrame === "monthly" ? "mo" : "yr"}</p>
-                    {item.freeTrial && <p className="card__plan-free-trial">{item.freeTrial}</p>}
-                </div>
+    const cards = cardItems.map((item: PlanCardType) => (
+        <div
+            key={item.title}
+            className={`card ${plan.title === item.title ? "active" : ""}`}
+            onClick={() => handlePlan({
+                title: item.title,
+                price: timeFrame === "monthly" ? item.price : item.price * 10
+            })}
+        >
+            <img src={item.icon} alt="Plan icon"/>
+            <div className="card__plan">
+                <h2 className="card__plan-name">{item.title}</h2>
+                <p className="card__plan-price">${timeFrame === "monthly" ? item.price + "/mo" : (item.price * 10) + "/yr"}</p>
+                {timeFrame === "yearly" && <p className="card__plan-free-trial">2 months free</p>}
             </div>
-        ));
-    }
+        </div>
+    ));
 
     return (
         <div className="cards">
