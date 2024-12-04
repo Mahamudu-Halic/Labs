@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Step from "./Step.component";
 
 const StepArr = [

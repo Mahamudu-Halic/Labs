@@ -1,4 +1,3 @@
-import React, { ChangeEvent, useState } from "react";
 import Header from "../Header/Header.component";
 import { PersonalInfoType } from "../../../types";
 import FormGroup from "./FormGroup/FormGroup.component";
