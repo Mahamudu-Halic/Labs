@@ -11,7 +11,6 @@ export type FormGroupType = {
 };
 
 export type UpdateFieldType = (
-    fieldName: string,
     setState: React.Dispatch<React.SetStateAction<string>>
 ) => (event: React.ChangeEvent<HTMLInputElement>) => void;
 
@@ -30,7 +29,18 @@ export type PersonalInfoType = {
 
 export type PlanCardType = {
     icon: string;
-    plan: string;
-    price: string;
-    freeTrial?: string;
+    title: string;
+    price: number;
+}
+
+export type ServiceType = {
+    title: string;
+    price: number;
+}
+
+export type AddOnsListType = {
+    key: string;
+    title: string;
+    description: string;
+    price: number;
 }
