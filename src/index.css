@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: 16px;
 }
 
 :root {
@@ -32,6 +33,11 @@ body {
     justify-content: center;
     align-items: center;
     background: var(--bg);
+    /*overflow: hidden;*/
+}
+
+label, button {
+    user-select: none;
 }
 
 a {
@@ -39,7 +45,7 @@ a {
     color: var(--white);
 }
 
-p {
+p, label, input {
     font-size: 1rem;
 }
 
@@ -51,11 +57,10 @@ button {
     background: var(--denim);
     color: var(--white);
     font-weight: 500;
-    font-size: 1rem;
+    font-size: 0.8rem;
     min-width: 100px;
     text-transform: capitalize;
     transition: all 0.3s ease-in-out;
-    user-select: none;
 
     &:hover {
         background: #164a8a;
@@ -63,16 +68,35 @@ button {
 }
 
 header {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     h1 {
         color: var(--denim);
-        font-size: 3rem;
+        font-size: 2rem;
         margin-bottom: 10px;
     }
 
     p {
         color: var(--grey);
         font-weight: 400;
+    }
+}
+
+.wrapper {
+    width: 90%;
+    overflow: hidden;
+    animation: slideInRight 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /*background-color: red;*/
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
     }
 }

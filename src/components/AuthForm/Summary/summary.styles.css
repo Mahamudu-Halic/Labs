@@ -14,13 +14,13 @@
 }
 
 .summary__container {
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
     background: var(--very-light-grey);
     display: flex;
     flex-direction: column;
     gap: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 
     hr {
         border: solid 1px var(--grey);
@@ -78,10 +78,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 40px;
+    padding: 0 20px;
 
     .summary__total {
-        color: var(--denim);
+        color: var(--blue);
         font-weight: 700;
         font-size: 1.3rem;
     }

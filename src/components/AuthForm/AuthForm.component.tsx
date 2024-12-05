@@ -33,6 +33,8 @@ function AuthForm() {
         JSON.parse(localStorage.getItem("addOns") || "[]")
     );
 
+    const [complete, setComplete] = useState<boolean>(() => JSON.parse(localStorage.getItem("complete") || "false"));
+    const [formValid, setFormValid] = useState<boolean>(false);
     const handleAddons = ({title, price}: ServiceType) => {
         const currentAddons = [...addons];
 
@@ -61,8 +63,6 @@ function AuthForm() {
     };
 
     const handleNextStep = () => {
-        if (currentStep === 4) return;
-
         if (currentStep === 1) {
             const {isValid, userError, emailError, phoneError} =
                 personalInfoValidation(userName, email, phoneNumber);
@@ -87,51 +87,79 @@ function AuthForm() {
 
     const updateField: UpdateFieldType = (setState) => (event: React.ChangeEvent<HTMLInputElement>) => setState(event.target.value);
 
-    const redirectToStep2 = () => setCurrentStep(2)
+    const navigateTo = (value: number) => setCurrentStep(value)
+
+    const handleComplete = () => {
+        localStorage.removeItem("plan")
+        localStorage.removeItem("userName")
+        localStorage.removeItem("email")
+        localStorage.removeItem("phoneNumber")
+        localStorage.removeItem("addOns")
+        localStorage.removeItem("timeframe")
+        localStorage.removeItem("currenStep")
+
+        setComplete(true);
+
+        setTimeout(() => {
+            console.log("complete")
+        }, 3000)
+    }
+
+    useEffect(() => {
+        const plan = JSON.parse(localStorage.getItem("plan") || "null");
+        if (userName && email && phoneNumber && addons.length && plan) setFormValid(true)
+        else setFormValid(false)
+    }, [userName, email, phoneNumber, addons, currentStep]);
 
     return (
         <div className="auth__form">
-            <StepContainer currentStep={currentStep}/>
+            <StepContainer currentStep={currentStep} navigateTo={navigateTo} complete={complete}/>
             <div className="auth__form-container">
-                {/*personal info*/}
-                {currentStep === 1 && (
-                    <PersonalInfo
-                        userName={userName}
-                        email={email}
-                        phoneNumber={phoneNumber}
-                        userErrorMsg={userErrorMsg}
-                        emailErrorMsg={emailErrorMsg}
-                        phoneErrorMsg={phoneErrorMsg}
-                        updateUserName={updateField(setUserName)}
-                        updateEmail={updateField(setEmail)}
-                        updatePhoneNumber={updateField(setPhoneNumber)}
-                    />
-                )}
+                {!complete && <>
+                    {/*personal info*/}
+                    {currentStep === 1 && (
+                        <PersonalInfo
+                            userName={userName}
+                            email={email}
+                            phoneNumber={phoneNumber}
+                            userErrorMsg={userErrorMsg}
+                            emailErrorMsg={emailErrorMsg}
+                            phoneErrorMsg={phoneErrorMsg}
+                            updateUserName={updateField(setUserName)}
+                            updateEmail={updateField(setEmail)}
+                            updatePhoneNumber={updateField(setPhoneNumber)}
+                        />
+                    )}
 
-                {/*plan*/}
-                {currentStep === 2 && <Plan/>}
+                    {/*plan*/}
+                    {currentStep === 2 && <Plan/>}
 
-                {/*add-ons*/}
-                {currentStep === 3 && <AddOns addons={addons} handleAddons={handleAddons}/>}
+                    {/*add-ons*/}
+                    {currentStep === 3 && <AddOns addons={addons} handleAddons={handleAddons}/>}
 
-                {/*summary*/}
-                {currentStep === 4 && <Summary redirectToStep2={redirectToStep2}/>}
+                    {/*summary*/}
+                    {currentStep === 4 && <Summary navigateTo={navigateTo}/>}
+                </>}
 
-                <div className="auth__form-button-container">
+                {/*thank you*/}
+                {complete && <div className="auth__form-thank-you">Thank you!</div>}
+
+                {!complete && <div className="auth__form-button-container">
                     {currentStep !== 1 && (
                         <button onClick={handlePreviousStep} className="auth__form-prev-button">
                             go back
                         </button>
                     )}
                     <button
-                        onClick={handleNextStep}
+                        onClick={currentStep === 4 ? handleComplete : handleNextStep}
+                        disabled={currentStep === 4 && !formValid}
                         className={`auth__form-button ${
                             currentStep === 4 ? "confirm" : ""
                         }`}
                     >
                         {currentStep === 4 ? "Confirm" : "Next Step"}
                     </button>
-                </div>
+                </div>}
             </div>
         </div>
     );
