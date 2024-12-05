@@ -102,10 +102,10 @@ const handleGeneratePassword = () => {
 
     if (passwordStrength === "strong") {
         updateStrengthStatus("strong-password", passwordStrength);
-    } else if (passwordLength >= 8 && selectedOptions >= 2) {
+    } else if (passwordStrength === "medium") {
         updateStrengthStatus("medium-password", passwordStrength);
         bars[3].className = "";
-    } else if (passwordLength >= 8 && selectedOptions === 1) {
+    } else if (passwordStrength === "week") {
         updateStrengthStatus("", passwordStrength);
         bars[0].className = "weak-password";
         bars[1].className = "weak-password";

@@ -24,7 +24,6 @@ class PasswordGenerator {
         this.addRemainingCharacters(passwordLength - this.passwordArray.length);
 
         return this.shufflePassword().join("");
-        ;
     }
 
     addCharactersToPool(charset) {
