@@ -1,13 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./landing.styles.css";
 import { useNavigate } from "react-router-dom";
 
 function LaningPage() {
   const navigate = useNavigate();
-  const [inProgress, setInProgress] = useState(() =>
-    JSON.parse(localStorage.getItem("inProgress") || "false")
-  );
-
+  
   const goToForm = () => {
     localStorage.removeItem("complete");
     localStorage.setItem("inProgress", "true");
@@ -15,6 +12,7 @@ function LaningPage() {
   };
 
   useEffect(() => {
+    const inProgress = JSON.parse(localStorage.getItem("inProgress") || "false")
     inProgress && navigate("/auth-form");
   }, []);
   return (
