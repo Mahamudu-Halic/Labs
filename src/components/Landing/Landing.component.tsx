@@ -1,22 +1,40 @@
-import "./landing.styles.css"
-import {Link} from "react-router-dom";
+import useMultiForm from "../../utils/useMultiForm";
+import "./landing.styles.css";
+import { Link, useNavigate } from "react-router-dom";
 
 function LaningPage() {
-    return (
-        <div className={"landing"}>
-            <button className={"landing__button"}>
-                <Link to="/auth-form">Get started</Link>
-            </button>
+  const navigate = useNavigate();
 
-            <h1>What to expert from the form 👇</h1>
-            <div className="landing__image-container">
-                <img className={"landing__image"} src="/assets/images/info.png" alt={"info"}/>
-                <img className={"landing__image"} src="/assets/images/plan.png" alt={"plan"}/>
-                <img className={"landing__image"} src="/assets/images/add-ons.png" alt={"add-ons"}/>
+  const goToForm = () => {
+    localStorage.removeItem("complete");
+    navigate("/auth-form");
+  };
+  return (
+    <div className={"landing"}>
+      <button className={"landing__button"} onClick={goToForm}>
+        Get Started
+      </button>
 
-            </div>
-        </div>
-    )
+      <h1>What to expert from the form 👇</h1>
+      <div className="landing__image-container">
+        <img
+          className={"landing__image"}
+          src="/assets/images/info.png"
+          alt={"info"}
+        />
+        <img
+          className={"landing__image"}
+          src="/assets/images/plan.png"
+          alt={"plan"}
+        />
+        <img
+          className={"landing__image"}
+          src="/assets/images/add-ons.png"
+          alt={"add-ons"}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default LaningPage;
