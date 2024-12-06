@@ -1,6 +1,5 @@
 import Header from "../Header/Header.component";
 import Cards from "./Card/Cards.component.tsx";
-import "./plan.styles.css";
 import TimeFrameToogler from "./TimeFrameToggler/TimeFrameToggler.component.tsx";
 import { StepTypes } from "../../../types.ts";
 

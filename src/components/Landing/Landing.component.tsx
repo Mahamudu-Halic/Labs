@@ -1,14 +1,22 @@
-import useMultiForm from "../../utils/useMultiForm";
+import { useEffect, useState } from "react";
 import "./landing.styles.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function LaningPage() {
   const navigate = useNavigate();
+  const [inProgress, setInProgress] = useState(() =>
+    JSON.parse(localStorage.getItem("inProgress") || "false")
+  );
 
   const goToForm = () => {
     localStorage.removeItem("complete");
+    localStorage.setItem("inProgress", "true");
     navigate("/auth-form");
   };
+
+  useEffect(() => {
+    inProgress && navigate("/auth-form");
+  }, []);
   return (
     <div className={"landing"}>
       <button className={"landing__button"} onClick={goToForm}>

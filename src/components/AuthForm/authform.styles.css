@@ -68,6 +68,10 @@
     .auth__form-container {
       padding: 0;
       width: 100%;
+      gap: 20px;
+      z-index: 9;
+      justify-content: flex-start;
+      
 
       .auth__form-button-container {
         padding: 15px;
@@ -76,26 +80,13 @@
       }
       .wrapper {
         width: 90%;
-        position: absolute;
-        top: 20%;
-        /* transform: translateY(10px); */
+        min-height: 300px;
+     
+        margin-top: 30%;
         padding: 20px;
         border-radius: 15px;
         box-shadow: 0 0 15px 5px #00000027;
         gap: 10px;
-
-        &.thank-you {
-          min-height: 60%;
-          /* padding: 50px; */
-
-          h2 {
-            font-size: 1.4rem;
-          }
-
-          p {
-            font-size: 1rem;
-          }
-        }
       }
     }
   }

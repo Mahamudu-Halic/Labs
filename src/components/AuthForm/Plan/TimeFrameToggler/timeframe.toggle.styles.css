@@ -8,7 +8,6 @@
   padding: 15px;
   background: var(--very-light-grey);
   color: var(--denim);
-  font-weight: 500;
   border-radius: 10px;
 
   .timeframe__toggle {

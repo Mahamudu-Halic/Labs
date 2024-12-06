@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router-dom";
+
 const ThankYou = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="thank-you wrapper">
       <img src="/assets/images/icon-thank-you.svg" alt="" />
@@ -8,6 +12,8 @@ const ThankYou = () => {
         platform. If you ever need support, please feel free to email us at
         support@loremgaming.com.
       </p>
+
+      <button onClick={() => navigate("/")}>Go Back Home</button>
     </div>
   );
 };

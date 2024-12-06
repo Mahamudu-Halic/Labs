@@ -4,7 +4,6 @@ import { FormItems } from "../../types";
 import Plan from "./Plan/Plan.component";
 import AddOns from "./Add-ons/AddOns.component.tsx";
 import Summary from "./Summary/Summary.component.tsx";
-import { useNavigate } from "react-router-dom";
 import useMultiForm from "../../utils/useMultiForm.ts";
 import StepContainer from "./PersonalInfo/Step/StepContainer.component.tsx";
 import formFieldValidation from "../../utils/form.field.validation.ts";
@@ -41,8 +40,6 @@ function AuthForm() {
     JSON.parse(localStorage.getItem("isComplete") || "false")
   );
 
-  const navigate = useNavigate();
-
   const updateForm = (
     fieldToUpdate: Partial<FormItems>,
     field?: keyof FormItems
@@ -61,6 +58,12 @@ function AuthForm() {
         ),
       }));
     }
+
+    setSummaryErr("");
+    setErrors((prevErrs) => ({
+      ...prevErrs,
+      addonsErr: "",
+    }));
   };
 
   const {
@@ -115,12 +118,7 @@ function AuthForm() {
       };
       if (Object.values(newErrors).every((error) => error === "")) {
         setIsComplete(true);
-        localStorage.setItem("isComplete", "true");
-        localStorage.removeItem("formData");
-        setTimeout(() => {
-          localStorage.removeItem("isComplete");
-          navigate("/");
-        }, 3000);
+        reset();
         return;
       } else {
         setSummaryErr("please complete the form before submitting");
@@ -131,9 +129,19 @@ function AuthForm() {
     formIsValid && nextStep();
   };
 
+  const reset = () => {
+    localStorage.removeItem("isComplete");
+    localStorage.removeItem("inProgress");
+    localStorage.removeItem("formData");
+  };
+
   useEffect(() => {
     localStorage.setItem("formData", JSON.stringify(formData));
   }, [formData]);
+
+  useEffect(() => {
+    localStorage.setItem("inProgress", JSON.stringify("true"));
+  }, []);
 
   return (
     <div className="auth__form">
