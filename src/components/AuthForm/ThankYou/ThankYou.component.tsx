@@ -1,6 +1,6 @@
 const ThankYou = () => {
   return (
-    <div>
+    <div className="thank-you wrapper">
       <img src="/assets/images/icon-thank-you.svg" alt="" />
       <h2>Thank You</h2>
       <p>

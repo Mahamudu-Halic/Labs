@@ -1,55 +1,102 @@
 .auth__form {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 15px;
+  background: var(--white);
+  padding: 20px;
+  border-radius: 15px;
+  display: flex;
+  gap: 20px;
+  height: 90vh;
+  width: 900px;
+
+  .auth__form-container {
+    flex: 2;
     display: flex;
-    gap: 20px;
-    height: 90vh;
-    width: 900px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    overflow: hidden;
+    /*background-color: green;*/
+
+    .auth__form-button-container {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      margin-top: auto;
+
+      .auth__form-prev-button {
+        background: none;
+        color: var(--grey);
+        min-width: fit-content;
+
+        &:hover {
+          color: var(--denim);
+        }
+      }
+
+      .auth__form-button {
+        margin-left: auto;
+        margin-top: auto;
+
+        &.confirm {
+          background: var(--blue);
+
+          &:hover {
+            background: #928cff;
+          }
+
+          &:disabled {
+            cursor: not-allowed;
+            background: var(--grey);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (width < 800px) {
+  .auth__form {
+    flex-direction: column;
+    width: 100vw;
+    padding: 0;
+    height: unset;
+    min-height: 100vh;
+    gap: 0;
+    position: relative;
+    background: var(--bg);
 
     .auth__form-container {
-        flex: 2;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+      padding: 0;
+      width: 100%;
+
+      .auth__form-button-container {
+        padding: 15px;
+        background-color: var(--white);
+        width: 100%;
+      }
+      .wrapper {
+        width: 90%;
+        position: absolute;
+        top: 20%;
+        /* transform: translateY(10px); */
         padding: 20px;
-        overflow: hidden;
-        /*background-color: green;*/
+        border-radius: 15px;
+        box-shadow: 0 0 15px 5px #00000027;
+        gap: 10px;
 
-        .auth__form-button-container {
-            display: flex;
-            justify-content: space-between;
-            width: 90%;
-            margin-top: auto;
+        &.thank-you {
+          min-height: 60%;
+          /* padding: 50px; */
 
-            .auth__form-prev-button {
-                background: none;
-                color: var(--grey);
-                min-width: fit-content;
+          h2 {
+            font-size: 1.4rem;
+          }
 
-                &:hover {
-                    color: var(--denim);
-                }
-            }
-
-            .auth__form-button {
-                margin-left: auto;
-                margin-top: auto;
-
-                &.confirm {
-                    background: var(--blue);
-
-                    &:hover {
-                        background: #928cff;
-                    }
-
-                    &:disabled {
-                        cursor: not-allowed;
-                        background: var(--grey);
-                    }
-                }
-            }
+          p {
+            font-size: 1rem;
+          }
         }
+      }
     }
+  }
 }

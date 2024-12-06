@@ -11,9 +11,9 @@ const StepArr = [
 function StepContainer({
   currentStep,
   navigateTo,
-//   complete,
+  complete,
 }: {
-//   complete: boolean;
+  complete: boolean;
   currentStep: number;
   navigateTo: (value: number) => void;
 }) {
@@ -26,7 +26,7 @@ function StepContainer({
           description={step.description}
           currentStep={currentStep}
           navigateTo={navigateTo}
-        //   disabled={complete}
+          disabled={complete}
         />
       ))}
     </div>

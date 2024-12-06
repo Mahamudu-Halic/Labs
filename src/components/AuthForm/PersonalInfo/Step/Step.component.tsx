@@ -3,18 +3,20 @@ function Step({
   description,
   currentStep,
   navigateTo,
-}: //   disabled,
-{
+  disabled,
+}: {
   step: number;
   description?: string;
   currentStep?: number;
   navigateTo: (value: number) => void;
-  //   disabled: boolean;
+  disabled: boolean;
 }) {
   return (
     <div className="step">
       <div
-        className={`step__number ${currentStep === step -1 ? "active" : ""} `}
+        className={`step__number ${currentStep === step - 1 ? "active" : ""}  ${
+          disabled && "disabled"
+        }`}
         onClick={() => navigateTo(step)}
       >
         <p>{step}</p>

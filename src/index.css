@@ -3,6 +3,10 @@
   padding: 0;
   box-sizing: border-box;
   font-size: 16px;
+
+  @media (width < 800px){
+    font-size: 12px;
+  }
 }
 
 :root {
@@ -50,6 +54,7 @@ p,
 label,
 input {
   font-size: 1rem;
+  font-weight: 400;
 }
 
 button {
@@ -60,7 +65,6 @@ button {
   background: var(--denim);
   color: var(--white);
   font-weight: 500;
-  font-size: 0.8rem;
   min-width: 100px;
   text-transform: capitalize;
   transition: all 0.3s ease-in-out;
@@ -75,6 +79,10 @@ header {
     color: var(--denim);
     font-size: 2rem;
     margin-bottom: 10px;
+
+    @media (width < 800px){
+      margin-bottom: 5px;
+    }
   }
 
   p {
@@ -90,7 +98,7 @@ header {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  /*background-color: red;*/
+  background: var(--white);
 }
 
 .add-ons,
@@ -102,6 +110,23 @@ header {
     text-align: center;
     margin-top: auto;
     animation: fadeIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+}
+
+.thank-you {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  h2 {
+    font-size: 2rem;
+    color: var(--denim);
+    font-weight: 700;
+  }
+  p {
+    color: var(--grey);
+    font-weight: 400;
+    font-size: 0.8rem;
   }
 }
 
