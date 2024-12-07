@@ -1,7 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-const ThankYou = () => {
+const ThankYou = ({ reset }: { reset: () => void }) => {
   const navigate = useNavigate();
+
+  const goHome = () => {
+    reset();
+    localStorage.removeItem("isComplete");
+    navigate("/");
+  };
 
   return (
     <div className="thank-you wrapper">
@@ -13,7 +19,7 @@ const ThankYou = () => {
         support@loremgaming.com.
       </p>
 
-      <button onClick={() => navigate("/")}>Go Back Home</button>
+      <button onClick={goHome}>Go Back Home</button>
     </div>
   );
 };

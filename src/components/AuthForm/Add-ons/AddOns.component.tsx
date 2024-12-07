@@ -68,9 +68,9 @@ const AddOns = ({ addons, updateForm, timeFrame, addonsErr }: AddonsType) => {
         description={"Add-ons help enhance your gaming experience"}
       />
 
+      {addonsErr && <p className={"error"}>{addonsErr}</p>}
       <div className="add-ons__container">{addon}</div>
 
-      {addonsErr && <p className={"error"}>{addonsErr}</p>}
     </div>
   );
 };

@@ -73,10 +73,10 @@ function AuthForm() {
     isFirstStep,
     isLastStep,
     goToStep,
+    reset,
   } = useMultiForm(4);
 
   const handleStepValidation = () => {
-    // Check for any remaining errors
     let formIsValid = true;
     setSummaryErr("");
 
@@ -117,6 +117,7 @@ function AuthForm() {
         addonsErr: formFieldValidation("addons", formData.addons.join(",")),
       };
       if (Object.values(newErrors).every((error) => error === "")) {
+        localStorage.setItem("isComplete", "true");
         setIsComplete(true);
         reset();
         return;
@@ -127,12 +128,6 @@ function AuthForm() {
     }
 
     formIsValid && nextStep();
-  };
-
-  const reset = () => {
-    localStorage.removeItem("isComplete");
-    localStorage.removeItem("inProgress");
-    localStorage.removeItem("formData");
   };
 
   useEffect(() => {
@@ -174,7 +169,7 @@ function AuthForm() {
           </>
         )}
 
-        {isComplete && <ThankYou />}
+        {isComplete && <ThankYou reset={reset}/>}
 
         {!isComplete && (
           <div className="auth__form-button-container">

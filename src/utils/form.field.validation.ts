@@ -3,37 +3,31 @@ const formFieldValidation = (field: string, value: string) => {
 
   switch (field) {
     case "name":
-      if (!value.trim()) {
-        errorMessage = "This field is required.";
-      } else if (!/^[a-zA-Z\s]+$/.test(value.trim())) {
-        errorMessage = "Name can only contain letters and spaces.";
-      }
+      errorMessage = !value.trim()
+        ? "This field is required."
+        : !/^[a-zA-Z\s]+$/.test(value.trim())
+        ? "Name can only contain letters and spaces."
+        : "";
       break;
 
     case "email":
-      if (!value.trim()) {
-        errorMessage = "This field is required.";
-      } else if (
-        !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim())
-      ) {
-        errorMessage = "Invalid email address.";
-      }
+      errorMessage = !value.trim()
+        ? "This field is required."
+        : !/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value.trim())
+        ? "Invalid email address."
+        : "";
       break;
 
     case "phoneNumber":
-      if (!value.trim()) {
-        errorMessage = "This field is required.";
-      } else if (
-        !/^\+\d{1,3}[-\s]?\d{3}[-\s]?\d{3}[-\s]?\d{3,}$/.test(value.trim())
-      ) {
-        errorMessage = "Invalid phone number format.";
-      }
+      errorMessage = !value.trim()
+        ? "This field is required."
+        : !/^\+\d{1,3}[-\s]?\d{3}[-\s]?\d{3}[-\s]?\d{3,}$/.test(value.trim())
+        ? "Invalid phone number format."
+        : "";
       break;
 
     case "addons":
-      if (!value.trim()) {
-        errorMessage = "Please select at least one add-on.";
-      }
+        errorMessage = !value.trim() ? "Please select at least one add-on." : "";
       break;
 
     default:

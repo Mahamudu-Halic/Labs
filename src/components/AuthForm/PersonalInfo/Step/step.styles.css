@@ -58,13 +58,15 @@
   }
 }
 
-@media (width < 800px) {
+@media (width < 700px) {
   .step-container {
     background-image: url("/assets/images/bg-sidebar-mobile.svg");
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     padding: 30px 0;
     height: 30%;
