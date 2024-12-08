@@ -5,7 +5,7 @@ const ThankYou = ({ reset }: { reset: () => void }) => {
 
   const goHome = () => {
     reset();
-    localStorage.removeItem("isComplete");
+
     navigate("/");
   };
 

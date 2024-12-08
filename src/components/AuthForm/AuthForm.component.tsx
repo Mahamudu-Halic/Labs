@@ -4,12 +4,19 @@ import { FormItems } from "../../types";
 import Plan from "./Plan/Plan.component";
 import AddOns from "./Add-ons/AddOns.component.tsx";
 import Summary from "./Summary/Summary.component.tsx";
-import useMultiForm from "../../utils/useMultiForm.ts";
 import StepContainer from "./PersonalInfo/Step/StepContainer.component.tsx";
 import formFieldValidation from "../../utils/form.field.validation.ts";
 import ThankYou from "./ThankYou/ThankYou.component.tsx";
 
 import "./authform.styles.css";
+import {
+  goToStep,
+  isFirstStep,
+  isLastStep,
+  nextStep,
+  prevStep,
+  reset,
+} from "../../utils/useMultiForm.ts";
 
 const initialValues: FormItems = {
   name: "",
@@ -27,17 +34,24 @@ const initialErrorValues = {
   addonsErr: "",
 };
 
+const totalSteps: number = 4;
+
 function AuthForm() {
-  const [formData, setFormData] = useState<FormItems>(() => {
-    const storedFormData = localStorage.getItem("formData");
-    return storedFormData ? JSON.parse(storedFormData) : initialValues;
-  });
+  const [formData, setFormData] = useState<FormItems>(() =>
+    JSON.parse(
+      localStorage.getItem("formData") || JSON.stringify(initialValues)
+    )
+  );
 
   const [errors, setErrors] = useState(initialErrorValues);
 
   const [summaryErr, setSummaryErr] = useState("");
   const [isComplete, setIsComplete] = useState(() =>
     JSON.parse(localStorage.getItem("isComplete") || "false")
+  );
+
+  const [currentStep, setCurrentStep] = useState(
+    Number(localStorage.getItem("currentStep")) || 0
   );
 
   const updateForm = (
@@ -66,21 +80,14 @@ function AuthForm() {
     }));
   };
 
-  const {
-    nextStep,
-    prevStep,
-    currentIndex,
-    isFirstStep,
-    isLastStep,
-    goToStep,
-    reset,
-  } = useMultiForm(4);
-
+  const handleGoToStep = (step: number) => {
+    setCurrentStep(() => goToStep(step));
+  };
   const handleStepValidation = () => {
     let formIsValid = true;
     setSummaryErr("");
 
-    if (currentIndex === 0) {
+    if (currentStep === 0) {
       const newErrors = {
         nameErr: formFieldValidation("name", formData.name),
         emailErr: formFieldValidation("email", formData.email),
@@ -96,7 +103,7 @@ function AuthForm() {
         formIsValid = false;
     }
 
-    if (currentIndex === 2) {
+    if (currentStep === 2) {
       const newErrors = {
         addonsErr: formFieldValidation("addons", formData.addons.join(",")),
       };
@@ -106,7 +113,7 @@ function AuthForm() {
       if (newErrors.addonsErr) formIsValid = false;
     }
 
-    if (currentIndex === 3) {
+    if (currentStep === 3) {
       const newErrors = {
         nameErr: formFieldValidation("name", formData.name),
         emailErr: formFieldValidation("email", formData.email),
@@ -119,7 +126,7 @@ function AuthForm() {
       if (Object.values(newErrors).every((error) => error === "")) {
         localStorage.setItem("isComplete", "true");
         setIsComplete(true);
-        reset();
+        // reset();
         return;
       } else {
         setSummaryErr("please complete the form before submitting");
@@ -127,8 +134,12 @@ function AuthForm() {
       }
     }
 
-    formIsValid && nextStep();
+    formIsValid && setCurrentStep(() => nextStep(currentStep, totalSteps));
   };
+
+  useEffect(() => {
+    localStorage.setItem("currentStep", String(currentStep));
+  }, [currentStep]);
 
   useEffect(() => {
     localStorage.setItem("formData", JSON.stringify(formData));
@@ -141,48 +152,53 @@ function AuthForm() {
   return (
     <div className="auth__form">
       <StepContainer
-        currentStep={currentIndex}
-        navigateTo={goToStep}
+        currentStep={currentStep}
+        navigateTo={handleGoToStep}
         complete={isComplete}
       />
 
       <div className="auth__form-container">
         {!isComplete && (
           <>
-            {currentIndex === 0 && (
+            {currentStep === 0 && (
               <PersonalInfo {...formData} updateForm={updateForm} {...errors} />
             )}
-            {currentIndex === 1 && (
+            {currentStep === 1 && (
               <Plan {...formData} updateForm={updateForm} />
             )}
-            {currentIndex === 2 && (
+            {currentStep === 2 && (
               <AddOns {...formData} updateForm={updateForm} {...errors} />
             )}
-            {currentIndex === 3 && (
+            {currentStep === 3 && (
               <Summary
                 {...formData}
                 updateForm={updateForm}
-                navigateTo={goToStep}
+                navigateTo={handleGoToStep}
                 error={summaryErr}
               />
             )}
           </>
         )}
 
-        {isComplete && <ThankYou reset={reset}/>}
+        {isComplete && <ThankYou reset={reset} />}
 
         {!isComplete && (
           <div className="auth__form-button-container">
-            {!isFirstStep && (
-              <button onClick={prevStep} className="auth__form-prev-button">
+            {!isFirstStep(currentStep) && (
+              <button
+                onClick={() => setCurrentStep(() => prevStep(currentStep))}
+                className="auth__form-prev-button"
+              >
                 go back
               </button>
             )}
             <button
               onClick={handleStepValidation}
-              className={`auth__form-button ${isLastStep ? "confirm" : ""}`}
+              className={`auth__form-button ${
+                isLastStep(currentStep, totalSteps) ? "confirm" : ""
+              }`}
             >
-              {isLastStep ? "Confirm" : "Next Step"}
+              {isLastStep(currentStep, totalSteps) ? "Confirm" : "Next Step"}
             </button>
           </div>
         )}
