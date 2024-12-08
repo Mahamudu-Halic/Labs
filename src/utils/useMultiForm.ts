@@ -1,43 +1,36 @@
-import { useState } from "react";
+import { FormItems } from "../types";
 
-const useMultiForm = (totalSteps: number) => {
-  const [currentIndex, setCurrentIndex] = useState(
-    () => Number(localStorage.getItem("currentIndex")) || 0
-  );
-
-  const prevStep = () => {
-    if (currentIndex === 0) return;
-    setCurrentIndex(currentIndex - 1);
-    localStorage.setItem("currentIndex", String(currentIndex - 1));
-  };
-
-  const nextStep = () => {
-    if (currentIndex === totalSteps - 1) return;
-    setCurrentIndex(currentIndex + 1);
-    localStorage.setItem("currentIndex", String(currentIndex + 1));
-  };
-
-  const goToStep = (step: number) => {
-    setCurrentIndex(step - 1);
-    localStorage.setItem("currentIndex", String(step - 1));
-  };
-
-  const reset = () => {
-    // localStorage.removeItem("isComplete");
-    localStorage.removeItem("inProgress");
-    localStorage.removeItem("formData");
-    localStorage.removeItem("currentIndex");
-  };
-
-  return {
-    currentIndex,
-    prevStep,
-    nextStep,
-    goToStep,
-    reset,
-    isFirstStep: currentIndex === 0,
-    isLastStep: currentIndex === totalSteps - 1,
-  };
+const initialValues: FormItems = {
+  name: "",
+  email: "",
+  phoneNumber: "",
+  timeFrame: "monthly",
+  plan: { price: 9, title: "arcade" },
+  addons: [],
 };
 
-export default useMultiForm;
+export const prevStep = (currentStep: number) => {
+  if (currentStep === 0) return currentStep;
+  return currentStep - 1;
+};
+
+export const nextStep = (currentStep: number, totalSteps: number) => {
+  if (currentStep === totalSteps - 1) return currentStep;
+  return currentStep + 1;
+};
+
+export const goToStep = (step: number) => {
+  return step - 1;
+};
+
+export const isFirstStep = (step: number): boolean => step === 0;
+
+export const isLastStep = (step: number, totalSteps: number): boolean =>
+  step === totalSteps - 1;
+
+export const reset = () => {
+  localStorage.removeItem("isComplete");
+  localStorage.removeItem("inProgress");
+  localStorage.removeItem("formData");
+  localStorage.removeItem("currentStep");
+};
