@@ -7,7 +7,7 @@
     background: var(--white);
     width: 100vw;
     min-height: 100vh;
-    padding: 0 20px;
+    padding: 20px;
 
     .landing-hero {
         display: flex;
