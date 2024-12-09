@@ -1,6 +1,6 @@
 import './App.css'
 import {Route, Routes} from "react-router-dom";
-import LaningPage from "./components/Landing/Landing.component.tsx";
+import LandingPage from "./components/Landing/Landing.component.tsx";
 import AuthForm from "./components/AuthForm/AuthForm.component.tsx";
 
 function App() {
@@ -8,7 +8,7 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path="/" element={<LaningPage/>}/>
+                <Route path="/" element={<LandingPage/>}/>
                 <Route path="/auth-form" element={<AuthForm/>}/>
             </Routes>
         </>

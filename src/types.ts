@@ -1,80 +1,75 @@
-
 export type FormItems = {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  timeFrame: string;
-  plan: Plan | undefined;
-  addons: Addons[];
+    name: string;
+    email: string;
+    phoneNumber: string;
+    timeFrame: string;
+    plan: Plan | undefined;
+    addons: AddonType[];
 };
 
 export type FormGroupType = {
-  label: string;
-  inputType: string;
-  placeholder: string;
-  value: string | undefined;
-  errorMsg?: string;
-  updateForm: (value: string, field?: string) => void;
+    label: string;
+    inputType: string;
+    placeholder: string;
+    value: string | undefined;
+    errorMsg?: string;
+    updateForm: (value: string, field?: string) => void;
 };
 
-export type UpdateFieldType = (
-  setState: React.Dispatch<React.SetStateAction<string>>
-) => (event: React.ChangeEvent<HTMLInputElement>) => void;
-
-export type PersonalInfoType = StepTypes & Partial<Errors>;
-
-export type AddonsType = StepTypes & Partial<Errors>;
-
 export type Errors = {
-  nameErr: string;
-  emailErr: string;
-  phoneNumberErr: string;
-  addonsErr: string;
+    nameErr: string;
+    emailErr: string;
+    phoneNumberErr: string;
+    planErr: string;
 };
 
 export type StepTypes = Partial<FormItems> & {
-  updateForm: (
-    fieldToUpdate: Partial<FormItems>,
-    field?: keyof FormItems
-  ) => void;
+    updateForm: (
+        fieldToUpdate: Partial<FormItems>,
+        field?: keyof FormItems
+    ) => void;
 };
 
-export type TimeFrameType = Partial<FormItems> & {
-  updateForm: (value: string) => void;
-};
+export type PersonalInfoType = StepTypes & Partial<Errors> & { reset: () => void };
 
-export type CardsType = Partial<FormItems> & {
-  updateForm: (value: Plan) => void;
+export type PlanType = StepTypes & Partial<Errors> & { reset: () => void };
+export type Plan = {
+    title: string;
+    price: number;
 };
 
 export type PlanCardType = {
-  icon: string;
-  title: string;
-  price: number;
+    icon: string;
+    title: string;
+    price: number;
 };
 
-export type Plan = {
-  title: string;
-  price: number;
-};
-export type Addons = {
-  title: string;
-  price: number;
+export type TimeFrameType = Partial<FormItems> & {
+    updateForm: (value: string) => void;
 };
 
-export type ServiceType = {
-  title: string;
-  price: number;
+export type CardsType = Partial<FormItems> & {
+    updateForm: (value: Plan) => void;
+};
+
+export type AddonsType = StepTypes & {
+    reset: () => void;
+};
+
+export type AddonType = {
+    title: string;
+    price: number;
 };
 
 export type AddOnsListType = {
-  key: string;
-  title: string;
-  description: string;
-  price: number;
+    key: string;
+    title: string;
+    description: string;
+    price: number;
 };
 
 export type SummaryType = Partial<StepTypes> & {
-  navigateTo: (value: number) => void;
-  error: string;
+    navigateTo: (value: number) => void;
+    error: string;
+    reset: () => void;
 };

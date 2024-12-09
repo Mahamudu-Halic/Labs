@@ -1,8 +1,12 @@
-const Header = ({title, description}: { title: string, description: string }) => {
+const Header = ({title, description, reset}: { title: string, description: string, reset?: () => void }) => {
     return (
         <header>
-            <h1>{title}</h1>
-            <p>{description}</p>
+            <div>
+                <h1>{title}</h1>
+                <p>{description}</p>
+            </div>
+
+            <button onClick={reset}>Reset</button>
         </header>
     )
 }
