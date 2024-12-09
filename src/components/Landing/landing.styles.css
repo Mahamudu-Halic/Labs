@@ -1,33 +1,85 @@
 .landing {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
-  background: var(--bg);
-  width: 100vw;
-  min-height: 100vh;
-  padding: 20px;
-  color: var(--blue);
-
-  h1{
-    color: var(--denim)
-  }
-
-  .landing__image-container {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
     justify-content: center;
-    flex-wrap: wrap;
-  }
+    align-items: center;
+    gap: 30px;
+    background: var(--white);
+    width: 100vw;
+    min-height: 100vh;
+    padding: 0 20px;
+    /*color: var(--blue);*/
 
-  .landing__image {
-    max-width: 500px;
-    width: 100%;
-    transition: all 0.3s ease-in-out;
+    .landing-hero {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        height: 100vh;
+        padding: 20px;
 
-    &:hover {
-      transform: scale(1.1);
+        @media (width < 768px) {
+
+            img {
+                display: none;
+            }
+        }
+
+        .landing-hero__content {
+            display: flex;
+            flex-direction: column;
+
+            span {
+                color: var(--blue);
+                font-size: inherit;
+            }
+
+            .landing__button {
+                margin-top: 30px;
+                width: fit-content;
+            }
+        }
+
+        img {
+
+            width: 50%;
+        }
     }
-  }
+
+    h1, h2 {
+        color: var(--denim)
+    }
+
+    section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 30px;
+
+        h2 {
+            font-size: 2rem;
+        }
+
+        .landing__image-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .landing__image {
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 0 5px #00000080;
+            border-radius: 15px;
+            transition: all 0.3s ease-in-out;
+
+            &:hover {
+                transform: scale(1.05);
+                background-color: white;
+            }
+        }
+    }
 }

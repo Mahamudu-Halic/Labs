@@ -53,9 +53,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* align-items: center; */
     background: var(--bg);
-    /*overflow: hidden;*/
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {

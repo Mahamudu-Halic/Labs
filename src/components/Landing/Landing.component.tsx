@@ -10,28 +10,45 @@ function LandingPage() {
 
     return (
         <div className={"landing"}>
-            <button className={"landing__button"} onClick={goToForm}>
-                Get Started
-            </button>
 
-            <h1>What to expert from the form 👇</h1>
-            <div className="landing__image-container">
+            <div className="landing-hero">
+
+                <div className="landing-hero__content">
+                    <h1>Lorem <span>Gaming,</span></h1>
+                    <p>
+                        One of the popular online gaming service providers in US has recently launched a new
+                        online gaming experience that customers can subscribe to for access to various features
+                    </p>
+                    <button className={"landing__button"} onClick={goToForm}>
+                        Get Started
+                    </button>
+                </div>
                 <img
-                    className={"landing__image"}
-                    src="/assets/images/info.png"
+                    src="/assets/images/fill-form.svg"
                     alt={"info"}
                 />
-                <img
-                    className={"landing__image"}
-                    src="/assets/images/plan.png"
-                    alt={"plan"}
-                />
-                <img
-                    className={"landing__image"}
-                    src="/assets/images/add-ons.png"
-                    alt={"add-ons"}
-                />
             </div>
+
+            <section>
+                <h2>What to expert from the form 👇</h2>
+                <div className="landing__image-container">
+                    <img
+                        className={"landing__image"}
+                        src="/assets/images/info.png"
+                        alt={"info"}
+                    />
+                    <img
+                        className={"landing__image"}
+                        src="/assets/images/plan.png"
+                        alt={"plan"}
+                    />
+                    <img
+                        className={"landing__image"}
+                        src="/assets/images/add-ons.png"
+                        alt={"add-ons"}
+                    />
+                </div>
+            </section>
         </div>
     );
 }
