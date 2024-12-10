@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import PersonalInfo from "./PersonalInfo/PersonalInfo.component";
-import {FormItems} from "../../types";
-import Plan from "./Plan/Plan.component";
+import PersonalInfo from "./PersonalInfo/PersonalInfo.component.tsx";
+import {FormItems} from "../../types.ts";
+import Plan from "./Plan/Plan.component.tsx";
 import AddOns from "./Add-ons/AddOns.component.tsx";
 import Summary from "./Summary/Summary.component.tsx";
 import StepContainer from "./Step/StepContainer.component.tsx";

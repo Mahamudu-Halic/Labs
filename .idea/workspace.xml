@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="week5" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2oWACXgkaSjQvwNOuaH53MhmgsC" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;week5&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/HalicMahamudu/Desktop/Labs/public/assets/images&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.web.browsers&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\HalicMahamudu\\Desktop\\Labs\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\public\assets\images" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\public\assets" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\public" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\public\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\src\components\AuthForm" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\src\components\AuthForm\Plan\TimeFrameToggler" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\src\components\AuthForm\Plan\Card" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\public" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="" />
+      <created>1730974830953</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730974830953</updated>
+      <workItem from="1730974831955" duration="1438000" />
+      <workItem from="1731006988188" duration="5310000" />
+      <workItem from="1731932936957" duration="3338000" />
+      <workItem from="1731947023321" duration="10112000" />
+      <workItem from="1732001133790" duration="2396000" />
+      <workItem from="1732003549399" duration="32196000" />
+      <workItem from="1732086189952" duration="36885000" />
+      <workItem from="1732185791837" duration="10525000" />
+      <workItem from="1732263058135" duration="20038000" />
+      <workItem from="1732286523461" duration="38000" />
+      <workItem from="1732286586717" duration="29000" />
+      <workItem from="1732523316826" duration="10465000" />
+      <workItem from="1732606696586" duration="1487000" />
+      <workItem from="1732608220989" duration="22962000" />
+      <workItem from="1732702013397" duration="343000" />
+      <workItem from="1732702388113" duration="15462000" />
+      <workItem from="1732719784841" duration="392000" />
+      <workItem from="1732720789854" duration="5642000" />
+      <workItem from="1733143470896" duration="443000" />
+      <workItem from="1733231218137" duration="1475000" />
+      <workItem from="1733239042921" duration="4776000" />
+      <workItem from="1733300804103" duration="29012000" />
+      <workItem from="1733392510077" duration="16658000" />
+      <workItem from="1733730322379" duration="20724000" />
+      <workItem from="1733819989292" duration="1406000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

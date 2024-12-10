@@ -1,4 +1,4 @@
-import Header from "../Header/Header.component";
+import Header from "../Header/Header.component.tsx";
 import Cards from "./Card/Cards.component.tsx";
 import TimeFrameToogler from "./TimeFrameToggler/TimeFrameToggler.component.tsx";
 import {PlanType} from "../../../types.ts";

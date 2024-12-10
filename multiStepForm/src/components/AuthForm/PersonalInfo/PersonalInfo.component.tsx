@@ -1,6 +1,6 @@
-import Header from "../Header/Header.component";
-import {PersonalInfoType} from "../../../types";
-import FormGroup from "./FormGroup/FormGroup.component";
+import Header from "../Header/Header.component.tsx";
+import {PersonalInfoType} from "../../../types.ts";
+import FormGroup from "./FormGroup/FormGroup.component.tsx";
 
 import "./personal-info.styles.css";
 

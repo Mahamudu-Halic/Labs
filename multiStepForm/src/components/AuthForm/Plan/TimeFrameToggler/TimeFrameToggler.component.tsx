@@ -1,4 +1,4 @@
-import { TimeFrameType } from "../../../../types";
+import {TimeFrameType} from "../../../../types.ts";
 import "./timeframe.toggle.styles.css"
 
 const TimeFrameToogler = ({timeFrame, updateForm}: TimeFrameType) => {
