@@ -4,7 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="" />
+    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multiStepForm/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/multiStepForm/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multiStepForm/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/multiStepForm/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quiz-app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/quiz-app/package.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,24 +41,24 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;week5&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/HalicMahamudu/Desktop/Labs/public/assets/images&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.web.browsers&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\HalicMahamudu\\Desktop\\Labs\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "week6",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/HalicMahamudu/Desktop/Labs/public/assets/images",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.web.browsers",
+    "ts.external.directory.path": "C:\\Users\\HalicMahamudu\\Desktop\\Labs\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\HalicMahamudu\Desktop\Labs\public\assets\images" />
@@ -62,11 +68,11 @@
       <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\public\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\multiStepForm" />
       <recent name="C:\Users\HalicMahamudu\Desktop\Labs\src\components\AuthForm" />
       <recent name="C:\Users\HalicMahamudu\Desktop\Labs\src\components\AuthForm\Plan\TimeFrameToggler" />
       <recent name="C:\Users\HalicMahamudu\Desktop\Labs\src\components\AuthForm\Plan\Card" />
       <recent name="C:\Users\HalicMahamudu\Desktop\Labs\public" />
-      <recent name="C:\Users\HalicMahamudu\Desktop\Labs" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -108,7 +114,7 @@
       <workItem from="1733300804103" duration="29012000" />
       <workItem from="1733392510077" duration="16658000" />
       <workItem from="1733730322379" duration="20724000" />
-      <workItem from="1733819989292" duration="1406000" />
+      <workItem from="1733819989292" duration="3799000" />
     </task>
     <servers />
   </component>
