@@ -23,10 +23,13 @@ function LandingPage() {
                         Get Started
                     </button>
                 </div>
-                <img
-                    src="/assets/images/fill-form.svg"
-                    alt={"info"}
-                />
+                <div className="landing-hero__image">
+
+                    <img
+                        src="/assets/images/fill-form.svg"
+                        alt={"info"}
+                    />
+                </div>
             </div>
 
             <section>
