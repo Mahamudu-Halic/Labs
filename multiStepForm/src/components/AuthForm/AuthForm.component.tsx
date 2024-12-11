@@ -29,7 +29,6 @@ function AuthForm() {
 
     const [errors, setErrors] = useState(initialErrorValues);
 
-    const [summaryErr, setSummaryErr] = useState("");
     const [isComplete, setIsComplete] = useState(false);
 
     const [currentStep, setCurrentStep] = useState(
@@ -54,12 +53,6 @@ function AuthForm() {
                 ),
             }));
         }
-
-        setSummaryErr("");
-        setErrors((prevErrs) => ({
-            ...prevErrs,
-            planErr: "",
-        }));
     };
 
     const handleGoToStep = (step: number) => {
@@ -110,7 +103,7 @@ function AuthForm() {
                 reset();
                 return;
             } else {
-                setSummaryErr("please complete the form before submitting");
+                setErrors((prevErrors) => ({...prevErrors, summaryErr: "please complete the form before submitting"}));
                 return;
             }
         }
@@ -156,9 +149,9 @@ function AuthForm() {
                         {currentStep === 3 && (
                             <Summary
                                 {...formData}
-                                reset={reset} updateForm={updateForm}
+                                reset={reset}
                                 navigateTo={handleGoToStep}
-                                error={summaryErr}
+                                error={errors.summaryErr}
                             />
                         )}
                     </>

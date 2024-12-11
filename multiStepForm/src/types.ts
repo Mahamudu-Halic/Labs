@@ -21,6 +21,7 @@ export type Errors = {
     emailErr: string;
     phoneNumberErr: string;
     planErr: string;
+    summaryErr: string;
 };
 
 export type StepTypes = Partial<FormItems> & {
