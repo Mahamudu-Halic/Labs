@@ -1,14 +1,9 @@
-import { Data } from "../../../types.ts";
 
 import IconComponent from "../Icon/Icon.component.tsx";
 import MessageComponent from "../Message/Message.component.tsx";
 
-import getQuiz from "../../utils/getQuiz.ts";
-
 import "./homepage.styles.css";
 import { Topics } from "../../constants.ts";
-
-
 
 /**
  * HomepageComponent is the main component for the homepage of the Frontend Quiz application.
@@ -23,7 +18,11 @@ import { Topics } from "../../constants.ts";
  * @example
  * <HomepageComponent setQuiz={(value) => console.log(value)} />
  */
-const HomepageComponent = ({ setQuiz }: { setQuiz: (value: Data) => void }) => {
+const HomepageComponent = ({
+  getQuiz,
+}: {
+  getQuiz: (value: string) => void;
+}) => {
   return (
     <div className="homepage">
       <MessageComponent
@@ -36,7 +35,7 @@ const HomepageComponent = ({ setQuiz }: { setQuiz: (value: Data) => void }) => {
           <button
             key={topic.label}
             className={`options__item`}
-            onClick={() => getQuiz({ value: topic.label, callback: setQuiz })}
+            onClick={() => getQuiz(topic.label)}
           >
             <IconComponent icon={topic.icon} customClassName={topic.label} />{" "}
             <h4>{topic.label}</h4>
