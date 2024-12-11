@@ -178,7 +178,7 @@ header {
     position: relative;
 }
 
-.add-ons,
+.plan,
 .summary {
     .error {
         color: var(--error);

@@ -14,6 +14,7 @@ export const initialErrorValues: Errors = {
     emailErr: "",
     phoneNumberErr: "",
     planErr: "",
+    summaryErr: "",
 };
 
 export const StepItems = [
