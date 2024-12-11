@@ -1,11 +1,14 @@
 import {useState} from "react";
+import {resetForm} from "../../../features/Form/FormSlice.tsx";
+import {useAppDispatch} from "../../../hooks/useAppDispatch.ts";
 
-const Header = ({title, description, reset}: { title: string, description: string, reset: () => void }) => {
+const Header = ({title, description}: { title: string, description: string }) => {
+    const dispatch = useAppDispatch()
     const [showModal, setShowModal] = useState(false);
     const toggleShowModal = () => setShowModal(prev => !prev)
 
     const handleReset = () => {
-        reset();
+        dispatch(resetForm())
         toggleShowModal()
     }
     return (

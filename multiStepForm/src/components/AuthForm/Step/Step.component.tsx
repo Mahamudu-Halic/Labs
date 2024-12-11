@@ -1,8 +1,10 @@
+import {useAppDispatch} from "../../../hooks/useAppDispatch.ts";
+import {goToStep} from "../../../features/Form/FormSlice.tsx";
+
 interface StepProps {
     step: number;
     description?: string;
     currentStep?: number;
-    navigateTo: (value: number) => void;
     disabled: boolean;
 }
 
@@ -10,13 +12,13 @@ function Step({
                   step,
                   description,
                   currentStep,
-                  navigateTo,
                   disabled,
               }: StepProps) {
+    const dispatch = useAppDispatch()
     return (
         <div
             className={`step ${disabled && "disabled"}`}
-            onClick={() => navigateTo(step)}
+            onClick={() => dispatch(goToStep({step: step - 1}))}
         >
             <div
                 className={`step__number ${currentStep === step - 1 ? "active" : ""}`}

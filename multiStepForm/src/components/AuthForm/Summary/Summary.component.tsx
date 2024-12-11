@@ -2,15 +2,16 @@ import Header from "../Header/Header.component.tsx";
 import {AddonType, SummaryType} from "../../../types.ts";
 
 import "./summary.styles.css";
+import {useAppDispatch} from "../../../hooks/useAppDispatch.ts";
+import {goToStep} from "../../../features/Form/FormSlice.tsx";
 
 const Summary = ({
-                     navigateTo,
                      plan,
                      addons,
                      timeFrame,
-                     error,
-                     reset
+                     summaryErr,
                  }: SummaryType) => {
+    const dispatch = useAppDispatch()
     const period = timeFrame === "monthly" ? "mo" : "yr";
 
     // Helper function to calculate prices
@@ -43,17 +44,16 @@ const Summary = ({
             <Header
                 title={"Finishing up"}
                 description={"Double-check everything looks OK before confirming"}
-                reset={reset}
             />
 
-            {error && <p className={"summary__error error"}>{error}</p>}
+            {summaryErr && <p className={"summary__error error"}>{summaryErr}</p>}
             <div className="summary__container">
                 <div className={"summary__plan"}>
                     <div>
                         <h3>
                             {plan?.title || "Please select a plan"} {plan && `(${timeFrame})`}
                         </h3>
-                        <button onClick={() => navigateTo(2)}>Change</button>
+                        <button onClick={() => dispatch(goToStep({step: 1}))}>Change</button>
                     </div>
 
                     <p>

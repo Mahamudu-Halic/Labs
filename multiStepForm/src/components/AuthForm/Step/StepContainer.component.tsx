@@ -4,13 +4,11 @@ import {StepItems} from "../../../constant.ts";
 
 interface StepContainerProps {
     currentStep: number;
-    navigateTo: (value: number) => void;
     complete: boolean;
 }
 
 function StepContainer({
                            currentStep,
-                           navigateTo,
                            complete,
                        }: StepContainerProps) {
     return (
@@ -20,7 +18,6 @@ function StepContainer({
                     key={index}
                     {...step}
                     currentStep={currentStep}
-                    navigateTo={navigateTo}
                     disabled={complete}
                 />
             ))}

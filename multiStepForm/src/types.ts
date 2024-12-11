@@ -5,6 +5,9 @@ export type FormItems = {
     timeFrame: string;
     plan: Plan | undefined;
     addons: AddonType[];
+    currentStep: number;
+    isComplete: boolean;
+    isValid: boolean;
 };
 
 export type FormGroupType = {
@@ -24,16 +27,11 @@ export type Errors = {
     summaryErr: string;
 };
 
-export type StepTypes = Partial<FormItems> & {
-    updateForm: (
-        fieldToUpdate: Partial<FormItems>,
-        field?: keyof FormItems
-    ) => void;
-};
+export type StepTypes = Partial<FormItems>
 
-export type PersonalInfoType = StepTypes & Partial<Errors> & { reset: () => void };
+export type PersonalInfoType = StepTypes & Partial<Errors>;
 
-export type PlanType = StepTypes & Partial<Errors> & { reset: () => void };
+export type PlanType = StepTypes & Partial<Errors>;
 export type Plan = {
     title: string;
     price: number;
@@ -53,9 +51,7 @@ export type CardsType = Partial<FormItems> & {
     updateForm: (value: Plan) => void;
 };
 
-export type AddonsType = StepTypes & {
-    reset: () => void;
-};
+export type AddonsType = StepTypes
 
 export type AddonType = {
     title: string;
@@ -69,8 +65,4 @@ export type AddOnsListType = {
     price: number;
 };
 
-export type SummaryType = Partial<StepTypes> & {
-    navigateTo: (value: number) => void;
-    error: string;
-    reset: () => void;
-};
+export type SummaryType = Partial<StepTypes> & Partial<Errors>

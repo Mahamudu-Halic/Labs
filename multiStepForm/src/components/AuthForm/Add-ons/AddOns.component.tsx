@@ -2,8 +2,11 @@ import Header from "../Header/Header.component.tsx";
 import {AddOnsListType, AddonsType, AddonType} from "../../../types.ts";
 import "./addons.styles.css";
 import {AddonsList} from "../../../constant.ts";
+import {useAppDispatch} from "../../../hooks/useAppDispatch.ts";
+import {updateForm} from "../../../features/Form/FormSlice.tsx";
 
-const AddOns = ({addons, updateForm, timeFrame, reset}: AddonsType) => {
+const AddOns = ({addons, timeFrame}: AddonsType) => {
+    const dispatch = useAppDispatch()
     const handleAddonToggle = (item: AddonType) => {
         const currentAddons = addons ?? [];
         const updatedAddons = currentAddons.some(
@@ -12,7 +15,7 @@ const AddOns = ({addons, updateForm, timeFrame, reset}: AddonsType) => {
             ? currentAddons.filter((addon) => addon.title !== item.title)
             : [...currentAddons, {title: item.title, price: item.price}];
 
-        updateForm({addons: updatedAddons});
+        dispatch(updateForm({fieldToUpdate: {addons: updatedAddons}}))
     };
 
     const addon = AddonsList.map((item: AddOnsListType) => (
@@ -46,7 +49,6 @@ const AddOns = ({addons, updateForm, timeFrame, reset}: AddonsType) => {
             <Header
                 title={"Pick add-ons"}
                 description={"Add-ons help enhance your gaming experience"}
-                reset={reset}
             />
 
             <div className="add-ons__container">{addon}</div>

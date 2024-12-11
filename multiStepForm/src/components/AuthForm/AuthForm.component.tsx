@@ -1,136 +1,68 @@
-import {useEffect, useState} from "react";
 import PersonalInfo from "./PersonalInfo/PersonalInfo.component.tsx";
-import {FormItems} from "../../types.ts";
 import Plan from "./Plan/Plan.component.tsx";
 import AddOns from "./Add-ons/AddOns.component.tsx";
 import Summary from "./Summary/Summary.component.tsx";
 import StepContainer from "./Step/StepContainer.component.tsx";
-import formFieldValidation from "../../utils/form.field.validation.ts";
 import ThankYou from "./ThankYou/ThankYou.component.tsx";
 
 import "./authform.styles.css";
 import {
-    goToStep,
-    isFirstStep,
-    isLastStep,
     nextStep,
     prevStep,
-} from "../../utils/useMultiForm.ts";
-import {initialErrorValues, initialValues} from "../../constant.ts";
+    selectCurrentStep,
+    selectFormData,
+    selectFormErrors,
+    selectIsComplete,
+    selectIsValid, validateStep
+} from "../../features/Form/FormSlice.tsx";
+import {useAppDispatch} from "../../hooks/useAppDispatch.ts";
+import {useAppSelector} from "../../hooks/useAppSelector.ts";
+import {Errors, FormItems} from "../../types.ts";
+import {useEffect} from "react";
 
-const totalSteps: number = 4;
 
 function AuthForm() {
-    const [formData, setFormData] = useState<FormItems>(() =>
-        JSON.parse(
-            localStorage.getItem("formData") || JSON.stringify(initialValues)
-        )
-    );
+    const dispatch = useAppDispatch();
+    const formData: FormItems = useAppSelector(selectFormData);
+    const errors: Errors = useAppSelector(selectFormErrors);
+    const currentStep: number = useAppSelector(selectCurrentStep)
+    const isValid = useAppSelector(selectIsValid)
+    const isComplete = useAppSelector(selectIsComplete)
 
-    const [errors, setErrors] = useState(initialErrorValues);
 
-    const [isComplete, setIsComplete] = useState(false);
+    // const handleStepValidation = () => {
+    //     if (currentStep === 3) {
+    //
+    //         if (Object.values(newErrors).every((error) => error === "")) {
+    //             setIsComplete(true);
+    //             reset();
+    //             return;
+    //         } else {
+    //             setErrors((prevErrors) => ({...prevErrors, summaryErr: "please complete the form before submitting"}));
+    //             return;
+    //         }
+    //     }
+    //
+    //     if (formIsValid) setCurrentStep(() => nextStep(currentStep, totalSteps));
+    // };
 
-    const [currentStep, setCurrentStep] = useState(
-        Number(localStorage.getItem("currentStep")) || 0
-    );
 
-    const updateForm = (
-        fieldToUpdate: Partial<FormItems>,
-        field?: keyof FormItems
-    ) => {
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            ...fieldToUpdate,
-        }));
+    const handleNextStep = () => {
+        dispatch(validateStep())
 
-        if (field) {
-            setErrors((prevErrors) => ({
-                ...prevErrors,
-                [`${field}Err`]: formFieldValidation(
-                    field,
-                    fieldToUpdate[field] as string
-                ),
-            }));
-        }
-    };
-
-    const handleGoToStep = (step: number) => {
-        setCurrentStep(() => goToStep(step));
-    };
-    const handleStepValidation = () => {
-        let formIsValid = true;
-        // setSummaryErr("");
-
-        if (currentStep === 0) {
-            const newErrors = {
-                nameErr: formFieldValidation("name", formData.name),
-                emailErr: formFieldValidation("email", formData.email),
-                phoneNumberErr: formFieldValidation(
-                    "phoneNumber",
-                    formData.phoneNumber
-                ),
-            };
-
-            setErrors((prevErrors) => ({...prevErrors, ...newErrors}));
-
-            if (newErrors.emailErr || newErrors.nameErr || newErrors.phoneNumberErr)
-                formIsValid = false;
-        }
-
-        if (currentStep === 1) {
-            const newErrors = {
-                planErr: formFieldValidation("plan", `${formData.plan}`),
-            };
-
-            setErrors((prevErrors) => ({...prevErrors, ...newErrors}));
-
-            if (newErrors.planErr) formIsValid = false;
-        }
-
-        if (currentStep === 3) {
-            const newErrors = {
-                nameErr: formFieldValidation("name", formData.name),
-                emailErr: formFieldValidation("email", formData.email),
-                phoneNumberErr: formFieldValidation(
-                    "phoneNumber",
-                    formData.phoneNumber
-                ),
-                planErr: formFieldValidation("plan", `${formData.plan}`),
-            };
-            if (Object.values(newErrors).every((error) => error === "")) {
-                setIsComplete(true);
-                reset();
-                return;
-            } else {
-                setErrors((prevErrors) => ({...prevErrors, summaryErr: "please complete the form before submitting"}));
-                return;
-            }
-        }
-
-        if (formIsValid) setCurrentStep(() => nextStep(currentStep, totalSteps));
-    };
-
-    const reset = () => {
-        setFormData(initialValues);
-        setErrors(initialErrorValues);
-        localStorage.removeItem("formData");
-        localStorage.removeItem("currentStep");
-    };
+    }
 
     useEffect(() => {
-        localStorage.setItem("currentStep", String(currentStep));
-    }, [currentStep]);
-
-    useEffect(() => {
-        localStorage.setItem("formData", JSON.stringify(formData));
-    }, [formData]);
+        console.log(isValid)
+        if (isValid) {
+            dispatch(nextStep());
+        }
+    }, [formData, isValid]);
 
     return (
         <div className="auth__form">
             <StepContainer
                 currentStep={currentStep}
-                navigateTo={handleGoToStep}
                 complete={isComplete}
             />
 
@@ -138,20 +70,18 @@ function AuthForm() {
                 {!isComplete && (
                     <>
                         {currentStep === 0 && (
-                            <PersonalInfo {...formData} reset={reset} updateForm={updateForm} {...errors} />
+                            <PersonalInfo {...formData} {...errors} />
                         )}
                         {currentStep === 1 && (
-                            <Plan {...formData} reset={reset} updateForm={updateForm}  {...errors}/>
+                            <Plan {...formData} planErr={errors.planErr}/>
                         )}
                         {currentStep === 2 && (
-                            <AddOns {...formData} reset={reset} updateForm={updateForm}/>
+                            <AddOns {...formData}/>
                         )}
                         {currentStep === 3 && (
                             <Summary
                                 {...formData}
-                                reset={reset}
-                                navigateTo={handleGoToStep}
-                                error={errors.summaryErr}
+                                summaryErr={errors.summaryErr}
                             />
                         )}
                     </>
@@ -161,21 +91,21 @@ function AuthForm() {
 
                 {!isComplete && (
                     <div className="auth__form-button-container">
-                        {!isFirstStep(currentStep) && (
+                        {currentStep === 0 && (
                             <button
-                                onClick={() => setCurrentStep(() => prevStep(currentStep))}
+                                onClick={() => dispatch(prevStep())}
                                 className="auth__form-prev-button"
                             >
                                 go back
                             </button>
                         )}
                         <button
-                            onClick={handleStepValidation}
+                            onClick={handleNextStep}
                             className={`auth__form-button ${
-                                isLastStep(currentStep, totalSteps) ? "confirm" : ""
+                                currentStep === 4 ? "confirm" : ""
                             }`}
                         >
-                            {isLastStep(currentStep, totalSteps) ? "Confirm" : "Next Step"}
+                            {currentStep === 4 ? "Confirm" : "Next Step"}
                         </button>
                     </div>
                 )}

@@ -7,6 +7,9 @@ export const initialValues: FormItems = {
     timeFrame: "monthly",
     plan: undefined,
     addons: [],
+    currentStep: 0,
+    isComplete: false,
+    isValid: false,
 };
 
 export const initialErrorValues: Errors = {
