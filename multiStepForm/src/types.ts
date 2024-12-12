@@ -7,7 +7,6 @@ export type FormItems = {
     addons: AddonType[];
     currentStep: number;
     isComplete: boolean;
-    isValid: boolean;
 };
 
 export type FormGroupType = {

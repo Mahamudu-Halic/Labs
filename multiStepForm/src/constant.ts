@@ -9,7 +9,6 @@ export const initialValues: FormItems = {
     addons: [],
     currentStep: 0,
     isComplete: false,
-    isValid: false,
 };
 
 export const initialErrorValues: Errors = {
