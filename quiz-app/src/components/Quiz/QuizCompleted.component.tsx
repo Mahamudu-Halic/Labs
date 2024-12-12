@@ -12,19 +12,7 @@ interface QuizCompletedProps {
 
 
 const QuizCompleted = ({title, icon, score, totalQuestions, reset}: QuizCompletedProps) => {
-    
-    /**
-     * Resets the quiz state and clears relevant session storage data.
-     *
-     * It removes the following session storage items:
-     * - score
-     * - questionNumber
-     * - hasCompleted
-     * - quiz
-     *
-     * It also sets the quiz state to undefined.
-     */
-    
+
     return (
         <div className={"quiz-completed"}>
             <MessageComponent title={"Quiz Completed"} subtitle={"You scored..."} message={""}/>
