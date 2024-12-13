@@ -1,9 +1,14 @@
 import Header from "../Header/Header.component.tsx";
 import Cards from "./Card/Cards.component.tsx";
 import TimeFrameToogler from "./TimeFrameToggler/TimeFrameToggler.component.tsx";
-import { PlanType } from "../../../types.ts";
+import { useAppSelector } from "../../../hooks/useAppSelector.ts";
+import {
+  selectFormData,
+  selectFormErrors,
+} from "../../../features/Form/FormSlice.tsx";
 
-const Plan = ({ plan, timeFrame, planErr }: PlanType) => {
+const Plan = () => {
+  const { planErr } = useAppSelector(selectFormErrors);
   return (
     <div className="plan wrapper">
       <Header
@@ -12,8 +17,8 @@ const Plan = ({ plan, timeFrame, planErr }: PlanType) => {
       />
 
       {planErr && <p className={"error"}>{planErr}</p>}
-      <Cards plan={plan} timeFrame={timeFrame} />
-      <TimeFrameToogler timeFrame={timeFrame} />
+      <Cards />
+      <TimeFrameToogler />
     </div>
   );
 };

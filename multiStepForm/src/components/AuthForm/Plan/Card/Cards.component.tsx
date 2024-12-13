@@ -3,9 +3,15 @@ import { PlanCardType, CardsType } from "../../../../types.ts";
 import "./card.styles.css";
 import { CardItems } from "../../../../constant.ts";
 import { useAppDispatch } from "../../../../hooks/useAppDispatch.ts";
-import { updateForm } from "../../../../features/Form/FormSlice.tsx";
+import {
+  selectFormData,
+  updateForm,
+} from "../../../../features/Form/FormSlice.tsx";
+import { useAppSelector } from "../../../../hooks/useAppSelector.ts";
 
-const Cards = ({ plan, timeFrame }: CardsType) => {
+const Cards = () => {
+  const { plan, timeFrame }: CardsType = useAppSelector(selectFormData);
+
   const dispatch = useAppDispatch();
   const cards = CardItems.map((item: PlanCardType) => (
     <div
