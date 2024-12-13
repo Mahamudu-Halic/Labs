@@ -39,7 +39,7 @@
         }
 
         @media (width < 700px) {
-            width: 90%;
+            width: 100%;
         }
     }
 }
