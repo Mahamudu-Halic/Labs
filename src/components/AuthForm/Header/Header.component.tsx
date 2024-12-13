@@ -16,7 +16,7 @@ const Header = ({title, description, reset}: { title: string, description: strin
             </div>
 
             <button onClick={toggleShowModal}>Reset</button>
-
+            {showModal && <div className={"overlay"} onClick={toggleShowModal}></div>}
             {showModal && <div className={"header__reset-modal"}>
                 <p>Are you sure you want to reset the form</p>
                 <div className="confirm-button-container">
