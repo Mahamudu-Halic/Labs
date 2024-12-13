@@ -5,12 +5,6 @@ import HeaderComponent from "./components/Header/Header.component.tsx";
 import QuizContainer from "./components/Quiz/QuizContainer.component.tsx";
 import fetchData from "./utils/fetchData.ts";
 
-/**
- * The main App component. It renders the header and either the homepage or the quiz container
- * depending on whether a quiz has been selected.
- *
- * @returns {JSX.Element} The JSX element representing the app.
- */
 function App() {
   const [quiz, setQuiz] = useState<Data | undefined>(undefined);
 

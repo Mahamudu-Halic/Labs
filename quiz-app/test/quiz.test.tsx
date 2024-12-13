@@ -1,122 +1,176 @@
-import {Questions} from "../types.ts";
-import {vitest} from "vitest";
-import {fireEvent, render, screen} from "@testing-library/react";
+import { Questions } from "../types.ts";
+import { vitest } from "vitest";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import Quiz from "../src/components/Quiz/Quiz.component.tsx";
 
 describe("Quiz component", () => {
-    const mockQuestions: Questions[] = [
-        {
-            question: "What is the capital of France?",
-            options: ["Paris", "London", "Berlin", "Madrid"],
-            answer: "Paris"
-        },
-        {
-            question: "What is the largest planet in our solar system?",
-            options: ["Earth", "Mars", "Jupiter", "Saturn"],
-            answer: "Jupiter"
-        },
-    ]
-    const mockHasCompleted = vitest.fn()
-    const mockSetScore = vitest.fn()
+  const mockQuestions: Questions[] = [
+    {
+      question: "What is the capital of France?",
+      options: ["Paris", "London", "Berlin", "Madrid"],
+      answer: "Paris",
+    },
+    {
+      question: "What is the largest planet in our solar system?",
+      options: ["Earth", "Mars", "Jupiter", "Saturn"],
+      answer: "Jupiter",
+    },
+  ];
+  const mockHasCompleted = vitest.fn();
+  const mockSetScore = vitest.fn();
 
-    beforeEach(() => {
-        vitest.spyOn(Storage.prototype, "getItem").mockImplementation(() => null);
-        vitest.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
-        });
-        vitest.spyOn(Storage.prototype, "clear").mockImplementation(() => {
-        });
+  beforeEach(() => {
+    vitest.spyOn(Storage.prototype, "getItem").mockImplementation(() => null);
+    vitest.spyOn(Storage.prototype, "setItem").mockImplementation(() => {});
+    vitest.spyOn(Storage.prototype, "clear").mockImplementation(() => {});
+  });
+
+  test("should render quiz components", () => {
+    render(
+      <Quiz
+        questions={mockQuestions}
+        setHasCompleted={mockHasCompleted}
+        setScore={mockSetScore}
+        score={0}
+      />
+    );
+
+    const currentQuestion = screen.getByText(mockQuestions[0].question);
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+
+    mockQuestions[0].options.forEach((optionItem) => {
+      const option = screen.getByText(optionItem);
+      expect(option).toBeInTheDocument();
     });
+    expect(currentQuestion).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
+  });
 
-    test("should render quiz components", () => {
-        render(<Quiz questions={mockQuestions} setHasCompleted={mockHasCompleted} setScore={mockSetScore}
-                     score={0}/>)
+  test("should display error message when trying to submit without selecting an answer", () => {
+    render(
+      <Quiz
+        questions={mockQuestions}
+        setHasCompleted={mockHasCompleted}
+        setScore={mockSetScore}
+        score={0}
+      />
+    );
 
-        const currentQuestion = screen.getByText(mockQuestions[0].question)
-        const submitButton = screen.getByRole("button", {name: /submit/i})
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    fireEvent.click(submitButton);
 
-        mockQuestions[0].options.forEach(optionItem => {
-            const option = screen.getByText(optionItem);
-            expect(option).toBeInTheDocument()
-        })
-        expect(currentQuestion).toBeInTheDocument()
-        expect(submitButton).toBeInTheDocument()
-    })
+    const errorMessage = screen.getByText("Please select an answer");
+    expect(errorMessage).toBeInTheDocument();
+  });
 
-    test("should display error message when trying to submit without selecting an answer", () => {
-        render(<Quiz questions={mockQuestions} setHasCompleted={mockHasCompleted} setScore={mockSetScore}
-                     score={0}/>)
+  test("should submit the correct answer and update the score", () => {
+    render(
+      <Quiz
+        questions={mockQuestions}
+        setHasCompleted={mockHasCompleted}
+        setScore={mockSetScore}
+        score={0}
+      />
+    );
 
-        const submitButton = screen.getByRole("button", {name: /submit/i})
-        fireEvent.click(submitButton)
+    const selectedOption = screen.getByText("Paris");
+    fireEvent.click(selectedOption);
 
-        const errorMessage = screen.getByText("Please select an answer")
-        expect(errorMessage).toBeInTheDocument()
-    })
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    fireEvent.click(submitButton);
 
-    test("should submit the correct answer and update the score", () => {
-        render(<Quiz questions={mockQuestions} setHasCompleted={mockHasCompleted} setScore={mockSetScore}
-                     score={0}/>)
+    expect(mockSetScore).toHaveBeenCalledTimes(1);
 
-        const selectedOption = screen.getByText("Paris")
-        const submitButton = screen.getByRole("button", {name: /submit/i})
+    const nextButton = screen.getByRole("button", { name: /next/i });
+    expect(nextButton).toBeInTheDocument();
+  });
 
-        fireEvent.click(selectedOption)
-        fireEvent.click(submitButton)
+  test("should disable option buttons after submitting", () => {
+    render(
+      <Quiz
+        questions={mockQuestions}
+        setHasCompleted={mockHasCompleted}
+        setScore={mockSetScore}
+        score={0}
+      />
+    );
 
-        expect(mockSetScore).toHaveBeenCalledTimes(1)
+    const selectedOption = screen.getByText("Paris");
+    fireEvent.click(selectedOption);
 
-        const nextButton = screen.getByRole("button", {name: /next/i})
-        expect(nextButton).toBeInTheDocument()
-    })
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    fireEvent.click(submitButton);
 
-    test("should move to the next question after submitting", () => {
-        render(<Quiz questions={mockQuestions} setHasCompleted={mockHasCompleted} setScore={mockSetScore}
-                     score={0}/>)
+    expect(mockSetScore).toHaveBeenCalledTimes(2);
 
-        const selectedOption = screen.getByText("Paris")
-        fireEvent.click(selectedOption)
+    mockQuestions[0].options.forEach((option, index) => {
+      const buttonName = `${String.fromCharCode(65 + index)} ${option}`;
+      const optionBtn = screen.getByRole("button", {
+        name: new RegExp(buttonName, "i"),
+      });
+      expect(optionBtn).toBeDisabled();
+    });
+  });
 
-        const submitButton = screen.getByRole("button", {name: /submit/i})
-        fireEvent.click(submitButton)
+  test("should move to the next question after submitting", () => {
+    render(
+      <Quiz
+        questions={mockQuestions}
+        setHasCompleted={mockHasCompleted}
+        setScore={mockSetScore}
+        score={0}
+      />
+    );
 
-        const nextButton = screen.getByRole("button", {name: /next/i})
-        fireEvent.click(nextButton)
+    const selectedOption = screen.getByText("Paris");
+    fireEvent.click(selectedOption);
 
-        const currentQuestion = screen.getByText(/What is the largest planet/i)
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    fireEvent.click(submitButton);
 
-        expect(mockSetScore).toHaveBeenCalledTimes(2)
-        expect(currentQuestion).toBeInTheDocument()
-    })
+    const nextButton = screen.getByRole("button", { name: /next/i });
+    fireEvent.click(nextButton);
 
-    test("should mark quiz as completed after last question", () => {
-        render(<Quiz questions={mockQuestions} setHasCompleted={mockHasCompleted} setScore={mockSetScore}
-                     score={0}/>)
+    const currentQuestion = screen.getByText(/What is the largest planet/i);
 
-        const selectedOption = screen.getByText("Paris")
-        fireEvent.click(selectedOption)
+    expect(mockSetScore).toHaveBeenCalledTimes(3);
+    expect(currentQuestion).toBeInTheDocument();
+  });
 
-        const submitButton = screen.getByRole("button", {name: /submit/i})
-        fireEvent.click(submitButton)
+  test("should mark quiz as completed after last question", () => {
+    render(
+      <Quiz
+        questions={mockQuestions}
+        setHasCompleted={mockHasCompleted}
+        setScore={mockSetScore}
+        score={0}
+      />
+    );
 
-        const nextButton = screen.getByRole("button", {name: /next/i})
-        fireEvent.click(nextButton)
+    const selectedOption = screen.getByText("Paris");
+    fireEvent.click(selectedOption);
 
-        const currentQuestion = screen.getByText(/What is the largest planet/i)
+    const submitButton = screen.getByRole("button", { name: /submit/i });
+    fireEvent.click(submitButton);
 
-        expect(mockSetScore).toHaveBeenCalledTimes(3)
-        expect(currentQuestion).toBeInTheDocument()
+    const nextButton = screen.getByRole("button", { name: /next/i });
+    fireEvent.click(nextButton);
 
-        const newSelectedOption = screen.getByText("Jupiter")
-        fireEvent.click(newSelectedOption)
+    const currentQuestion = screen.getByText(/What is the largest planet/i);
 
-        const newSubmitButton = screen.getByRole("button", {name: /submit/i})
-        fireEvent.click(newSubmitButton)
+    expect(mockSetScore).toHaveBeenCalledTimes(4);
+    expect(currentQuestion).toBeInTheDocument();
 
-        const completeButton = screen.getByRole("button", {name: /complete/i})
-        fireEvent.click(completeButton)
+    const newSelectedOption = screen.getByText("Jupiter");
+    fireEvent.click(newSelectedOption);
 
-        expect(mockSetScore).toHaveBeenCalledTimes(4)
-        expect(mockHasCompleted).toHaveBeenCalledTimes(1)
-    })
+    const newSubmitButton = screen.getByRole("button", { name: /submit/i });
+    fireEvent.click(newSubmitButton);
 
-})
+    const completeButton = screen.getByRole("button", { name: /complete/i });
+    fireEvent.click(completeButton);
+
+    expect(mockSetScore).toHaveBeenCalledTimes(5);
+    expect(mockHasCompleted).toHaveBeenCalledTimes(1);
+  });
+});
