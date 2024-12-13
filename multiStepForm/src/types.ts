@@ -11,11 +11,9 @@ export type FormItems = {
 
 export type FormGroupType = {
   label: string;
-  inputType: string;
+  type: string;
   placeholder: string;
-  value: string | undefined;
-  errorMsg?: string;
-  updateForm: (value: string, field?: string) => void;
+  field: "name" | "email" | "phoneNumber";
 };
 
 export type Errors = {
