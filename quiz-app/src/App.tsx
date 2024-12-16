@@ -1,30 +1,44 @@
 import HomepageComponent from "./components/Homepage/Homepage.component.tsx";
 import { useEffect, useState } from "react";
-import { Data } from "../types.ts";
+import { Data, DataResponse } from "../types.ts";
 import HeaderComponent from "./components/Header/Header.component.tsx";
-import getQuiz from "./utils/getQuiz.ts";
 import QuizContainer from "./components/Quiz/QuizContainer.component.tsx";
+import fetchData from "./utils/fetchData.ts";
 
-/**
- * The main App component. It renders the header and either the homepage or the quiz container
- * depending on whether a quiz has been selected.
- *
- * @returns {JSX.Element} The JSX element representing the app.
- */
 function App() {
   const [quiz, setQuiz] = useState<Data | undefined>(undefined);
 
+  const getQuiz = (value: string) => {
+    const quiz = sessionStorage.getItem("quiz");
+    const response: DataResponse = fetchData(quiz || value);
+
+    if (response.status === "failed") {
+      return;
+    }
+
+    sessionStorage.setItem("quiz", quiz || value);
+    setQuiz(response.data);
+  };
+
+  const reset = () => {
+    sessionStorage.removeItem("score");
+    sessionStorage.removeItem("questionNumber");
+    sessionStorage.removeItem("hasCompleted");
+    sessionStorage.removeItem("quiz");
+    setQuiz(undefined);
+  };
+
   useEffect(() => {
-    getQuiz({ callback: setQuiz, value: "" });
+    getQuiz("");
   }, []);
 
   return (
     <div className="wrapper">
       <HeaderComponent title={quiz?.title || ""} icon={quiz?.icon || ""} />
       {!quiz ? (
-        <HomepageComponent setQuiz={setQuiz} />
+        <HomepageComponent getQuiz={getQuiz} />
       ) : (
-        <QuizContainer quiz={quiz} setQuiz={setQuiz} />
+        <QuizContainer quiz={quiz} reset={reset} />
       )}
     </div>
   );
