@@ -1,0 +1,24 @@
+.icon {
+    width: 100%;
+    object-fit: contain;
+}
+
+.rounded {
+    border-radius: 5px;
+}
+
+.rounded-sm {
+    border-radius: 8px;
+}
+
+.rounded-md {
+    border-radius: 15px;
+}
+
+.rounded-lg {
+    border-radius: 25px;
+}
+
+.rounded-full {
+    border-radius: 50px;
+}
