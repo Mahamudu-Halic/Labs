@@ -1,14 +1,19 @@
 import './App.css'
-import Button from "./components/ui/button/button.tsx";
-import Headline from "./components/ui/typography/headline/Headline.tsx";
+import Sidebar from "./components/sidebar/Sidebar.tsx";
+import Container from "./components/ui/container/Container.tsx";
+import Invoices from "./components/invoices/Invoices.tsx";
 
 function App() {
 
     return (
-        <>
-            <Button>hello</Button>
-            <Headline>hi</Headline>
-        </>
+        <Container container={"section"} className={"app"}>
+            <Sidebar/>
+            <Container container={"section"} className={"content"}>
+                <Container container={"div"} className={"wrapper"}>
+                    <Invoices/>
+                </Container>
+            </Container>
+        </Container>
     )
 }
 
