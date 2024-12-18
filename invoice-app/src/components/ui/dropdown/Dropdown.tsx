@@ -1,8 +1,21 @@
-import styles from "./select.module.css"
+import styles from "./dropdown.module.css";
 
-import {ReactNode, HTMLAttributes} from "react";
-
-interface SelectProps extends HTMLAttributes<HTMLSelectElement> {
-    children: ReactNode;
-    
+interface DropdownProps {
+  options: string[];
 }
+
+const Dropdown = ({ options }: DropdownProps) => {
+  return (
+    <div className={styles.dropdown}>
+      {options.map((option) => (
+        <label key={option} className={styles.dropdownItem} htmlFor={option}>
+          <input type="checkbox" name="dropdown" id={option} />
+          <span className={styles.custom__checkbox}></span>
+          {option}
+        </label>
+      ))}
+    </div>
+  );
+};
+
+export default Dropdown;
