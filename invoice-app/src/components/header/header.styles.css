@@ -1,0 +1,29 @@
+.invoices {
+    .invoice__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+
+        .invoice__header-left__container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            .new__invoice-button {
+                gap: 10px;
+
+                .new__invoice-plus-icon {
+                    background: var(--text-white);
+                    padding: 7px;
+                    border-radius: 50px;
+                    width: 25px;
+                    height: 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+            }
+        }
+    }
+}
