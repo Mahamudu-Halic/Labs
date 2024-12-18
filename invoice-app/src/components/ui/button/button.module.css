@@ -1,7 +1,55 @@
-.button{
+.button {
     user-select: none;
     padding: 10px;
     cursor: pointer;
+    border: none;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 
+}
 
+.default {
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+.primary {
+    background: var(--primary);
+    color: var(--text-white);
+}
+
+.secondary {
+    background: var(--bg-dark-blue);
+    color: var(--text-warm-white);
+}
+
+.tertiary {
+    background: var(--bg-accent);
+    color: var(--text-tertiary);
+}
+
+.danger {
+    background: var(--bg-danger);
+    color: var(--text-white);
+}
+
+.rounded {
+    border-radius: 5px;
+}
+
+.rounded-sm {
+    border-radius: 8px;
+}
+
+.rounded-md {
+    border-radius: 15px;
+}
+
+.rounded-lg {
+    border-radius: 25px;
+}
+
+.rounded-full {
+    border-radius: 50px;
 }
