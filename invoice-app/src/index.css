@@ -1,68 +1,56 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    color-scheme: light dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #242424;
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+    --bg-success: #7C5DFA;
+    --bg-danger: #EC5757;
+    --bg-paid: #33D69F99;
+    --bg-pending: #FF8F0099;
+    --text-paid: #33D69F;
+    --text-pending: #FF8F00;
+    --text-id: #7E88C3;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    min-width: 320px;
+    min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+html[data-theme="light"] {
+    --bg-primary: #F8F8FB;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #373B53;
+    --bg-accent: #F9FAFE;
+    --bg-muted: #373B53;
+    --bg-draft: #DFE3FA99;
+    --text-primary: #0C0E16;
+    --text-secondary: #888EB0;
+    --text-tertiary: #7E88C3;
+    --text-draft: #373B53;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+html[data-theme="dark"] {
+    --bg-primary: #141625;
+    --bg-secondary: #1E2139;
+    --bg-tertiary: #1E2139;
+    --bg-accent: #252945;
+    --bg-muted: #0C0E16;
+    --bg-draft: #373B5399;
+    --text-primary: #FFFFFF;
+    --text-secondary: #DFE3FA;
+    --text-tertiary: #DFE3FA;
+    --text-draft: #DFE3FA;
 }

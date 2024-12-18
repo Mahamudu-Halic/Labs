@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/invoice-app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/src/components/ui/typography/headline/Headline.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/src/components/ui/typography/headline/Headline.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/invoice-app/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/invoice-app/src/index.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="week5" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SWAP_SIDES_IN_COMPARE_BRANCHES" value="true" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2oWACXgkaSjQvwNOuaH53MhmgsC" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="openDirectoriesWithSingleClick" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "week7",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/HalicMahamudu/Desktop/Labs/invoice-app/public",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.web.browsers",
+    "ts.external.directory.path": "C:\\Users\\HalicMahamudu\\Desktop\\Labs\\invoice-app\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\invoice-app\public" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\invoice-app\src\assets\images" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\public\assets\images" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\public\assets" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\src\components\Header" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\public" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\test" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\types" />
+      <recent name="C:\Users\HalicMahamudu\Desktop\Labs\quiz-app\src" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23726.96" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="39ae43fa-7ece-4061-b942-81addaf035cf" name="Changes" comment="" />
+      <created>1730974830953</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1730974830953</updated>
+      <workItem from="1730974831955" duration="1438000" />
+      <workItem from="1731006988188" duration="5310000" />
+      <workItem from="1731932936957" duration="3338000" />
+      <workItem from="1731947023321" duration="10112000" />
+      <workItem from="1732001133790" duration="2396000" />
+      <workItem from="1732003549399" duration="32196000" />
+      <workItem from="1732086189952" duration="36885000" />
+      <workItem from="1732185791837" duration="10525000" />
+      <workItem from="1732263058135" duration="20038000" />
+      <workItem from="1732286523461" duration="38000" />
+      <workItem from="1732286586717" duration="29000" />
+      <workItem from="1732523316826" duration="10465000" />
+      <workItem from="1732606696586" duration="1487000" />
+      <workItem from="1732608220989" duration="22962000" />
+      <workItem from="1732702013397" duration="343000" />
+      <workItem from="1732702388113" duration="15462000" />
+      <workItem from="1732719784841" duration="392000" />
+      <workItem from="1732720789854" duration="5642000" />
+      <workItem from="1733143470896" duration="443000" />
+      <workItem from="1733231218137" duration="1475000" />
+      <workItem from="1733239042921" duration="4776000" />
+      <workItem from="1733300804103" duration="29012000" />
+      <workItem from="1733392510077" duration="16658000" />
+      <workItem from="1733730322379" duration="20724000" />
+      <workItem from="1733819989292" duration="3799000" />
+      <workItem from="1733902096842" duration="7961000" />
+      <workItem from="1733911584061" duration="22648000" />
+      <workItem from="1733988053366" duration="13689000" />
+      <workItem from="1734003983920" duration="20416000" />
+      <workItem from="1734082159001" duration="8608000" />
+      <workItem from="1734337685131" duration="747000" />
+      <workItem from="1734508286072" duration="2904000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
