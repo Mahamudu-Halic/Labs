@@ -1,0 +1,28 @@
+.invoice__card{
+    background: var(--bg-secondary);
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0 0 10px #00000037;
+    text-align: left;
+    gap: 20px;
+
+    .invoice__card-badge-container{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
+
+    .invoice__card-client-name, .invoice__card-payment-due, .invoice__card-total, .invoice__card-id{
+        flex:1;
+    }
+
+    .invoice__card-total{
+        text-align: center;
+    }
+
+    .invoice__card-id{
+        flex: 1;
+    }
+}
