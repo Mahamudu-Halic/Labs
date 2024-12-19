@@ -1,20 +1,28 @@
 .invoice__card{
     background: var(--bg-secondary);
     width: 100%;
-    justify-content: space-between;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 20px;
-    box-shadow: 0 0 10px #00000037;
+    border-radius: 15px;
+    box-shadow: 0 0 1px #00000007;
     text-align: left;
     gap: 20px;
+    border: solid 1px transparent;
+    transition: all 0.3s ease-in-out;
 
-    .invoice__card-badge-container{
+    &:hover{
+        border-color: var(--primary);
+    }
+
+    .invoice__card-badge-wrapper{
         display: flex;
         gap: 20px;
         align-items: center;
     }
 
-    .invoice__card-client-name, .invoice__card-payment-due, .invoice__card-total, .invoice__card-id{
+    .invoice__card-client-name, .invoice__card-payment-due, .invoice__card-total, .invoice__card-id, .invoice__card-badge-wrapper, .invoice__card-id {
         flex:1;
     }
 

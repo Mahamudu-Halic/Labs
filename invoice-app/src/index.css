@@ -34,6 +34,10 @@ body {
     color: var(--text-primary);
 }
 
+a{
+    text-decoration: none;
+}
+
 html[data-theme="light"] {
     --bg-primary: #F8F8FB;
     --bg-secondary: #FFFFFF;

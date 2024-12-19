@@ -7,12 +7,12 @@ import Filter from "../filter/Filter.tsx";
 import plusIcon from "../../assets/images/icon-plus.svg";
 import "./header.styles.css";
 
-const Header = () => {
+const Header = ({ total }: { total?: number }) => {
   return (
     <header className={"invoice__header"}>
       <div>
         <Headline variant={"h2"}>Invoices</Headline>
-        <Text>There are 7 total</Text>
+        <Text>{total ? `There are ${total} total` : `No invoices`}</Text>
       </div>
 
       <div className={"invoice__header-left__container"}>
