@@ -1,20 +1,21 @@
-import './App.css'
+import "./App.css";
 import Sidebar from "./components/sidebar/Sidebar.tsx";
-import Container from "./components/ui/container/Container.tsx";
 import Invoices from "./components/invoices/Invoices.tsx";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
-
-    return (
-        <Container container={"section"} className={"app"}>
-            <Sidebar/>
-            <Container container={"section"} className={"content"}>
-                <Container container={"div"} className={"wrapper"}>
-                    <Invoices/>
-                </Container>
-            </Container>
-        </Container>
-    )
+  return (
+    <div className={"app"}>
+      <Sidebar />
+      <div className={"content"}>
+        <Routes>
+          <Route path="/" element={<Invoices />} />
+          {/*<Route path="/:id" element={<Invoices />} />*/}
+          {/*<Route path="*" element={<Invoices />} />*/}
+        </Routes>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;

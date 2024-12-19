@@ -11,8 +11,8 @@
     --primary: #7C5DFA;
     --primary-hover: #9277FF;
     --bg-danger: #EC5757;
-    --bg-paid: #33D69F99;
-    --bg-pending: #FF8F0099;
+    --bg-paid: #33D69F37;
+    --bg-pending: #FF8F0037;
     --bg-dark-blue: #373B53;
     --text-paid: #33D69F;
     --text-pending: #FF8F00;
@@ -40,7 +40,7 @@ html[data-theme="light"] {
     --bg-tertiary: #373B53;
     --bg-accent: #F9FAFE;
     --bg-muted: #373B53;
-    --bg-draft: #DFE3FA99;
+    --bg-draft: #DFE3FA37;
     --bg-dropdown: #FFFFFF;
     --bg-checkbox: #DFE3FA;
 
@@ -56,7 +56,7 @@ html[data-theme="dark"] {
     --bg-tertiary: #1E2139;
     --bg-accent: #252945;
     --bg-muted: #0C0E16;
-    --bg-draft: #373B5399;
+    --bg-draft: #373B5337;
     --bg-dropdown: #252945;
     --bg-checkbox: #1E2139;
 
