@@ -1,0 +1,15 @@
+.app {
+    display: flex;
+    width: 100%;
+
+    .content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        padding-top: 30px;
+
+        .wrapper {
+            width: 70%;
+        }
+    }
+}
