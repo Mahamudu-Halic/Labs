@@ -15,13 +15,17 @@
 
                 .new__invoice-plus-icon {
                     background: var(--text-white);
-                    padding: 7px;
                     border-radius: 50px;
                     width: 25px;
                     height: 25px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+
+                    img{
+                        width: 10px;
+                        height: 10px;
+                    }
                 }
             }
         }

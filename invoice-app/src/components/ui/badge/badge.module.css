@@ -1,0 +1,54 @@
+.badge{
+    padding: 10px;
+    border-radius: 10px;
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-transform: capitalize;
+
+    .badge__dot{
+        height: 5px;
+        width: 5px;
+        border-radius: 100%;
+        background: red;
+        display: inline-block;
+    }
+
+    &.draft{
+        background: var(--bg-draft);
+
+        .badge__dot{
+            background: var(--text-draft);
+        }
+
+        p{
+            color: var(--text-draft);
+        }
+    }
+
+    &.paid{
+        background: var(--bg-paid);
+
+        .badge__dot{
+            background: var(--text-paid);
+        }
+
+       p{
+           color: var(--text-paid);
+       }
+    }
+
+    &.pending{
+        background: var(--bg-pending);
+
+        .badge__dot{
+            background: var(--text-pending);
+        }
+
+        p{
+            color: var(--text-pending);
+        }
+    }
+}

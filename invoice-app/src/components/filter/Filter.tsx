@@ -21,7 +21,7 @@ const Filter = () => {
       {showDropdown && (
         <>
           <div className="overlay" onClick={handleDropdownToggle}></div>
-          <Dropdown options={["halic", "hafiz", "adams"]} />
+          <Dropdown options={["paid", "pending", "draft", "none"]} />
         </>
       )}
     </div>
