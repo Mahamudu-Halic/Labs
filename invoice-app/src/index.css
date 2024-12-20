@@ -11,6 +11,7 @@
     --primary: #7C5DFA;
     --primary-hover: #9277FF;
     --bg-danger: #EC5757;
+    --bg-danger-hover: #FF9797;
     --bg-paid: #33D69F37;
     --bg-pending: #FF8F0037;
     --bg-dark-blue: #373B53;
@@ -36,6 +37,7 @@ body {
 
 a{
     text-decoration: none;
+    color: inherit;
 }
 
 html[data-theme="light"] {
@@ -43,6 +45,7 @@ html[data-theme="light"] {
     --bg-secondary: #FFFFFF;
     --bg-tertiary: #373B53;
     --bg-accent: #F9FAFE;
+    --bg-accent-hover: #DFE3FA;
     --bg-muted: #373B53;
     --bg-draft: #DFE3FA37;
     --bg-dropdown: #FFFFFF;
@@ -59,6 +62,7 @@ html[data-theme="dark"] {
     --bg-secondary: #1E2139;
     --bg-tertiary: #1E2139;
     --bg-accent: #252945;
+    --bg-accent-hover: #FFFFFF;
     --bg-muted: #0C0E16;
     --bg-draft: #373B5337;
     --bg-dropdown: #252945;

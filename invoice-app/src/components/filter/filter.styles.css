@@ -12,9 +12,5 @@
 
     button {
         gap: 20px;
-
-        img {
-            width: 20px;
-        }
     }
 }

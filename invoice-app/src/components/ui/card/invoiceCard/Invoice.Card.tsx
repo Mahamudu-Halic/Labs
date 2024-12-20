@@ -6,6 +6,7 @@ import Badge from "../../badge/Badge.tsx";
 import formatNumber from "../../../../utils/formatNumber/formatNumber.ts";
 import formatDate from "../../../../utils/formatDate/formatDate.ts";
 import { Link } from "react-router-dom";
+import CardWrapper from "../CardWrapper.tsx";
 
 interface InvoiceCardProps {
   id: string;
@@ -23,19 +24,23 @@ const InvoiceCard = ({
   total,
 }: InvoiceCardProps) => {
   return (
-    <Link to={`/${id}`} className={styles.invoice__card}>
-      <Text id={styles["invoice__card-id"]}>#{id}</Text>
-      <Text className={styles["invoice__card-payment-due"]}>
-        Due: {formatDate(paymentDue)}
-      </Text>
-      <Text className={styles["invoice__card-client-name"]}>{clientName}</Text>
-      <Text className={styles["invoice__card-total"]}>
-        {formatNumber(total)}
-      </Text>
-      <div className={styles["invoice__card-badge-wrapper"]}>
-        <Badge status={status} />
-        <Icon icon={arrowRightIcon} description={"arrow right"} />
-      </div>
+    <Link to={`/${id}`}>
+      <CardWrapper className={styles.invoice__card}>
+        <Text id={styles["invoice__card-id"]}>#{id}</Text>
+        <Text className={styles["invoice__card-payment-due"]}>
+          Due: {formatDate(paymentDue)}
+        </Text>
+        <Text className={styles["invoice__card-client-name"]}>
+          {clientName}
+        </Text>
+        <Text className={styles["invoice__card-total"]}>
+          £{formatNumber(total)}
+        </Text>
+        <div className={styles["invoice__card-badge-wrapper"]}>
+          <Badge status={status} />
+          <Icon icon={arrowRightIcon} description={"arrow right"} />
+        </div>
+      </CardWrapper>
     </Link>
   );
 };

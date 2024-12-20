@@ -1,0 +1,13 @@
+.card-wrapper{
+    background: var(--bg-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 6px #00000017;
+    text-align: left;
+    gap: 20px;
+    border: solid 1px transparent;
+    min-width: 200px;
+}

@@ -1,0 +1,79 @@
+.view-invoice {
+  gap: 30px;
+
+  .go-back {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .invoice__details-wrapper,
+  .invoice__notice-wrapper {
+    padding: 40px;
+  }
+
+  .invoice__status-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .invoice__button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    button {
+      padding: 12px 20px;
+    }
+  }
+
+  .invoice__details-wrapper {
+    flex-direction: column;
+    .invoice__item__sender-address__wrapper {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .invoice__item__sender-address {
+      text-align: right;
+    }
+
+    .invoice__item__recipient-details {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      div {
+        flex: 1;
+      }
+    }
+
+    .invoice__item-receipt {
+      width: 100%;
+      background: var(--bg-accent);
+      box-shadow: none;
+      padding: 0;
+      flex-direction: column;
+
+      .invoice__item-receipt__details {
+        box-shadow: none;
+        width: 100%;
+        background: transparent;
+        padding: 40px;
+
+        table {
+          width: 100%;
+        }
+      }
+
+      .invoice__item-receipt__amount-due {
+        box-shadow: none;
+        width: 100%;
+        padding: 40px;
+        background: var(--bg-muted);
+      }
+    }
+  }
+}

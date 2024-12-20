@@ -23,7 +23,7 @@ const Header = ({ total }: { total?: number }) => {
           className={"new__invoice-button"}
         >
           <div className={"new__invoice-plus-icon"}>
-            <Icon icon={plusIcon} description={"plus icon"} />
+            <Icon icon={plusIcon} description={"plus icon"} size={"xs"} />
           </div>
           new invoice
         </Button>

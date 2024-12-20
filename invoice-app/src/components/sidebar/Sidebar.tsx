@@ -10,7 +10,7 @@ const Sidebar = () => {
     <section className={"sidebar"}>
       <div className={"sidebar__logo-container"}>
         <div className={"sidebar__logo-container-bottom"}></div>
-        <Icon icon={logo} description={"logo"} />
+        <Icon icon={logo} description={"logo"} size={"md"} />
       </div>
 
       <div className={"sidebar__bottom-container"}>

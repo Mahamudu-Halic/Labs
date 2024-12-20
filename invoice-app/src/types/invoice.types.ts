@@ -29,5 +29,6 @@ export type Invoice = {
 
 export type InitialState = {
   invoices: Invoice[];
+  invoice: Invoice | undefined;
   statusFilter: string[];
 };

@@ -9,6 +9,9 @@ import {
   selectStatusFilter,
 } from "../../features/invoice/invoice.slice.ts";
 import { useEffect } from "react";
+import NotFound from "../not-found/NotFound.tsx";
+import Headline from "../ui/typography/headline/Headline.tsx";
+import Text from "../ui/typography/text/Text.tsx";
 
 const Invoices = () => {
   const invoices = useAppSelector(selectInvoices);
@@ -31,7 +34,15 @@ const Invoices = () => {
           <InvoiceCard key={invoice.id} {...invoice} />
         ))}
 
-        {filteredInvoices.length === 0 && <p>No invoices found.</p>}
+        {filteredInvoices.length === 0 && (
+          <NotFound>
+            <Headline variant={"h3"}>There is nothing here</Headline>
+            <Text>
+              Create an invoice by clicking the <br />
+              <strong>New Invoice</strong> button and get started
+            </Text>
+          </NotFound>
+        )}
       </div>
     </Wrapper>
   );
