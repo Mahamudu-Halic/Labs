@@ -21,7 +21,7 @@ const Icon = ({
   className,
 }: IconProps) => {
   const combinedClassName =
-    `${styles.icon} ${styles[radius]} ${styles[size]} ${className || ""}`.trim();
+    `${styles.icon} ${styles[radius]} ${styles[size]} ${className ?? ""}`.trim();
 
   return <img src={icon} alt={description} className={combinedClassName} />;
 };

@@ -36,10 +36,13 @@ const Invoices = () => {
 
         {filteredInvoices.length === 0 && (
           <NotFound>
-            <Headline variant={"h3"}>There is nothing here</Headline>
+            <Headline variant={"h2"}>There is nothing here</Headline>
             <Text>
-              Create an invoice by clicking the <br />
-              <strong>New Invoice</strong> button and get started
+              Create an invoice by clicking the{" "}
+              <Text type={"span"} bold={true}>
+                New Invoice
+              </Text>{" "}
+              button and get started
             </Text>
           </NotFound>
         )}

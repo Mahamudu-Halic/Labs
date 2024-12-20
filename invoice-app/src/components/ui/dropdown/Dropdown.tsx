@@ -4,6 +4,7 @@ import {
   filterInvoices,
   selectStatusFilter,
 } from "../../../features/invoice/invoice.slice.ts";
+import Text from "../typography/text/Text.tsx";
 
 interface DropdownProps {
   options: string[];
@@ -16,7 +17,13 @@ const Dropdown = ({ options }: DropdownProps) => {
   return (
     <div className={styles.dropdown}>
       {options.map((option) => (
-        <label key={option} className={styles.dropdownItem} htmlFor={option}>
+        <Text
+          type={"label"}
+          bold={true}
+          key={option}
+          className={styles.dropdownItem}
+          htmlFor={option}
+        >
           <input
             type="checkbox"
             name="dropdown"
@@ -26,7 +33,7 @@ const Dropdown = ({ options }: DropdownProps) => {
           />
           <span className={styles.custom__checkbox}></span>
           {option}
-        </label>
+        </Text>
       ))}
     </div>
   );

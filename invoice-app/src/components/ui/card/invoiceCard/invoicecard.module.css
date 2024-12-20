@@ -1,36 +1,50 @@
-.invoice__card{
-    background: var(--bg-secondary);
-    width: 100%;
+.invoice__card {
+  background: var(--bg-secondary);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 6px #00000017;
+  text-align: left;
+  gap: 20px;
+  border: solid 1px transparent;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    border-color: var(--primary);
+  }
+
+  .invoice__card-badge-wrapper {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 0 6px #00000017;
-    text-align: left;
     gap: 20px;
-    border: solid 1px transparent;
-    transition: all 0.3s ease-in-out;
+    align-items: center;
+  }
 
-    &:hover{
-        border-color: var(--primary);
-    }
+  .invoice__card-client-name,
+  .invoice__card-payment-due,
+  .invoice__card-total {
+    flex: 1;
+  }
 
-    .invoice__card-badge-wrapper{
-        display: flex;
-        gap: 20px;
-        align-items: center;
-    }
+  .invoice__card-payment-due {
+    color: var(--text-secondary);
+  }
 
-    .invoice__card-client-name, .invoice__card-payment-due, .invoice__card-total, .invoice__card-id, .invoice__card-badge-wrapper, .invoice__card-id {
-        flex:1;
-    }
+  .invoice__card-client-name {
+    color: var(--text-name);
+  }
 
-    .invoice__card-total{
-        text-align: center;
-    }
+  .invoice__card-total {
+    text-align: center;
+  }
 
-    .invoice__card-id{
-        flex: 1;
+  .invoice__card-id {
+    flex: 0.5;
+
+    span {
+      color: var(--text-id);
     }
+  }
 }

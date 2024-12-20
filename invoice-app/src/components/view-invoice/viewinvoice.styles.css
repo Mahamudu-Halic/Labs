@@ -5,6 +5,12 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    width: fit-content;
+    padding: 5px;
+
+    &:hover {
+      color: var(--text-go-back);
+    }
   }
 
   .invoice__details-wrapper,
@@ -16,6 +22,10 @@
     display: flex;
     align-items: center;
     gap: 20px;
+
+    .status {
+      color: var(--text-status);
+    }
   }
 
   .invoice__button-wrapper {
@@ -30,34 +40,65 @@
 
   .invoice__details-wrapper {
     flex-direction: column;
-    .invoice__item__sender-address__wrapper {
+
+    .address {
+      color: var(--text-tertiary);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .invoice-title {
+      color: var(--text-tertiary);
+      margin-bottom: 10px;
+    }
+
+    .invoice__details__sender-address__wrapper {
       display: flex;
       justify-content: space-between;
       width: 100%;
-    }
 
-    .invoice__item__sender-address {
-      text-align: right;
-    }
+      .invoice__details-description {
+        span {
+          color: var(--text-hash);
+        }
+      }
 
-    .invoice__item__recipient-details {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-
-      div {
-        flex: 1;
+      .invoice__details__sender-address {
+        text-align: right;
       }
     }
 
-    .invoice__item-receipt {
+    .invoice__details__recipient-details {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      & > div {
+        flex: 1;
+
+        h3 {
+          margin-bottom: 10px;
+        }
+      }
+
+      .invoice__details-date {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: space-between;
+      }
+    }
+
+    .invoice__details-receipt {
       width: 100%;
       background: var(--bg-accent);
       box-shadow: none;
       padding: 0;
       flex-direction: column;
+      overflow: hidden;
 
-      .invoice__item-receipt__details {
+      .invoice__details-receipt__details {
         box-shadow: none;
         width: 100%;
         background: transparent;
@@ -65,14 +106,50 @@
 
         table {
           width: 100%;
+          gap: 20px;
+          border-collapse: collapse;
+
+          thead {
+            color: var(--text-tertiary);
+
+            .table__title-quantity {
+              text-align: center;
+            }
+
+            .table__title-price,
+            .table__title-total {
+              text-align: right;
+            }
+          }
+
+          tbody {
+            td {
+              padding-top: 30px;
+            }
+            .table__quantity {
+              color: var(--text-tertiary);
+              text-align: center;
+            }
+
+            .table__price {
+              color: var(--text-tertiary);
+              text-align: right;
+            }
+
+            .table__total {
+              text-align: right;
+            }
+          }
         }
       }
 
-      .invoice__item-receipt__amount-due {
+      .invoice__details-receipt__amount-due {
         box-shadow: none;
         width: 100%;
         padding: 40px;
         background: var(--bg-muted);
+        border-radius: 0;
+        color: var(--text-white);
       }
     }
   }

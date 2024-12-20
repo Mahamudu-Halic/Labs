@@ -7,8 +7,8 @@ interface BadgeProps {
 const Badge = ({ status }: BadgeProps) => {
   return (
     <div className={`${styles.badge} ${styles[status]}`}>
-      <span className={styles["badge__dot"]}></span>
-      <Text>{status}</Text>
+      <Text type={"span"} className={styles["badge__dot"]}></Text>
+      <Text bold={true}>{status}</Text>
     </div>
   );
 };

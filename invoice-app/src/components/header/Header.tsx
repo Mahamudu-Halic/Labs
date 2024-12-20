@@ -10,8 +10,8 @@ import "./header.styles.css";
 const Header = ({ total }: { total?: number }) => {
   return (
     <header className={"invoice__header"}>
-      <div>
-        <Headline variant={"h2"}>Invoices</Headline>
+      <div className={"heading"}>
+        <Headline variant={"h1"}>Invoices</Headline>
         <Text>{total ? `There are ${total} total` : `No invoices`}</Text>
       </div>
 
@@ -25,7 +25,7 @@ const Header = ({ total }: { total?: number }) => {
           <div className={"new__invoice-plus-icon"}>
             <Icon icon={plusIcon} description={"plus icon"} size={"xs"} />
           </div>
-          new invoice
+          New Invoice
         </Button>
       </div>
     </header>

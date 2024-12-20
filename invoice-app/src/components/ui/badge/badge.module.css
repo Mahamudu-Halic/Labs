@@ -1,55 +1,55 @@
-.badge{
-    padding: 10px;
-    border-radius: 10px;
-    min-width: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    text-transform: capitalize;
-    font-weight: 700;
+.badge {
+  padding: 15px;
+  border-radius: 10px;
+  min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-transform: capitalize;
+  font-weight: 700;
 
-    .badge__dot{
-        height: 5px;
-        width: 5px;
-        border-radius: 100%;
-        background: red;
-        display: inline-block;
+  .badge__dot {
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    background: red;
+    display: inline-block;
+  }
+
+  &.draft {
+    background: var(--bg-draft);
+
+    .badge__dot {
+      background: var(--text-draft);
     }
 
-    &.draft{
-        background: var(--bg-draft);
+    p {
+      color: var(--text-draft);
+    }
+  }
 
-        .badge__dot{
-            background: var(--text-draft);
-        }
+  &.paid {
+    background: var(--bg-paid);
 
-        p{
-            color: var(--text-draft);
-        }
+    .badge__dot {
+      background: var(--text-paid);
     }
 
-    &.paid{
-        background: var(--bg-paid);
+    p {
+      color: var(--text-paid);
+    }
+  }
 
-        .badge__dot{
-            background: var(--text-paid);
-        }
+  &.pending {
+    background: var(--bg-pending);
 
-       p{
-           color: var(--text-paid);
-       }
+    .badge__dot {
+      background: var(--text-pending);
     }
 
-    &.pending{
-        background: var(--bg-pending);
-
-        .badge__dot{
-            background: var(--text-pending);
-        }
-
-        p{
-            color: var(--text-pending);
-        }
+    p {
+      color: var(--text-pending);
     }
+  }
 }

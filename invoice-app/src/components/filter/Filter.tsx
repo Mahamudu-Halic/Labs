@@ -1,9 +1,10 @@
 import "./filter.styles.css";
 import Button from "../ui/button/button.tsx";
-import dropdownIcon from "../../assets/images/icon-arrow-down.svg";
+import arrowDownIcon from "../../assets/images/icon-arrow-down.svg";
 import Icon from "../ui/icon/Icon.tsx";
 import Dropdown from "../ui/dropdown/Dropdown.tsx";
 import { useState } from "react";
+import Dialog from "../ui/dialog/Dialog.tsx";
 
 const Filter = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
@@ -14,14 +15,19 @@ const Filter = () => {
   return (
     <div className={"filter"}>
       <Button onClick={handleDropdownToggle}>
-        Filter by status{" "}
-        <Icon icon={dropdownIcon} description={"dropdown arrow"} />
+        Filter by status
+        <Icon
+          className={showDropdown ? "rotate180" : ""}
+          size={"sm"}
+          icon={arrowDownIcon}
+          description={"dropdown arrow"}
+        />
       </Button>
 
       {showDropdown && (
         <>
-          <div className="overlay" onClick={handleDropdownToggle}></div>
-          <Dropdown options={["paid", "pending", "draft", "none"]} />
+          <Dialog onClose={handleDropdownToggle} />
+          <Dropdown options={["paid", "pending", "draft"]} />
         </>
       )}
     </div>
