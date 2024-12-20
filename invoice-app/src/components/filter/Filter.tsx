@@ -27,7 +27,7 @@ const Filter = () => {
       {showDropdown && (
         <>
           <Dialog onClose={handleDropdownToggle} />
-          <Dropdown options={["paid", "pending", "draft"]} />
+          <Dropdown options={["draft", "pending", "paid"]} />
         </>
       )}
     </div>

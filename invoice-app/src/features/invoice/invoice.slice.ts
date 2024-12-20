@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InitialState } from "../../types/invoice.types.ts";
 import data from "../../data.json";
 import { RootState } from "../../store.ts";
+
 const initialState: InitialState = {
   invoices: [],
   invoice: undefined,
@@ -22,7 +23,9 @@ const invoiceSlice = createSlice({
   reducers: {
     filterInvoices: (state, action: PayloadAction<string>) => {
       state.statusFilter = state.statusFilter.includes(action.payload)
-        ? state.statusFilter.filter((status) => status !== action.payload)
+        ? state.statusFilter.filter(
+            (status: string) => status !== action.payload,
+          )
         : [...state.statusFilter, action.payload];
     },
   },
