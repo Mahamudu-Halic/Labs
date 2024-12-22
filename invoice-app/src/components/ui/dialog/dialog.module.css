@@ -1,12 +1,65 @@
-.dialog {
+.dialog__container {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
   z-index: 100;
+  display: flex;
 
   &.overlay {
     background: #00000097;
   }
+}
+
+.dialog {
+  position: relative;
+  min-width: 300px;
+  max-width: 600px;
+  z-index: 1000;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.primary {
+  background: var(--bg-form);
+}
+
+.secondary {
+  background: var(--bg-secondary);
+}
+
+.center {
+  justify-content: center;
+  align-items: center;
+}
+
+.sm {
+  max-width: 480px;
+}
+
+.md {
+  max-width: 719px;
+}
+
+.rounded {
+  border-radius: 5px;
+}
+
+.rounded-sm {
+  border-radius: 8px;
+}
+
+.rounded-md {
+  border-radius: 15px;
+}
+
+.rounded-lg {
+  border-radius: 25px;
+}
+
+.rounded-full {
+  border-radius: 50px;
 }

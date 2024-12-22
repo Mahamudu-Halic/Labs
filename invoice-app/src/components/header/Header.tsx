@@ -6,8 +6,11 @@ import Filter from "../filter/Filter.tsx";
 
 import plusIcon from "../../assets/images/icon-plus.svg";
 import "./header.styles.css";
+import { useAppDispatch } from "../../hooks/useRedux.ts";
+import { toggleModal } from "../../features/modal/modal.slice.tsx";
 
 const Header = ({ total }: { total?: number }) => {
+  const dispatch = useAppDispatch();
   return (
     <header className={"invoice__header"}>
       <div className={"heading"}>
@@ -21,6 +24,7 @@ const Header = ({ total }: { total?: number }) => {
           variant={"primary"}
           radius={"rounded-lg"}
           className={"new__invoice-button"}
+          onClick={() => dispatch(toggleModal("showFormDialog"))}
         >
           <div className={"new__invoice-plus-icon"}>
             <Icon icon={plusIcon} description={"plus icon"} size={"xs"} />

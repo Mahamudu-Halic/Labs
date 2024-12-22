@@ -6,8 +6,15 @@ import NotFound from "./components/not-found/NotFound.tsx";
 import Headline from "./components/ui/typography/headline/Headline.tsx";
 import Text from "./components/ui/typography/text/Text.tsx";
 import ViewInvoice from "./components/view-invoice/ViewInvoice.tsx";
+import { useEffect } from "react";
+import { fetchInvoices } from "./features/invoice/invoice.slice.ts";
+import { useAppDispatch } from "./hooks/useRedux.ts";
 
 function App() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchInvoices());
+  }, []);
   return (
     <div className={"app"}>
       <Sidebar />

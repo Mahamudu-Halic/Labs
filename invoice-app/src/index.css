@@ -29,6 +29,7 @@ html[data-theme="light"] {
   --bg-draft: #dfe3fa57;
   --bg-dropdown: #ffffff;
   --bg-checkbox: #dfe3fa;
+  --bg-form: #ffffff;
 
   --text-primary: #0c0e16;
   --text-secondary: #888eb0;
@@ -49,6 +50,7 @@ html[data-theme="dark"] {
   --bg-draft: #373b5357;
   --bg-dropdown: #252945;
   --bg-checkbox: #1e2139;
+  --bg-form: #141625;
 
   --text-primary: #ffffff;
   --text-secondary: #dfe3fa;

@@ -3,18 +3,18 @@ import Button from "../ui/button/button.tsx";
 import arrowDownIcon from "../../assets/images/icon-arrow-down.svg";
 import Icon from "../ui/icon/Icon.tsx";
 import Dropdown from "../ui/dropdown/Dropdown.tsx";
-import { useState } from "react";
-import Dialog from "../ui/dialog/Dialog.tsx";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
+import {
+  selectDropdown,
+  toggleModal,
+} from "../../features/modal/modal.slice.tsx";
 
 const Filter = () => {
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
-
-  const handleDropdownToggle = () => {
-    setShowDropdown((prev) => !prev);
-  };
+  const dispatch = useAppDispatch();
+  const showDropdown = useAppSelector(selectDropdown);
   return (
     <div className={"filter"}>
-      <Button onClick={handleDropdownToggle}>
+      <Button onClick={() => dispatch(toggleModal("showDropdown"))}>
         Filter by status
         <Icon
           className={showDropdown ? "rotate180" : ""}
@@ -26,7 +26,10 @@ const Filter = () => {
 
       {showDropdown && (
         <>
-          <Dialog onClose={handleDropdownToggle} />
+          <div
+            className="overlay"
+            onClick={() => dispatch(toggleModal("showDropdown"))}
+          ></div>
           <Dropdown options={["paid", "pending", "draft"]} />
         </>
       )}

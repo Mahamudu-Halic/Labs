@@ -10,6 +10,7 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     | "rounded-md"
     | "rounded-lg"
     | "rounded-full";
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -17,13 +18,14 @@ const Button = ({
   radius = "rounded",
   variant = "default",
   className,
+  disabled = false,
   ...props
 }: ButtonProps) => {
   const combinedClassName =
     `${styles.button} ${styles[variant]} ${styles[radius]} ${className ?? ""}`.trim();
 
   return (
-    <button className={combinedClassName} {...props}>
+    <button className={combinedClassName} {...props} disabled={disabled}>
       {children}
     </button>
   );

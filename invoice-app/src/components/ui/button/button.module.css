@@ -62,6 +62,10 @@
   &:hover {
     background: var(--bg-danger-hover);
   }
+
+  &:disabled {
+    background: var(--bg-danger-hover);
+  }
 }
 
 .rounded {

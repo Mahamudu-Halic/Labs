@@ -18,8 +18,8 @@ const Address = ({
   const address: string[] = [street, city, postCode, country];
   return (
     <div className={`address ${className ?? ""}`}>
-      {address.map((location: string) => (
-        <Text key={location} size={"sm"}>
+      {address.map((location: string, index) => (
+        <Text key={location + index} size={"sm"}>
           {location}
         </Text>
       ))}

@@ -15,7 +15,7 @@ const Dropdown = ({ options }: DropdownProps) => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className={styles.dropdown}>
+    <div className={styles.dropdown} onClick={(e) => e.stopPropagation()}>
       {options.map((option) => (
         <Text
           type={"label"}

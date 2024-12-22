@@ -23,10 +23,13 @@ import InvoiceTitle from "./InvoiceTitle.tsx";
 const ViewInvoice = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
-  const invoice = useAppSelector(selectInvoice);
+  const currentInvoice = useAppSelector(selectInvoice);
+  const invoice = currentInvoice?.invoice;
+  const loading = currentInvoice?.loading;
+  const error = currentInvoice?.error;
 
   useEffect(() => {
-    dispatch(getInvoiceById(id || ""));
+    dispatch(getInvoiceById(id ?? ""));
   }, [dispatch, id]);
 
   return (
@@ -37,7 +40,7 @@ const ViewInvoice = () => {
       </Link>
       {invoice ? (
         <>
-          <InvoiceNotice {...invoice} />
+          <InvoiceNotice {...invoice} loading={loading} error={error} />
 
           <CardWrapper className={"invoice__details-wrapper"}>
             <div className={"invoice__details__sender-address__wrapper"}>

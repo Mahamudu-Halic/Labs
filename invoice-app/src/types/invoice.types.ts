@@ -27,8 +27,16 @@ export type Invoice = {
   total: number;
 };
 
+export type currentInvoice = {
+  invoice: Invoice | undefined;
+  loading: "idle" | "loading" | "success";
+  error: string | null;
+};
+
 export type InitialState = {
   invoices: Invoice[];
-  invoice: Invoice | undefined;
+  invoice: currentInvoice;
   statusFilter: string[];
+  loading: "idle" | "loading" | "success";
+  error: string | null;
 };
