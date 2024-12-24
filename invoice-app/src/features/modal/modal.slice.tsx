@@ -5,12 +5,14 @@ interface InitialState {
   showFormDialog: boolean;
   showDeleteDialog: boolean;
   showDropdown: boolean;
+  showPaymentTerms: boolean;
 }
 
 const initialState: InitialState = {
   showFormDialog: false,
   showDeleteDialog: false,
   showDropdown: false,
+  showPaymentTerms: false,
 };
 
 const modalSlice = createSlice({
@@ -20,7 +22,12 @@ const modalSlice = createSlice({
     toggleModal: (
       state: InitialState,
       action: PayloadAction<
-        Partial<"showDeleteDialog" | "showFormDialog" | "showDropdown">
+        Partial<
+          | "showDeleteDialog"
+          | "showFormDialog"
+          | "showDropdown"
+          | "showPaymentTerms"
+        >
       >,
     ) => {
       const modal = action.payload;
@@ -34,6 +41,7 @@ export const selectFormDialog = (state: RootState) =>
 export const selectDeleteDialog = (state: RootState) =>
   state.modal.showDeleteDialog;
 export const selectDropdown = (state: RootState) => state.modal.showDropdown;
-
+export const selectPaymentTerms = (state: RootState) =>
+  state.modal.showPaymentTerms;
 export const { toggleModal } = modalSlice.actions;
 export default modalSlice.reducer;

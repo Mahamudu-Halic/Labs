@@ -1,0 +1,22 @@
+.form-address {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .form-address__info {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+}
+
+.bill-to,
+.bill-from {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  p {
+    color: var(--primary);
+  }
+}

@@ -2,7 +2,7 @@ import Text from "../../ui/typography/text/Text.tsx";
 import Badge from "../../ui/badge/Badge.tsx";
 import Button from "../../ui/button/button.tsx";
 import CardWrapper from "../../ui/card/CardWrapper.tsx";
-import DeleteModal from "../delete-modal/DeleteModal.tsx";
+import DeleteModal from "../../modals/delete-modal/DeleteModal.tsx";
 import { updateInvoiceStatus } from "../../../features/invoice/invoice.slice.ts";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
 import {

@@ -1,7 +1,7 @@
-import { ReactNode, HTMLAttributes } from "react";
+import { ReactNode, ButtonHTMLAttributes } from "react";
 import styles from "./button.module.css";
 
-interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: "default" | "primary" | "secondary" | "tertiary" | "danger";
   radius?:
@@ -10,7 +10,6 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     | "rounded-md"
     | "rounded-lg"
     | "rounded-full";
-  disabled?: boolean;
 }
 
 const Button = ({
@@ -18,14 +17,12 @@ const Button = ({
   radius = "rounded",
   variant = "default",
   className,
-  disabled = false,
   ...props
 }: ButtonProps) => {
   const combinedClassName =
     `${styles.button} ${styles[variant]} ${styles[radius]} ${className ?? ""}`.trim();
-
   return (
-    <button className={combinedClassName} {...props} disabled={disabled}>
+    <button className={combinedClassName} {...props}>
       {children}
     </button>
   );

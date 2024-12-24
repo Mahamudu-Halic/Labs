@@ -37,11 +37,11 @@
 }
 
 .sm {
-  max-width: 480px;
+  width: 480px;
 }
 
 .md {
-  max-width: 719px;
+  width: 719px;
 }
 
 .rounded {
