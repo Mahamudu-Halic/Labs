@@ -30,7 +30,7 @@ const Filter = () => {
             className="overlay"
             onClick={() => dispatch(toggleModal("showDropdown"))}
           ></div>
-          <Dropdo wn options={["paid", "pending", "draft"]} />
+          <Dropdown options={["paid", "pending", "draft"]} />
         </>
       )}
     </div>

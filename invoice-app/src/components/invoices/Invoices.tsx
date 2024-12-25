@@ -24,7 +24,7 @@ const Invoices = () => {
 
   return (
     <>
-      {showForm && <FormDialogModal />}
+      {showForm && <FormDialogModal type={"newInvoice"} />}
       <Wrapper className={"invoices"}>
         <Header total={filteredInvoices.length} />
         <div className="invoices__card-list">

@@ -6,6 +6,7 @@ interface InitialState {
   showDeleteDialog: boolean;
   showDropdown: boolean;
   showPaymentTerms: boolean;
+  showProfile: boolean;
 }
 
 const initialState: InitialState = {
@@ -13,6 +14,7 @@ const initialState: InitialState = {
   showDeleteDialog: false,
   showDropdown: false,
   showPaymentTerms: false,
+  showProfile: false,
 };
 
 const modalSlice = createSlice({
@@ -27,6 +29,7 @@ const modalSlice = createSlice({
           | "showFormDialog"
           | "showDropdown"
           | "showPaymentTerms"
+          | "showProfile"
         >
       >,
     ) => {

@@ -2,20 +2,14 @@ import Headline from "../../../ui/typography/headline/Headline.tsx";
 import Button from "../../../ui/button/button.tsx";
 import "./items.styles.css";
 import Icon from "../../../ui/icon/Icon.tsx";
-import deleteIcon from "../../../../assets/images/icon-delete.svg";
 import plusIcon from "../../../../assets/images/icon-plus.svg";
 import {
   FieldArrayWithId,
-  FieldErrorsImpl,
   UseFieldArrayAppend,
   UseFieldArrayRemove,
   useFormContext,
 } from "react-hook-form";
-import {
-  Errors,
-  initialItems,
-  ItemType,
-} from "../../../../types/form.types.ts";
+import { initialItems, ItemType } from "../../../../types/form.types.ts";
 
 interface ItemsProps {
   fields: FieldArrayWithId<ItemType>[];
@@ -35,11 +29,6 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
         {fields.map((field, index) => {
           const qty = watch(`items.${index}.quantity`) || 0; // Default to 0 if undefined
           const prc = watch(`items.${index}.price`) || 0;
-          const itemErrors =
-            errors.items as unknown as FieldErrorsImpl<ItemType>[];
-
-          // const { name, quantity, price } = (itemErrors[index] as Errors) ?? {};
-          // console.log(itemErrors);
           return (
             <div className={"items__list-item"} key={field.id}>
               <div className={"item__name"}>
@@ -47,9 +36,9 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                 <input
                   id={"itemName" + index}
                   className={
-                    Array.isArray(errors.items) &&
-                    errors.items[index]?.name &&
-                    "error"
+                    Array.isArray(errors.items) && errors.items[index]?.name
+                      ? "error"
+                      : ""
                   }
                   type="text"
                   {...register(`items.${index}.name`, {
@@ -66,9 +55,9 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                 <label htmlFor={"itemQty" + index}>Qty</label>
                 <input
                   className={
-                    Array.isArray(errors.items) &&
-                    errors.items[index]?.quantity &&
-                    "error"
+                    Array.isArray(errors.items) && errors.items[index]?.quantity
+                      ? "error"
+                      : ""
                   }
                   type="number"
                   id={"itemQty" + index}
@@ -86,9 +75,9 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                 <label htmlFor={"itemPrice" + index}>Price</label>
                 <input
                   className={
-                    Array.isArray(errors.items) &&
-                    errors.items[index]?.price &&
-                    "error"
+                    Array.isArray(errors.items) && errors.items[index]?.price
+                      ? "error"
+                      : ""
                   }
                   type="number"
                   id={"itemPrice" + index}
@@ -119,7 +108,13 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                 className={"delete-item__button"}
                 onClick={() => remove(index)}
               >
-                <Icon icon={deleteIcon} description={"delete icon"} />
+                <svg width="13" height="16" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
+                    fill="#888EB0"
+                    fill-rule="nonzero"
+                  />
+                </svg>
               </Button>
             </div>
           );

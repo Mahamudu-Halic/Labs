@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
 import {
   getInvoiceById,
   selectInvoice,
+  selectInvoices,
 } from "../../features/invoice/invoice.slice.ts";
 import { useEffect } from "react";
 import Headline from "../ui/typography/headline/Headline.tsx";
@@ -19,21 +20,25 @@ import Table from "./table/Table.tsx";
 import InvoiceNotice from "./invoice-notice/InvoiceNotice.tsx";
 import Address from "./address/Address.tsx";
 import InvoiceTitle from "./InvoiceTitle.tsx";
+import { selectFormDialog } from "../../features/modal/modal.slice.tsx";
+import FormDialogModal from "../modals/form-modal/FormDialog.modal.tsx";
 
 const ViewInvoice = () => {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const currentInvoice = useAppSelector(selectInvoice);
   const invoice = currentInvoice?.invoice;
+  const invoices = useAppSelector(selectInvoices);
   const loading = currentInvoice?.loading;
   const error = currentInvoice?.error;
-
+  const showForm = useAppSelector(selectFormDialog);
   useEffect(() => {
     dispatch(getInvoiceById(id ?? ""));
-  }, [dispatch, id]);
+  }, [dispatch, id, invoices]);
 
   return (
     <Wrapper className={"view-invoice"}>
+      {showForm && <FormDialogModal type={"edit"} initialValues={invoice} />}
       <Link to={"/"} className={"go-back"}>
         <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
         <Text bold={true}>Go back</Text>

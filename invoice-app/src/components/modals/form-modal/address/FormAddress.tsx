@@ -17,7 +17,10 @@ const FormAddress = ({ field }: FormAddressProps) => {
   return (
     <div className={"form-address"}>
       <div>
-        <label htmlFor={field + "streetAddress"} className={street && "error"}>
+        <label
+          htmlFor={field + "streetAddress"}
+          className={street ? "error" : ""}
+        >
           Street Address
           {street && (
             <Text size={"sm"} type={"span"}>
@@ -26,7 +29,7 @@ const FormAddress = ({ field }: FormAddressProps) => {
           )}
         </label>
         <input
-          className={street && "error"}
+          className={street ? "error" : ""}
           id={field + "streetAddress"}
           type="text"
           {...register(`${field}.street`, {
@@ -36,11 +39,11 @@ const FormAddress = ({ field }: FormAddressProps) => {
       </div>
       <div className={"form-address__info"}>
         <div>
-          <label htmlFor={field + "city"} className={city && "error"}>
+          <label htmlFor={field + "city"} className={city ? "error" : ""}>
             City
           </label>
           <input
-            className={city && "error"}
+            className={city ? "error" : ""}
             id={field + "city"}
             type="text"
             {...register(`${field}.city`, {
@@ -49,11 +52,14 @@ const FormAddress = ({ field }: FormAddressProps) => {
           />
         </div>
         <div>
-          <label htmlFor={field + "postalCode"} className={postCode && "error"}>
+          <label
+            htmlFor={field + "postalCode"}
+            className={postCode ? "error" : ""}
+          >
             Postal Code
           </label>
           <input
-            className={postCode && "error"}
+            className={postCode ? "error" : ""}
             id={field + "postalCode"}
             type="text"
             {...register(`${field}.postCode`, {
@@ -62,11 +68,11 @@ const FormAddress = ({ field }: FormAddressProps) => {
           />
         </div>
         <div>
-          <label htmlFor={field + "country"} className={country && "error"}>
+          <label htmlFor={field + "country"} className={country ? "error" : ""}>
             Country
           </label>
           <input
-            className={country && "error"}
+            className={country ? "error" : ""}
             id={field + "country"}
             type="text"
             {...register(`${field}.country`, {

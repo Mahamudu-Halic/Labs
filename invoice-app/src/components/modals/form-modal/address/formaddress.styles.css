@@ -1,3 +1,9 @@
+.form {
+  h2 span {
+    color: var(--text-hash);
+  }
+}
+
 .form-address {
   display: flex;
   flex-direction: column;

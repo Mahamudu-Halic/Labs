@@ -136,7 +136,7 @@ const invoiceSlice = createSlice({
           );
 
           if (
-            index &&
+            index >= 0 &&
             state.invoice.invoice &&
             state.invoices[index].id === state.invoice.invoice.id &&
             state.invoices[index].status === "pending"
@@ -146,6 +146,8 @@ const invoiceSlice = createSlice({
             state.invoice.loading = "success";
             state.invoice.error = null;
           }
+          state.invoice.loading = "idle";
+          state.invoice.error = "something went wrong";
         },
       )
       .addCase(updateInvoiceStatus.rejected, (state, action) => {
@@ -159,9 +161,24 @@ const invoiceSlice = createSlice({
         state.error = null;
       })
       .addCase(addInvoice.fulfilled, (state, action) => {
-        state.invoices = [action.payload, ...state.invoices];
-        state.loading = "success";
-        state.error = null;
+        const { payload } = action;
+
+        const payloadExists = state.invoices.find(
+          (invoice) => invoice.id === payload.id,
+        );
+
+        if (!payloadExists) {
+          state.invoices = [action.payload, ...state.invoices];
+          state.loading = "success";
+          state.error = null;
+        } else {
+          const index = state.invoices.findIndex(
+            (invoice) => invoice.id === payload.id,
+          );
+          state.invoices[index] = { ...state.invoices[index], ...payload };
+          state.loading = "success";
+          state.error = null;
+        }
       })
       .addCase(addInvoice.rejected, (state, action) => {
         state.loading = "idle";

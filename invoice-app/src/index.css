@@ -31,6 +31,7 @@ html[data-theme="light"] {
   --bg-checkbox: #dfe3fa;
   --bg-form: #ffffff;
   --input-border: #dfe3fa;
+  --bg-save-draft-hover: #0c0e16;
 
   --text-primary: #0c0e16;
   --text-secondary: #888eb0;
@@ -57,6 +58,7 @@ html[data-theme="dark"] {
   --bg-checkbox: #1e2139;
   --bg-form: #141625;
   --input-border: #252945;
+  --bg-save-draft-hover: #1e2139;
 
   --text-primary: #ffffff;
   --text-secondary: #dfe3fa;

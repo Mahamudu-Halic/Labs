@@ -40,3 +40,28 @@ export type InitialState = {
   loading: "idle" | "loading" | "success";
   error: string | null;
 };
+
+export const initialInvoices: Invoice = {
+  id: "",
+  clientName: "",
+  clientEmail: "",
+  createdAt: "",
+  paymentDue: "",
+  description: "",
+  paymentTerms: 0,
+  clientAddress: {
+    street: "",
+    city: "",
+    postCode: "",
+    country: "",
+  },
+  senderAddress: {
+    street: "",
+    city: "",
+    postCode: "",
+    country: "",
+  },
+  items: [],
+  status: "",
+  total: 0,
+};

@@ -14,7 +14,7 @@ interface InvoiceNoticeProps {
   status: string;
   id: string;
   loading: string;
-  error: string;
+  error: string | null;
 }
 
 const InvoiceNotice = ({ status, id, loading }: InvoiceNoticeProps) => {
@@ -33,6 +33,7 @@ const InvoiceNotice = ({ status, id, loading }: InvoiceNoticeProps) => {
             variant={"tertiary"}
             radius={"rounded-full"}
             disabled={loading === "loading"}
+            onClick={() => dispatch(toggleModal("showFormDialog"))}
           >
             Edit
           </Button>

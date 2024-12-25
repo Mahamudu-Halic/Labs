@@ -14,7 +14,7 @@ const BillTo = () => {
     <div className={"bill-to"}>
       <Text bold={true}>Bill to</Text>
       <div>
-        <label htmlFor={"clientName"} className={clientName && "error"}>
+        <label htmlFor={"clientName"} className={clientName ? "error" : ""}>
           Client's Name{" "}
           {clientName && (
             <Text size={"sm"} type={"span"}>
@@ -36,7 +36,7 @@ const BillTo = () => {
         />
       </div>
       <div>
-        <label htmlFor={"clientEmail"} className={clientEmail && "error"}>
+        <label htmlFor={"clientEmail"} className={clientEmail ? "error" : ""}>
           Client's Email{" "}
           {clientEmail && (
             <Text size={"sm"} type={"span"}>

@@ -13,11 +13,24 @@ import { DevTool } from "@hookform/devtools";
 import { Errors, FormValues, initialItems } from "../../../types/form.types.ts";
 import calculatePaymentDue from "../../../utils/calculatePaymentDue/calculatePaymentDue.ts";
 import generateRandomId from "../../../utils/generateRandomId/generateRandomId.ts";
+import {
+  addInvoice,
+  selectLoading,
+} from "../../../features/invoice/invoice.slice.ts";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
+import { toggleModal } from "../../../features/modal/modal.slice.tsx";
 
-const FormDialogModal = () => {
+interface FormDialogModalProps {
+  type: "newInvoice" | "edit";
+  initialValues?: FormValues;
+}
+
+const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
+  const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectLoading);
   const form = useForm<FormValues>({
-    defaultValues: {
-      id: "",
+    defaultValues: initialValues ?? {
+      id: generateRandomId(),
       clientName: "",
       clientEmail: "",
       createdAt: "",
@@ -41,6 +54,8 @@ const FormDialogModal = () => {
           ...initialItems,
         },
       ],
+      status: "",
+      total: 45,
     },
     mode: "onTouched",
   });
@@ -48,12 +63,10 @@ const FormDialogModal = () => {
     register,
     control,
     handleSubmit,
-    setValue,
     setError,
-
     getValues,
     reset,
-    formState: { errors, isValid, isDirty, isSubmitSuccessful },
+    formState: { errors, isValid, isDirty },
   } = form;
   const { fields, append, remove } = useFieldArray({
     name: "items",
@@ -74,13 +87,29 @@ const FormDialogModal = () => {
     }));
 
     const paymentDue = calculatePaymentDue(data.createdAt, data.paymentTerms);
-    const id = generateRandomId();
-    const newData = { ...data, id, paymentDue, items: newItems };
-    console.log("New Data:", newData);
+    const newData = {
+      ...data,
+      paymentDue,
+      items: newItems,
+      status: "pending",
+    };
+    dispatch(addInvoice(newData));
+    if (loading === "success") dispatch(toggleModal("showFormDialog"));
+  };
+
+  const onSaveDraft = () => {
+    const data: FormValues = getValues();
+    data.status = "draft";
+    dispatch(addInvoice(data));
+    dispatch(toggleModal("showFormDialog"));
+  };
+
+  const onDiscard = () => {
+    reset();
+    dispatch(toggleModal("showFormDialog"));
   };
 
   const { description } = (errors as Errors) ?? {};
-  console.log(isValid, isDirty);
   return (
     <DialogContainer>
       <Dialog
@@ -90,8 +119,15 @@ const FormDialogModal = () => {
         size={"md"}
       >
         <FormProvider {...form}>
-          <Form onSubmit={handleSubmit(onSubmit)}>
-            <Headline variant={"h2"}>New Invoice</Headline>
+          <Form onSubmit={handleSubmit(onSubmit)} className={"form"}>
+            {type === "newInvoice" ? (
+              <Headline variant={"h2"}>New Invoice</Headline>
+            ) : (
+              <Headline variant={"h2"}>
+                Edit <span>#</span>
+                {initialValues?.id}
+              </Headline>
+            )}
 
             <div className={"bill-from"}>
               <Text bold={true}>Bill From</Text>
@@ -119,42 +155,77 @@ const FormDialogModal = () => {
 
             <Items fields={fields} append={append} remove={remove} />
 
-            {!!Object.keys(errors).length && (
-              <div>
+            <div>
+              {!!Object.keys(errors).length && (
                 <Text size={"sm"} className={"error"}>
                   -All fields must be added
                 </Text>
-                {!getValues("items").length && (
-                  <Text size={"sm"} className={"error"}>
-                    -An item must be added
-                  </Text>
-                )}
-              </div>
-            )}
+              )}
+              {!getValues("items").length && (
+                <Text size={"sm"} className={"error"}>
+                  -An item must be added
+                </Text>
+              )}
+            </div>
             <div className={"form-dialog__buttons"}>
-              <Button
-                type={"button"}
-                radius={"rounded-full"}
-                variant={"tertiary"}
-                className={"discard__button"}
-                onClick={() => reset()}
-              >
-                Discard
-              </Button>
-              <Button
-                type={"button"}
-                radius={"rounded-full"}
-                variant={"secondary"}
-              >
-                Save as Draft
-              </Button>
-              <Button
-                radius={"rounded-full"}
-                variant={"primary"}
-                disabled={!isValid || !isDirty}
-              >
-                Save & Send
-              </Button>
+              {type === "newInvoice" ? (
+                <>
+                  <Button
+                    type={"button"}
+                    radius={"rounded-full"}
+                    variant={"tertiary"}
+                    className={"discard__button"}
+                    onClick={onDiscard}
+                    disabled={loading === "loading"}
+                  >
+                    Discard
+                  </Button>
+                  <Button
+                    type={"button"}
+                    radius={"rounded-full"}
+                    variant={"secondary"}
+                    onClick={onSaveDraft}
+                    disabled={loading === "loading"}
+                  >
+                    Save as Draft
+                  </Button>
+                  <Button
+                    radius={"rounded-full"}
+                    variant={"primary"}
+                    disabled={
+                      !isValid ||
+                      !isDirty ||
+                      !getValues("items").length ||
+                      loading === "loading"
+                    }
+                  >
+                    Save & Send
+                  </Button>{" "}
+                </>
+              ) : (
+                <>
+                  <Button
+                    type={"button"}
+                    radius={"rounded-full"}
+                    variant={"secondary"}
+                    onClick={onDiscard}
+                    disabled={loading === "loading"}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    radius={"rounded-full"}
+                    variant={"primary"}
+                    disabled={
+                      !isValid ||
+                      !getValues("items").length ||
+                      loading === "loading"
+                    }
+                  >
+                    Save changes
+                  </Button>
+                </>
+              )}
             </div>
           </Form>
         </FormProvider>

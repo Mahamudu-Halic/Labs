@@ -25,6 +25,8 @@ export type FormValues = {
   clientAddress: AddressType;
   senderAddress: AddressType;
   items: ItemType[];
+  status: string;
+  total: number;
 };
 
 export const initialItems: ItemType = {
