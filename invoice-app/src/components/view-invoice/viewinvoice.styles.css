@@ -1,4 +1,8 @@
-.view-invoice {
+.view__invoice-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 30px;
 
   .go-back {
@@ -7,24 +11,10 @@
     gap: 10px;
     width: fit-content;
     padding: 5px;
+    margin-right: auto;
 
     &:hover {
       color: var(--text-go-back);
-    }
-  }
-
-  .invoice__details-wrapper,
-  .invoice__notice-wrapper {
-    padding: 40px;
-  }
-
-  .invoice__status-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    .status {
-      color: var(--text-status);
     }
   }
 
@@ -36,10 +26,60 @@
     button {
       padding: 12px 20px;
     }
+
+    @media (width <= 430px) {
+      justify-content: space-between;
+      width: 100%;
+    }
+  }
+
+  .button-wrapper {
+    width: 100%;
+    border-radius: 0;
+    display: none;
+
+    @media (width <= 430px) {
+      display: block;
+    }
+  }
+}
+.view__invoice {
+  gap: 30px;
+
+  .invoice__details-wrapper,
+  .invoice__notice-wrapper {
+    padding: 40px;
+
+    @media (width <= 430px) {
+      padding: 20px;
+    }
+  }
+
+  .invoice__notice-wrapper {
+    .invoice__status-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      .status {
+        color: var(--text-status);
+      }
+    }
+
+    @media (width <= 430px) {
+      .invoice__status-wrapper {
+        justify-content: space-between;
+        width: 100%;
+      }
+      .invoice__button-wrapper {
+        display: none;
+      }
+    }
   }
 
   .invoice__details-wrapper {
     flex-direction: column;
+    gap: 20px;
 
     .address {
       color: var(--text-tertiary);
@@ -57,6 +97,7 @@
       display: flex;
       justify-content: space-between;
       width: 100%;
+      gap: 20px;
 
       .invoice__details-description {
         span {
@@ -67,12 +108,48 @@
       .invoice__details__sender-address {
         text-align: right;
       }
+
+      @media (width <= 430px) {
+        flex-direction: column;
+
+        h3 {
+          font-size: 0.75rem;
+        }
+
+        .invoice__details__sender-address {
+          text-align: left;
+        }
+      }
     }
 
     .invoice__details__recipient-details {
       display: flex;
       justify-content: space-between;
       width: 100%;
+      gap: 20px;
+
+      .invoice__details__sent-to {
+        flex: 1;
+      }
+
+      .invoice__details__recipient-details-date__address {
+        display: flex;
+        justify-content: space-between;
+        flex: 2;
+        gap: 20px;
+
+        div {
+          flex: 1;
+        }
+      }
+
+      @media (width <= 430px) {
+        flex-direction: column;
+
+        h3 {
+          font-size: 0.9rem;
+        }
+      }
 
       & > div {
         flex: 1;
@@ -150,6 +227,8 @@
         background: var(--bg-muted);
         border-radius: 0;
         color: var(--text-white);
+        flex-direction: row;
+        justify-content: space-between;
       }
     }
   }

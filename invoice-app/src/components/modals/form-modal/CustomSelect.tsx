@@ -18,19 +18,16 @@ const Options = [
 ];
 
 interface CustomSelectProps {
-  handleSelectOption: ({
-    value,
-    description,
-  }: {
-    value: number;
-    description: string;
-  }) => void;
+  handleSelectOption: (value: number) => void;
 }
 const CustomSelect = ({ handleSelectOption }: CustomSelectProps) => {
   return (
     <ul className={"custom-select"}>
       {Options.map((option) => (
-        <li key={option.description} onClick={() => handleSelectOption(option)}>
+        <li
+          key={option.description}
+          onClick={() => handleSelectOption(option.value)}
+        >
           {option.description}
         </li>
       ))}

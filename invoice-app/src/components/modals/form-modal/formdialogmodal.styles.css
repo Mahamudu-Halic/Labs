@@ -1,12 +1,73 @@
 .form-dialog {
-  overflow-y: auto;
-  padding-left: 143px;
+  /*overflow-y: auto;*/
+  padding-right: 0;
+  padding-bottom: 0;
+  animation: slideInRight 0.3s forwards;
+  justify-content: flex-start;
 
+  .go-back {
+    gap: 10px;
+    display: none;
+    width: fit-content;
+    padding-left: 0;
+
+    &:hover {
+      color: var(--text-go-back);
+    }
+  }
+  @media (width <= 768px) {
+    padding: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  @media (width <= 430px) {
+    border-radius: 0;
+
+    .go-back {
+      display: flex;
+    }
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+  }
+
+  .form-info {
+    overflow-y: auto;
+    padding-right: 40px;
+    padding-left: 103px;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+
+    @media (width <= 768px) {
+      padding: 20px 40px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
   .payment-terms {
     position: relative;
 
+    button.active {
+      border-color: var(--primary);
+    }
+
     .rotate180 {
       transform: rotate(180deg);
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
     }
 
     .custom-select {
@@ -41,8 +102,6 @@
     }
   }
   input {
-    flex: 1;
-
     &.error {
       border-color: var(--bg-danger);
       outline-color: var(--bg-danger);
@@ -56,74 +115,15 @@
     }
   }
 
-  .date-term {
-    display: flex;
-    gap: 20px;
-
-    & > div {
-      flex: 1;
-    }
-
-    input[type="date"] {
-      background-image: url("../../../assets/images/icon-calendar.svg");
-      background-position: 90%;
-      background-repeat: no-repeat;
-      cursor: pointer;
-    }
-
-    ::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    button {
-      padding: 15px;
-      border: solid 1px var(--input-border);
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      margin-top: 15px;
-      width: 100%;
-      justify-content: space-between;
-    }
-
-    .select-wrapper {
-      position: relative;
-      display: flex;
-      width: 100%;
-      align-items: center;
-
-      img {
-        position: absolute;
-        top: 50%;
-        right: 15px;
-      }
-    }
-
-    select {
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      padding: 15px;
-      border: solid 1px var(--input-border);
-      background: var(--bg-secondary);
-      color: var(--text-primary);
-      margin-top: 15px;
-      width: 100%;
-      justify-content: space-between;
-      border-radius: 5px;
-      font-size: 0.75rem;
-      cursor: pointer;
-
-      &::after {
-        background: red;
-      }
-    }
-  }
-
   .form-dialog__buttons {
     display: flex;
     gap: 20px;
     justify-content: flex-end;
+    background: var(--bg-form);
+    box-shadow: 0 -15px 15px #00000027;
+    margin-top: auto;
+    padding: 20px 40px 20px 103px;
+    border-radius: 20px;
 
     button {
       padding: 15px;
@@ -141,5 +141,15 @@
   }
   to {
     opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0%);
   }
 }

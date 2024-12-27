@@ -27,24 +27,31 @@ const InvoiceCard = ({
   return (
     <Link to={`/${id}`}>
       <CardWrapper className={styles.invoice__card}>
-        <Text bold={true} className={styles["invoice__card-id"]}>
-          <Text bold={true} type={"span"}>
-            #
+        <div className={styles["invoice__card-left"]}>
+          <div className={styles["invoice__card-left__details"]}>
+            <Text bold={true} className={styles["invoice__card-id"]}>
+              <Text bold={true} type={"span"}>
+                #
+              </Text>
+              {id}
+            </Text>
+            <Text className={styles["invoice__card-payment-due"]}>
+              Due {paymentDue && formatDate(paymentDue)}
+            </Text>
+          </div>
+          <Text className={styles["invoice__card-client-name"]}>
+            {clientName ?? ""}
           </Text>
-          {id}
-        </Text>
-        <Text className={styles["invoice__card-payment-due"]}>
-          Due {formatDate(paymentDue)}
-        </Text>
-        <Text className={styles["invoice__card-client-name"]}>
-          {clientName}
-        </Text>
-        <Headline variant={"h3"} className={styles["invoice__card-total"]}>
-          £{formatNumber(total)}
-        </Headline>
-        <div className={styles["invoice__card-badge-wrapper"]}>
-          <Badge status={status} />
-          <Icon icon={arrowRightIcon} description={"arrow right"} />
+        </div>
+
+        <div className={styles["invoice__card-right"]}>
+          <Headline variant={"h3"} className={styles["invoice__card-total"]}>
+            £{total && formatNumber(total)}
+          </Headline>
+          <div className={styles["invoice__card-badge-wrapper"]}>
+            <Badge status={status} />
+            <Icon icon={arrowRightIcon} description={"arrow right"} />
+          </div>
         </div>
       </CardWrapper>
     </Link>

@@ -12,6 +12,7 @@ import { useAppDispatch } from "./hooks/useRedux.ts";
 
 function App() {
   const dispatch = useAppDispatch();
+
   useEffect(() => {
     dispatch(fetchInvoices());
   }, []);

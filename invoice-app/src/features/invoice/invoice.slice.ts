@@ -169,16 +169,14 @@ const invoiceSlice = createSlice({
 
         if (!payloadExists) {
           state.invoices = [action.payload, ...state.invoices];
-          state.loading = "success";
-          state.error = null;
         } else {
           const index = state.invoices.findIndex(
             (invoice) => invoice.id === payload.id,
           );
           state.invoices[index] = { ...state.invoices[index], ...payload };
-          state.loading = "success";
-          state.error = null;
         }
+        state.loading = "success";
+        state.error = null;
       })
       .addCase(addInvoice.rejected, (state, action) => {
         state.loading = "idle";

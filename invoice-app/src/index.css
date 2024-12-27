@@ -40,10 +40,6 @@ html[data-theme="light"] {
   --text-draft: #373b53;
   --text-name: #858bb2;
   --text-status: #858bb2;
-
-  input {
-    outline-color: var(--primary);
-  }
 }
 
 html[data-theme="dark"] {
@@ -96,6 +92,26 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: "Spartan", sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: var(--input-border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+  background-color: var(--input-border);
+
+  border-radius: 10px;
 }
 
 a {

@@ -9,8 +9,12 @@ import BillTo from "./bill-to/BillTo.tsx";
 import DateTerms from "./date-and-terms/DateTerms.tsx";
 import Items from "./items/Items.tsx";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
-import { Errors, FormValues, initialItems } from "../../../types/form.types.ts";
+import {
+  Errors,
+  FormValues,
+  initialItems,
+  ItemType,
+} from "../../../types/form.types.ts";
 import calculatePaymentDue from "../../../utils/calculatePaymentDue/calculatePaymentDue.ts";
 import generateRandomId from "../../../utils/generateRandomId/generateRandomId.ts";
 import {
@@ -19,6 +23,8 @@ import {
 } from "../../../features/invoice/invoice.slice.ts";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
 import { toggleModal } from "../../../features/modal/modal.slice.tsx";
+import Icon from "../../ui/icon/Icon.tsx";
+import arrowLeftIcon from "../../../assets/images/icon-arrow-left.svg";
 
 interface FormDialogModalProps {
   type: "newInvoice" | "edit";
@@ -55,7 +61,7 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
         },
       ],
       status: "",
-      total: 45,
+      total: 0,
     },
     mode: "onTouched",
   });
@@ -73,6 +79,17 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
     control,
   });
 
+  const calculateItemsTotal = (items: ItemType[]) => {
+    return items.map((item: ItemType) => ({
+      ...item,
+      total: Number((item?.price * item?.quantity).toFixed(2)),
+    }));
+  };
+
+  const calculateTotal = (items: ItemType[]) => {
+    return items.reduce((total, item: ItemType) => total + item.total, 0);
+  };
+
   const onSubmit = (data: FormValues) => {
     if (!data.items.length) {
       setError("items", {
@@ -81,27 +98,28 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
       });
       return;
     }
-    const newItems = data.items.map((item) => ({
-      ...item,
-      total: Number((item?.price * item?.quantity).toFixed(2)),
-    }));
 
-    const paymentDue = calculatePaymentDue(data.createdAt, data.paymentTerms);
-    const newData = {
-      ...data,
-      paymentDue,
-      items: newItems,
-      status: "pending",
-    };
-    dispatch(addInvoice(newData));
+    data.status = "pending";
+    data.items = calculateItemsTotal(data.items);
+    data.total = calculateTotal(data.items);
+    data.paymentDue = calculatePaymentDue(data.createdAt, data.paymentTerms);
+
+    dispatch(addInvoice(data));
     if (loading === "success") dispatch(toggleModal("showFormDialog"));
   };
 
   const onSaveDraft = () => {
     const data: FormValues = getValues();
     data.status = "draft";
+    data.items = calculateItemsTotal(data.items);
+    data.total = calculateTotal(data.items);
+    data.paymentDue =
+      data.createdAt && data.paymentTerms
+        ? calculatePaymentDue(data.createdAt, data.paymentTerms)
+        : "";
     dispatch(addInvoice(data));
-    dispatch(toggleModal("showFormDialog"));
+
+    if (loading === "success") dispatch(toggleModal("showFormDialog"));
   };
 
   const onDiscard = () => {
@@ -113,59 +131,73 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
   return (
     <DialogContainer>
       <Dialog
-        className={"form-dialog"}
+        className={`form-dialog `}
         variant={"primary"}
         radius={"rounded-lg"}
         size={"md"}
       >
         <FormProvider {...form}>
           <Form onSubmit={handleSubmit(onSubmit)} className={"form"}>
-            {type === "newInvoice" ? (
-              <Headline variant={"h2"}>New Invoice</Headline>
-            ) : (
-              <Headline variant={"h2"}>
-                Edit <span>#</span>
-                {initialValues?.id}
-              </Headline>
-            )}
-
-            <div className={"bill-from"}>
-              <Text bold={true}>Bill From</Text>
-              <FormAddress field={"senderAddress"} />
-            </div>
-
-            <BillTo />
-
-            <DateTerms />
-
-            <div>
-              <label htmlFor="description" className={description && "error"}>
-                Project Description{" "}
-                <Text size={"sm"}>{description?.message}</Text>{" "}
-              </label>
-              <input
-                id={"description"}
-                className={description && "error"}
-                type="text"
-                {...register("description", {
-                  required: "can't be empty",
-                })}
-              />
-            </div>
-
-            <Items fields={fields} append={append} remove={remove} />
-
-            <div>
-              {!!Object.keys(errors).length && (
-                <Text size={"sm"} className={"error"}>
-                  -All fields must be added
-                </Text>
+            <div className={"form-info"}>
+              <Button
+                className="go-back"
+                type={"button"}
+                onClick={() => dispatch(toggleModal("showFormDialog"))}
+              >
+                <Icon
+                  icon={arrowLeftIcon}
+                  description={"arrow left"}
+                  size={"xs"}
+                />
+                <Text bold={true}>Go back</Text>
+              </Button>
+              {type === "newInvoice" ? (
+                <Headline variant={"h2"}>New Invoice</Headline>
+              ) : (
+                <Headline variant={"h2"}>
+                  Edit <span>#</span>
+                  {initialValues?.id}
+                </Headline>
               )}
-              {!getValues("items").length && (
-                <Text size={"sm"} className={"error"}>
-                  -An item must be added
-                </Text>
-              )}
+
+              <div className={"bill-from"}>
+                <Text bold={true}>Bill From</Text>
+                <FormAddress field={"senderAddress"} />
+              </div>
+
+              <BillTo />
+
+              <DateTerms />
+
+              <div>
+                <label htmlFor="description" className={description && "error"}>
+                  Project Description{" "}
+                  <Text size={"sm"}>{description?.message}</Text>{" "}
+                </label>
+                <input
+                  id={"description"}
+                  className={description && "error"}
+                  type="text"
+                  {...register("description", {
+                    required: "can't be empty",
+                  })}
+                />
+              </div>
+
+              <Items fields={fields} append={append} remove={remove} />
+
+              <div>
+                {!!Object.keys(errors).length && (
+                  <Text size={"sm"} className={"error"}>
+                    -All fields must be added
+                  </Text>
+                )}
+                {!getValues("items").length && (
+                  <Text size={"sm"} className={"error"}>
+                    -An item must be added
+                  </Text>
+                )}
+              </div>
             </div>
             <div className={"form-dialog__buttons"}>
               {type === "newInvoice" ? (
@@ -229,7 +261,6 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
             </div>
           </Form>
         </FormProvider>
-        <DevTool control={control} />
       </Dialog>
     </DialogContainer>
   );

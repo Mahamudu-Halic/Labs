@@ -20,7 +20,7 @@ const Address = ({
     <div className={`address ${className ?? ""}`}>
       {address.map((location: string, index) => (
         <Text key={location + index} size={"sm"}>
-          {location}
+          {location ?? ""}
         </Text>
       ))}
     </div>

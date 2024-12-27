@@ -38,36 +38,38 @@ const FormAddress = ({ field }: FormAddressProps) => {
         />
       </div>
       <div className={"form-address__info"}>
-        <div>
-          <label htmlFor={field + "city"} className={city ? "error" : ""}>
-            City
-          </label>
-          <input
-            className={city ? "error" : ""}
-            id={field + "city"}
-            type="text"
-            {...register(`${field}.city`, {
-              required: "required",
-            })}
-          />
+        <div className={"form-address__info-left"}>
+          <div>
+            <label htmlFor={field + "city"} className={city ? "error" : ""}>
+              City
+            </label>
+            <input
+              className={city ? "error" : ""}
+              id={field + "city"}
+              type="text"
+              {...register(`${field}.city`, {
+                required: "required",
+              })}
+            />
+          </div>
+          <div>
+            <label
+              htmlFor={field + "postalCode"}
+              className={postCode ? "error" : ""}
+            >
+              Postal Code
+            </label>
+            <input
+              className={postCode ? "error" : ""}
+              id={field + "postalCode"}
+              type="text"
+              {...register(`${field}.postCode`, {
+                required: "required",
+              })}
+            />
+          </div>
         </div>
-        <div>
-          <label
-            htmlFor={field + "postalCode"}
-            className={postCode ? "error" : ""}
-          >
-            Postal Code
-          </label>
-          <input
-            className={postCode ? "error" : ""}
-            id={field + "postalCode"}
-            type="text"
-            {...register(`${field}.postCode`, {
-              required: "required",
-            })}
-          />
-        </div>
-        <div>
+        <div className={"form-address__info-country"}>
           <label htmlFor={field + "country"} className={country ? "error" : ""}>
             Country
           </label>

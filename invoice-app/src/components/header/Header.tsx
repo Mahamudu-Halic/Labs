@@ -6,19 +6,31 @@ import Filter from "../filter/Filter.tsx";
 
 import plusIcon from "../../assets/images/icon-plus.svg";
 import "./header.styles.css";
-import { useAppDispatch } from "../../hooks/useRedux.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
 import { toggleModal } from "../../features/modal/modal.slice.tsx";
+import { selectStatusFilter } from "../../features/invoice/invoice.slice.ts";
+import { useEffect } from "react";
 
 const Header = ({ total }: { total?: number }) => {
   const dispatch = useAppDispatch();
+  const statusFilter = useAppSelector(selectStatusFilter);
   return (
     <header className={"invoice__header"}>
       <div className={"heading"}>
         <Headline variant={"h1"}>Invoices</Headline>
-        <Text>{total ? `There are ${total} total` : `No invoices`}</Text>
+        {total === 0 ? (
+          <Text>No invoices</Text>
+        ) : (
+          <Text>
+            There {total === 1 ? "is" : "are"} {total}{" "}
+            {statusFilter.length === 1 && statusFilter[0]}{" "}
+            {statusFilter.length ? "invoice" : "total"}
+            {statusFilter.length && total && total > 1 ? "s" : ""}
+          </Text>
+        )}
       </div>
 
-      <div className={"invoice__header-left__container"}>
+      <div className={"invoice__header-right__container"}>
         <Filter />
         <Button
           variant={"primary"}

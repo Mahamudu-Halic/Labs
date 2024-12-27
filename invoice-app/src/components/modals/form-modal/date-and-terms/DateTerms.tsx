@@ -11,6 +11,7 @@ import { Errors } from "../../../../types/form.types.ts";
 import Text from "../../../ui/typography/text/Text.tsx";
 import CustomSelect from "../CustomSelect.tsx";
 import { useState } from "react";
+import "./dateterms.styles.css";
 
 const DateTerms = () => {
   const {
@@ -22,16 +23,10 @@ const DateTerms = () => {
   const dispatch = useAppDispatch();
   const showPaymentTerms = useAppSelector(selectPaymentTerms);
   const { createdAt, paymentTerms } = (errors as Errors) ?? {};
-  const [option, setOption] = useState<string>(getValues("paymentTerms"));
+  const [option, setOption] = useState<number>(getValues("paymentTerms"));
 
-  const handleSelectOption = ({
-    value,
-    description,
-  }: {
-    value: number;
-    description: string;
-  }) => {
-    setOption(description);
+  const handleSelectOption = (value: number) => {
+    setOption(value);
     setValue("paymentTerms", value);
     dispatch(toggleModal("showPaymentTerms"));
   };
@@ -51,13 +46,14 @@ const DateTerms = () => {
           })}
         />
       </div>
-      <div className={"payment-terms"}>
+      <div className={`payment-terms`}>
         <label className={paymentTerms ? "error" : ""}>Payment Terms</label>
         <Button
+          className={`${showPaymentTerms ? "active" : ""}`}
           type={"button"}
           onClick={() => dispatch(toggleModal("showPaymentTerms"))}
         >
-          {option}
+          Net {option} Day{option > 1 && "s"}
           <Icon
             className={showPaymentTerms ? "rotate180" : ""}
             size={"sm"}
@@ -67,7 +63,13 @@ const DateTerms = () => {
         </Button>
 
         {showPaymentTerms && (
-          <CustomSelect handleSelectOption={handleSelectOption} />
+          <>
+            <div
+              className={"overlay"}
+              onClick={() => dispatch(toggleModal("showPaymentTerms"))}
+            ></div>
+            <CustomSelect handleSelectOption={handleSelectOption} />
+          </>
         )}
       </div>
     </div>

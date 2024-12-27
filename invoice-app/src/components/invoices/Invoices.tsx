@@ -1,5 +1,5 @@
 import Wrapper from "../ui/wrapper/Wrapper.tsx";
-import "./invoice.styles.css";
+import "./invoices.styles.css";
 import Header from "../header/Header.tsx";
 import InvoiceCard from "../ui/card/invoiceCard/Invoice.Card.tsx";
 import { useAppSelector } from "../../hooks/useRedux.ts";

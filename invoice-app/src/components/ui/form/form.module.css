@@ -1,8 +1,10 @@
-.form {
+form,
+form > div:first-child {
   display: flex;
   flex-direction: column;
   gap: 40px;
   width: 100%;
+
   input {
     border-radius: 5px;
     padding: 15px;
@@ -14,6 +16,13 @@
     display: block;
     margin-top: 15px;
     font-size: 0.75rem;
+    flex: 1;
+    outline-color: var(--primary);
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      border-color: var(--primary);
+    }
   }
 
   label {
