@@ -1,37 +1,36 @@
-import { Dialog, DialogContainer } from "../../ui/dialog/Dialog.tsx";
-import { Form } from "../../ui/form/Form.tsx";
-import "./formdialogmodal.styles.css";
-import Headline from "../../ui/typography/headline/Headline.tsx";
-import Text from "../../ui/typography/text/Text.tsx";
-import Button from "../../ui/button/button.tsx";
-import FormAddress from "./address/FormAddress.tsx";
-import BillTo from "./bill-to/BillTo.tsx";
-import DateTerms from "./date-and-terms/DateTerms.tsx";
-import Items from "./items/Items.tsx";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import {
   Errors,
   FormValues,
   initialItems,
   ItemType,
 } from "../../../types/form.types.ts";
-import calculatePaymentDue from "../../../utils/calculatePaymentDue/calculatePaymentDue.ts";
-import generateRandomId from "../../../utils/generateRandomId/generateRandomId.ts";
+import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
 import {
   addInvoice,
   selectLoading,
 } from "../../../features/invoice/invoice.slice.ts";
-import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import generateRandomId from "../../../utils/generateRandomId/generateRandomId.ts";
+import calculatePaymentDue from "../../../utils/calculatePaymentDue/calculatePaymentDue.ts";
 import { toggleModal } from "../../../features/modal/modal.slice.tsx";
+import { useEffect, useRef, useState } from "react";
+import { Dialog, DialogContainer } from "../../ui/dialog/Dialog.tsx";
+import Button from "../../ui/button/button.tsx";
 import Icon from "../../ui/icon/Icon.tsx";
 import arrowLeftIcon from "../../../assets/images/icon-arrow-left.svg";
-
-interface FormDialogModalProps {
+import Text from "../../ui/typography/text/Text.tsx";
+import Headline from "../../ui/typography/headline/Headline.tsx";
+import FormAddress from "./address/FormAddress.tsx";
+import BillTo from "./bill-to/BillTo.tsx";
+import DateTerms from "./date-and-terms/DateTerms.tsx";
+import Items from "./items/Items.tsx";
+import "./form.styles.css";
+interface FormProps {
   type: "newInvoice" | "edit";
   initialValues?: FormValues;
 }
 
-const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
+const Form = ({ initialValues, type }: FormProps) => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectLoading);
   const form = useForm<FormValues>({
@@ -74,7 +73,7 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
     reset,
     formState: { errors, isValid, isDirty },
   } = form;
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove } = useFieldArray<FormValues>({
     name: "items",
     control,
   });
@@ -128,17 +127,49 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
   };
 
   const { description } = (errors as Errors) ?? {};
+
+  const [showButtons, setShowButtons] = useState(false); // Track visibility of buttons
+  const [lastScrollTop, setLastScrollTop] = useState(0); // Track last scroll position
+  const formRef = useRef<HTMLFormElement | null>(null); // Reference to the info div
+
+  useEffect(() => {
+    const formEl = formRef.current;
+
+    const handleScroll = () => {
+      if (formEl) {
+        const scrollTop = formEl.scrollTop;
+
+        if (scrollTop > lastScrollTop) {
+          setShowButtons(true);
+        } else {
+          setShowButtons(false);
+        }
+        setLastScrollTop(scrollTop);
+      }
+    };
+
+    formEl?.addEventListener("scroll", handleScroll);
+
+    return () => {
+      formEl?.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollTop]);
+
   return (
     <DialogContainer>
       <Dialog
-        className={`form-dialog `}
+        className={`${"form-dialog"}`}
         variant={"primary"}
         radius={"rounded-lg"}
         size={"md"}
       >
         <FormProvider {...form}>
-          <Form onSubmit={handleSubmit(onSubmit)} className={"form"}>
-            <div className={"form-info"}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            ref={formRef}
+            className={`${showButtons ? "visible" : ""}`}
+          >
+            <div className="form-info">
               <Button
                 className="go-back"
                 type={"button"}
@@ -199,7 +230,8 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
                 )}
               </div>
             </div>
-            <div className={"form-dialog__buttons"}>
+
+            <div className={`form__buttons ${showButtons ? "visible" : ""}`}>
               {type === "newInvoice" ? (
                 <>
                   <Button
@@ -259,11 +291,11 @@ const FormDialogModal = ({ initialValues, type }: FormDialogModalProps) => {
                 </>
               )}
             </div>
-          </Form>
+          </form>
         </FormProvider>
       </Dialog>
     </DialogContainer>
   );
 };
 
-export default FormDialogModal;
+export default Form;

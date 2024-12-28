@@ -9,12 +9,22 @@ import ViewInvoice from "./components/view-invoice/ViewInvoice.tsx";
 import { useEffect } from "react";
 import { fetchInvoices } from "./features/invoice/invoice.slice.ts";
 import { useAppDispatch } from "./hooks/useRedux.ts";
+import { toggleMobile } from "./features/mobile/mobile.slice.tsx";
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchInvoices());
+  }, []);
+
+  useEffect(() => {
+    dispatch(toggleMobile());
+    window.addEventListener("resize", () => dispatch(toggleMobile()));
+
+    return () => {
+      window.removeEventListener("resize", () => dispatch(toggleMobile()));
+    };
   }, []);
   return (
     <div className={"app"}>

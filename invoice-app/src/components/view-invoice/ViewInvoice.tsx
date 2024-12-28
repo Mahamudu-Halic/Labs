@@ -21,8 +21,9 @@ import InvoiceNotice from "./invoice-notice/InvoiceNotice.tsx";
 import Address from "./address/Address.tsx";
 import InvoiceTitle from "./InvoiceTitle.tsx";
 import { selectFormDialog } from "../../features/modal/modal.slice.tsx";
-import FormDialogModal from "../modals/form-modal/FormDialog.modal.tsx";
 import InvoiceNoticeButtons from "./invoice-notice/InvoiceNoticeButtons.tsx";
+import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
+import Form from "../modals/form-modal/Form.tsx";
 
 const ViewInvoice = () => {
   const { id } = useParams();
@@ -32,13 +33,14 @@ const ViewInvoice = () => {
   const invoices = useAppSelector(selectInvoices);
   const error = currentInvoice?.error;
   const showForm = useAppSelector(selectFormDialog);
+  const { isMobile } = useAppSelector(mobileSelector);
   useEffect(() => {
     dispatch(getInvoiceById(id ?? ""));
   }, [dispatch, id, invoices]);
 
   return (
     <div className={"view__invoice-container"}>
-      {showForm && <FormDialogModal type={"edit"} initialValues={invoice} />}
+      {showForm && <Form type={"edit"} initialValues={invoice} />}
       <Wrapper>
         <Link to={"/"} className={"go-back"}>
           <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
@@ -109,7 +111,10 @@ const ViewInvoice = () => {
                   <Table data={invoice.items} />
                 </CardWrapper>
                 <CardWrapper className={"invoice__details-receipt__amount-due"}>
-                  <Text size={"sm"}>Amount Due</Text>
+                  <Text size={"sm"} className={"amount-due"}>
+                    {isMobile ? "Grand Total" : "Amount Due"}
+                  </Text>
+
                   <Headline variant={"h2"}>£{invoice.total}</Headline>
                 </CardWrapper>
               </CardWrapper>

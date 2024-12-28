@@ -11,7 +11,7 @@ import NotFound from "../not-found/NotFound.tsx";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import Text from "../ui/typography/text/Text.tsx";
 import { selectFormDialog } from "../../features/modal/modal.slice.tsx";
-import FormDialogModal from "../modals/form-modal/FormDialog.modal.tsx";
+import Form from "../modals/form-modal/Form.tsx";
 
 const Invoices = () => {
   const invoices = useAppSelector(selectInvoices);
@@ -24,7 +24,7 @@ const Invoices = () => {
 
   return (
     <>
-      {showForm && <FormDialogModal type={"newInvoice"} />}
+      {showForm && <Form type={"newInvoice"} />}
       <Wrapper className={"invoices"}>
         <Header total={filteredInvoices.length} />
         <div className="invoices__card-list">

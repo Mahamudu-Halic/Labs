@@ -9,11 +9,13 @@ import "./header.styles.css";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
 import { toggleModal } from "../../features/modal/modal.slice.tsx";
 import { selectStatusFilter } from "../../features/invoice/invoice.slice.ts";
-import { useEffect } from "react";
+import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 
 const Header = ({ total }: { total?: number }) => {
   const dispatch = useAppDispatch();
   const statusFilter = useAppSelector(selectStatusFilter);
+  const { isMobile } = useAppSelector(mobileSelector);
+
   return (
     <header className={"invoice__header"}>
       <div className={"heading"}>
@@ -41,7 +43,7 @@ const Header = ({ total }: { total?: number }) => {
           <div className={"new__invoice-plus-icon"}>
             <Icon icon={plusIcon} description={"plus icon"} size={"xs"} />
           </div>
-          New Invoice
+          {isMobile ? "New" : "New Invoice"}
         </Button>
       </div>
     </header>

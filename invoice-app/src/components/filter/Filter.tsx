@@ -8,14 +8,17 @@ import {
   selectDropdown,
   toggleModal,
 } from "../../features/modal/modal.slice.tsx";
+import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 
 const Filter = () => {
   const dispatch = useAppDispatch();
   const showDropdown = useAppSelector(selectDropdown);
+  const { isMobile } = useAppSelector(mobileSelector);
+
   return (
     <div className={"filter"}>
       <Button onClick={() => dispatch(toggleModal("showDropdown"))}>
-        Filter by status
+        {isMobile ? "Filter" : "Filter by status"}
         <Icon
           className={showDropdown ? "rotate180" : ""}
           size={"sm"}

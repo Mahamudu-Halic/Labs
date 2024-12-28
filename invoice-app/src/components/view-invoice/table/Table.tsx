@@ -1,5 +1,7 @@
 import Text from "../../ui/typography/text/Text.tsx";
-
+import "./table.styles.css";
+import { useAppSelector } from "../../../hooks/useRedux.ts";
+import { mobileSelector } from "../../../features/mobile/mobile.slice.tsx";
 interface TableProps {
   data: {
     name: string;
@@ -15,8 +17,23 @@ const Table = ({ data }: TableProps) => {
     { title: "Price", className: "table__title-price" },
     { title: "Total", className: "table__title-total" },
   ];
-  return (
-    <table>
+  const { isMobile } = useAppSelector(mobileSelector);
+  return isMobile ? (
+    <div className={"mobile-table"}>
+      {data.map((item) => (
+        <div key={item.name} className={"table-item"}>
+          <div className={"table-item__details"}>
+            <Text bold>{item?.name ?? ""}</Text>
+            <Text bold className={"qty-price"}>
+              {item?.quantity ?? 0} x £{item?.price ?? 0}
+            </Text>
+          </div>
+          <Text bold>{item?.total ?? 0}</Text>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <table className={"table"}>
       <thead>
         <tr>
           {tableHeadings.map((heading) => (
