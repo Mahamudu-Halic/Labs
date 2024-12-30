@@ -1,8 +1,8 @@
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, test } from "vitest";
 import InvoiceCard from "./Invoice.Card.tsx";
+import { renderWithProviders } from "../../../../utils/renderwithproviders.tsx";
 
 describe("InvoiceCard Component", () => {
   const mockProps = {
@@ -14,13 +14,9 @@ describe("InvoiceCard Component", () => {
   };
 
   test("renders the invoice details correctly", () => {
-    render(
-      <BrowserRouter>
-        <InvoiceCard {...mockProps} />
-      </BrowserRouter>,
-    );
+    renderWithProviders(<InvoiceCard {...mockProps} />);
 
-    // Check if all elements render correctly
+    // Check if all elements renderWithProviders correctly
     expect(screen.getByText("#12345")).toBeInTheDocument();
     expect(screen.getByText("Due: 31 Dec 2024")).toBeInTheDocument();
     expect(screen.getByText("John Doe")).toBeInTheDocument();
@@ -32,11 +28,7 @@ describe("InvoiceCard Component", () => {
   test("navigates to the correct route when clicked", async () => {
     const user = userEvent.setup();
 
-    render(
-      <BrowserRouter>
-        <InvoiceCard {...mockProps} />
-      </BrowserRouter>,
-    );
+    renderWithProviders(<InvoiceCard {...mockProps} />);
 
     const button = screen.getByRole("button");
     await user.click(button);

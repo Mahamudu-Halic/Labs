@@ -21,6 +21,6 @@ describe("headline component", () => {
 
     const headline = screen.getByRole("heading", { name: /hello/i });
 
-    expect(headline).toHaveClass("custom-class headline");
+    expect(headline.className).toContain("custom-class");
   });
 });

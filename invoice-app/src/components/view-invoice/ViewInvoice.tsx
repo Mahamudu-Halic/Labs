@@ -39,104 +39,108 @@ const ViewInvoice = () => {
   }, [dispatch, id, invoices]);
 
   return (
-    <div className={"view__invoice-container"}>
-      {showForm && <Form type={"edit"} initialValues={invoice} />}
-      <Wrapper>
-        <Link to={"/"} className={"go-back"}>
-          <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
-          <Text bold={true}>Go back</Text>
-        </Link>
-      </Wrapper>
-      {invoice ? (
-        <>
-          <Wrapper className={"view__invoice"}>
-            <InvoiceNotice {...invoice} error={error} />
-            <CardWrapper className={"invoice__details-wrapper"}>
-              <div className={"invoice__details__sender-address__wrapper"}>
-                <div className={"invoice__details-description"}>
-                  <Headline variant={"h3"}>
-                    <span>#</span>
-                    {invoice.id}
-                  </Headline>
-                  <InvoiceTitle title={invoice.description} />
-                </div>
-                <Address
-                  {...invoice.senderAddress}
-                  className={"invoice__details__sender-address"}
-                />
-              </div>
-
-              <div className="invoice__details__recipient-details">
-                <div
-                  className={
-                    "invoice__details__recipient-details-date__address"
-                  }
-                >
-                  <div className="invoice__details-date">
-                    <div className="invoice__date">
-                      <InvoiceTitle title={"Invoice Date"} />
-                      <Headline variant={"h3"}>
-                        {invoice.createdAt && formatDate(invoice.createdAt)}
-                      </Headline>
-                    </div>
-
-                    <div className="invoice__payment-due">
-                      <InvoiceTitle title={"Payment Due"} />
-                      <Headline variant={"h3"}>
-                        {invoice.paymentDue && formatDate(invoice.paymentDue)}
-                      </Headline>
-                    </div>
-                  </div>
-
-                  <div className="invoice__details__bill-to">
-                    <InvoiceTitle title={"Bill To"} />
+    <>
+      <div className={"view__invoice-container"}>
+        {showForm && <Form type={"edit"} initialValues={invoice} />}
+        <Wrapper>
+          <Link to={"/"} className={"go-back"}>
+            <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
+            <Text bold={true}>Go back</Text>
+          </Link>
+        </Wrapper>
+        {invoice ? (
+          <>
+            <Wrapper className={"view__invoice"}>
+              <InvoiceNotice {...invoice} error={error} />
+              <CardWrapper className={"invoice__details-wrapper"}>
+                <div className={"invoice__details__sender-address__wrapper"}>
+                  <div className={"invoice__details-description"}>
                     <Headline variant={"h3"}>
-                      {invoice.clientName ?? ""}
+                      <span>#</span>
+                      {invoice.id}
                     </Headline>
-                    <Address
-                      {...invoice.clientAddress}
-                      className={"invoice__details__client-address"}
-                    />
+                    <InvoiceTitle title={invoice.description} />
+                  </div>
+                  <Address
+                    {...invoice.senderAddress}
+                    className={"invoice__details__sender-address"}
+                  />
+                </div>
+
+                <div className="invoice__details__recipient-details">
+                  <div
+                    className={
+                      "invoice__details__recipient-details-date__address"
+                    }
+                  >
+                    <div className="invoice__details-date">
+                      <div className="invoice__date">
+                        <InvoiceTitle title={"Invoice Date"} />
+                        <Headline variant={"h3"}>
+                          {invoice.createdAt && formatDate(invoice.createdAt)}
+                        </Headline>
+                      </div>
+
+                      <div className="invoice__payment-due">
+                        <InvoiceTitle title={"Payment Due"} />
+                        <Headline variant={"h3"}>
+                          {invoice.paymentDue && formatDate(invoice.paymentDue)}
+                        </Headline>
+                      </div>
+                    </div>
+
+                    <div className="invoice__details__bill-to">
+                      <InvoiceTitle title={"Bill To"} />
+                      <Headline variant={"h3"}>
+                        {invoice.clientName ?? ""}
+                      </Headline>
+                      <Address
+                        {...invoice.clientAddress}
+                        className={"invoice__details__client-address"}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="invoice__details__sent-to">
+                    <InvoiceTitle title={"Sent to"} />
+                    <Headline variant={"h3"}>{invoice.clientEmail}</Headline>
                   </div>
                 </div>
 
-                <div className="invoice__details__sent-to">
-                  <InvoiceTitle title={"Sent to"} />
-                  <Headline variant={"h3"}>{invoice.clientEmail}</Headline>
-                </div>
-              </div>
+                <CardWrapper className={"invoice__details-receipt"}>
+                  <CardWrapper className={"invoice__details-receipt__details"}>
+                    <Table data={invoice.items} />
+                  </CardWrapper>
+                  <CardWrapper
+                    className={"invoice__details-receipt__amount-due"}
+                  >
+                    <Text size={"sm"} className={"amount-due"}>
+                      {isMobile ? "Grand Total" : "Amount Due"}
+                    </Text>
 
-              <CardWrapper className={"invoice__details-receipt"}>
-                <CardWrapper className={"invoice__details-receipt__details"}>
-                  <Table data={invoice.items} />
-                </CardWrapper>
-                <CardWrapper className={"invoice__details-receipt__amount-due"}>
-                  <Text size={"sm"} className={"amount-due"}>
-                    {isMobile ? "Grand Total" : "Amount Due"}
-                  </Text>
-
-                  <Headline variant={"h2"}>£{invoice.total}</Headline>
+                    <Headline variant={"h2"}>£{invoice.total}</Headline>
+                  </CardWrapper>
                 </CardWrapper>
               </CardWrapper>
+            </Wrapper>
+            <CardWrapper className="button-wrapper">
+              <InvoiceNoticeButtons />
             </CardWrapper>
-          </Wrapper>
-          <CardWrapper className="button-wrapper">
-            <InvoiceNoticeButtons />
-          </CardWrapper>
-        </>
-      ) : (
-        <NotFound>
-          <Headline variant={"h3"}>Invalid ID 🙁</Headline>
-          <Text>
-            Go to dashboard by clicking the{" "}
-            <Text bold={true} type={"span"}>
-              Go back
-            </Text>{" "}
-            button to go back
-          </Text>
-        </NotFound>
-      )}
-    </div>
+          </>
+        ) : (
+          <NotFound>
+            <Headline variant={"h3"}>Invalid ID 🙁</Headline>
+            <Text>
+              Go to dashboard by clicking the{" "}
+              <Text bold={true} type={"span"}>
+                Go back
+              </Text>{" "}
+              button to go back
+            </Text>
+          </NotFound>
+        )}
+      </div>
+    </>
   );
 };
 

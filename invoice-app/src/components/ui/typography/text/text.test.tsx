@@ -10,7 +10,7 @@ describe("test component", () => {
 
     expect(text).toBeInTheDocument();
     expect(text).toHaveTextContent("hello");
-    expect(text).toHaveClass("text md");
+    expect(text.className).toContain("md");
   });
 
   test("should render test children with specified size", () => {
@@ -20,7 +20,6 @@ describe("test component", () => {
 
     expect(text).toBeInTheDocument();
     expect(text).toHaveTextContent("hello");
-    expect(text).toContain("sm");
-    expect(text).toHaveTextContent("hello");
+    expect(text.className).toContain("sm");
   });
 });

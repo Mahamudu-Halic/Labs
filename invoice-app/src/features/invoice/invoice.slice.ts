@@ -4,7 +4,7 @@ import data from "../../data.json";
 import { RootState } from "../../store.ts";
 const initialState: InitialState = {
   invoices: data as Invoice[],
-  invoice: { loading: "idle", error: null, invoice: undefined },
+  currentInvoice: { loading: "idle", error: null, invoice: undefined },
   statusFilter: [],
   loading: "idle",
   error: null,
@@ -66,15 +66,6 @@ const invoiceSlice = createSlice({
         ? state.statusFilter.filter((status) => status !== action.payload)
         : [...state.statusFilter, action.payload];
     },
-    deleteInvoice: (state, action: PayloadAction<string>) => {
-      state.loading = "loading";
-      state.error = null;
-      state.invoices = state.invoices.filter(
-        (invoice) => invoice.id !== action.payload,
-      );
-      state.loading = "success";
-      console.log("hello");
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -88,14 +79,14 @@ const invoiceSlice = createSlice({
 
       //getInvoiceById
       .addCase(getInvoiceById.rejected, (state, action) => {
-        state.invoice = {
+        state.currentInvoice = {
           invoice: undefined,
           loading: "idle",
           error: action.error.message ?? "Invoice not found",
         };
       })
       .addCase(getInvoiceById.fulfilled, (state, action) => {
-        state.invoice = {
+        state.currentInvoice = {
           loading: "idle",
           error: null,
           invoice: state.invoices.find(
@@ -106,8 +97,8 @@ const invoiceSlice = createSlice({
 
       //deleteInvoice
       .addCase(deleteInvoice.pending, (state) => {
-        state.invoice.loading = "loading";
-        state.invoice.error = null;
+        state.currentInvoice.loading = "loading";
+        state.currentInvoice.error = null;
       })
       .addCase(
         deleteInvoice.fulfilled,
@@ -115,7 +106,7 @@ const invoiceSlice = createSlice({
           state.invoices = state.invoices.filter(
             (invoice) => invoice.id !== action.payload,
           );
-          state.invoice.loading = "success";
+          state.currentInvoice.loading = "success";
         },
       )
       .addCase(deleteInvoice.rejected, (state, action) => {
@@ -125,8 +116,8 @@ const invoiceSlice = createSlice({
 
       //updateInvoiceStatus
       .addCase(updateInvoiceStatus.pending, (state) => {
-        state.invoice.loading = "loading";
-        state.invoice.error = null;
+        state.currentInvoice.loading = "loading";
+        state.currentInvoice.error = null;
       })
       .addCase(
         updateInvoiceStatus.fulfilled,
@@ -137,17 +128,17 @@ const invoiceSlice = createSlice({
 
           if (
             index >= 0 &&
-            state.invoice.invoice &&
-            state.invoices[index].id === state.invoice.invoice.id &&
+            state.currentInvoice.invoice &&
+            state.invoices[index].id === state.currentInvoice.invoice.id &&
             state.invoices[index].status === "pending"
           ) {
             state.invoices[index].status = "paid";
-            state.invoice.invoice.status = "paid";
-            state.invoice.loading = "success";
-            state.invoice.error = null;
+            state.currentInvoice.invoice.status = "paid";
+            state.currentInvoice.loading = "success";
+            state.currentInvoice.error = null;
           }
-          state.invoice.loading = "idle";
-          state.invoice.error = "something went wrong";
+          state.currentInvoice.loading = "idle";
+          state.currentInvoice.error = "something went wrong";
         },
       )
       .addCase(updateInvoiceStatus.rejected, (state, action) => {
@@ -187,7 +178,7 @@ const invoiceSlice = createSlice({
 
 export const { filterInvoices } = invoiceSlice.actions;
 
-export const selectInvoice = (state: RootState) => state.invoice.invoice;
+export const selectInvoice = (state: RootState) => state.invoice.currentInvoice;
 export const selectInvoices = (state: RootState) => state.invoice.invoices;
 export const selectStatusFilter = (state: RootState) =>
   state.invoice.statusFilter;

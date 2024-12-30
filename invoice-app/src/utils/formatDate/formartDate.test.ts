@@ -44,15 +44,15 @@ describe("format date function", () => {
   });
 
   test("should return an empty string for non-string inputs", () => {
-    // @ts-ignore: Ignoring type errors for testing invalid inputs
+    // @ts-expect-error: number is not a valid string
     expect(formatDate(20220819)).toBe("");
-    // @ts-ignore
+    // @ts-expect-error: null is not a valid string
     expect(formatDate(null)).toBe("");
-    // @ts-ignore
+    // @ts-expect-error: undefined is not a valid string
     expect(formatDate(undefined)).toBe("");
-    // @ts-ignore
+    // @ts-expect-error: object is not a valid string
     expect(formatDate([])).toBe("");
-    // @ts-ignore
+    // @ts-expect-error: object is not a valid string
     expect(formatDate({})).toBe("");
   });
 });

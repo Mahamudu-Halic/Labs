@@ -35,7 +35,7 @@ export type currentInvoice = {
 
 export type InitialState = {
   invoices: Invoice[];
-  invoice: currentInvoice;
+  currentInvoice: currentInvoice;
   statusFilter: string[];
   loading: "idle" | "loading" | "success";
   error: string | null;

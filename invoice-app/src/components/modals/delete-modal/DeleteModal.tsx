@@ -26,6 +26,7 @@ const DeleteModal = ({ onClose, id }: DeleteModalProps) => {
   const loading = currentInvoice?.loading;
   const navigate = useNavigate();
   // const error = currentInvoice?.error;
+  console.log(id);
 
   useEffect(() => {
     if (loading === "success") {
@@ -35,7 +36,6 @@ const DeleteModal = ({ onClose, id }: DeleteModalProps) => {
       }, 1500);
     }
   }, [loading]);
-
   return (
     <DialogContainer center={true}>
       <Dialog variant={"secondary"} className={"delete-modal"}>

@@ -6,8 +6,6 @@ interface HeadlineProps extends HTMLAttributes<HTMLHeadElement> {
   variant?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 }
 
-console.log(styles);
-
 const Headline = ({ children, variant = "h1", className }: HeadlineProps) => {
   const combinedClassName =
     `${styles.headline} ${styles[variant]} ${className ?? ""}`.trim();
