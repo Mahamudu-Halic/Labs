@@ -40,7 +40,7 @@ describe("invoices component", () => {
       preloadedState: {
         invoice: {
           invoices: [data],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: [],
           loading: "idle",
           error: null,
@@ -83,7 +83,7 @@ describe("invoices component", () => {
       preloadedState: {
         invoice: {
           invoices: [data],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: [],
           loading: "idle",
           error: null,
@@ -138,7 +138,7 @@ describe("invoices component", () => {
       preloadedState: {
         invoice: {
           invoices: [],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: [],
           loading: "idle",
           error: null,
@@ -170,7 +170,7 @@ describe("invoices component", () => {
       preloadedState: {
         invoice: {
           invoices: [],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: [],
           loading: "idle",
           error: null,
@@ -213,7 +213,7 @@ describe("invoices component", () => {
       preloadedState: {
         invoice: {
           invoices: [],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: [],
           loading: "idle",
           error: null,
@@ -250,7 +250,7 @@ describe("invoices component", () => {
       preloadedState: {
         invoice: {
           invoices: [data],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: ["paid"],
           loading: "idle",
           error: null,

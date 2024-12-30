@@ -39,7 +39,7 @@ describe("header component", () => {
       preloadedState: {
         invoice: {
           invoices: [],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: ["draft"],
           loading: "idle",
           error: null,
@@ -57,7 +57,7 @@ describe("header component", () => {
       preloadedState: {
         invoice: {
           invoices: [],
-          invoice: { invoice: undefined, loading: "idle", error: null },
+          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: ["draft", "pending"],
           loading: "idle",
           error: null,

@@ -4,30 +4,30 @@ import { renderWithProviders } from "../../../utils/renderwithproviders.tsx";
 import Form from "./Form.tsx";
 
 describe("Form component", () => {
-  const mockInitialValues = {
-    id: "123",
-    clientName: "John Doe",
-    clientEmail: "johndoe@example.com",
-    createdAt: "2024-12-29",
-    paymentDue: "",
-    description: "Test Project",
-    paymentTerms: 1,
-    clientAddress: {
-      street: "123 Main St",
-      city: "Springfield",
-      postCode: "12345",
-      country: "USA",
-    },
-    senderAddress: {
-      street: "456 Elm St",
-      city: "Shelbyville",
-      postCode: "67890",
-      country: "USA",
-    },
-    items: [{ name: "Test Item", quantity: 1, price: 100, total: 100 }],
-    status: "draft",
-    total: 100,
-  };
+  // const mockInitialValues = {
+  //   id: "123",
+  //   clientName: "John Doe",
+  //   clientEmail: "johndoe@example.com",
+  //   createdAt: "2024-12-29",
+  //   paymentDue: "",
+  //   description: "Test Project",
+  //   paymentTerms: 1,
+  //   clientAddress: {
+  //     street: "123 Main St",
+  //     city: "Springfield",
+  //     postCode: "12345",
+  //     country: "USA",
+  //   },
+  //   senderAddress: {
+  //     street: "456 Elm St",
+  //     city: "Shelbyville",
+  //     postCode: "67890",
+  //     country: "USA",
+  //   },
+  //   items: [{ name: "Test Item", quantity: 1, price: 100, total: 100 }],
+  //   status: "draft",
+  //   total: 100,
+  // };
   test("should render form components", () => {
     //todo: implement this test
     renderWithProviders(<Form type={"newInvoice"} />);
