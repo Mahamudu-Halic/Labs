@@ -24,7 +24,6 @@ import BillTo from "./bill-to/BillTo.tsx";
 import DateTerms from "./date-and-terms/DateTerms.tsx";
 import Items from "./items/Items.tsx";
 import "./form.styles.css";
-import { useEffect } from "react";
 
 interface FormProps {
   type: "newInvoice" | "edit";
