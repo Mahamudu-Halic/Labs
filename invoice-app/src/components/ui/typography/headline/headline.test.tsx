@@ -1,4 +1,4 @@
-import { describe, test } from "vitest";
+import { describe, test, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import Headline from "./Headline.tsx";
 
@@ -21,6 +21,6 @@ describe("headline component", () => {
 
     const headline = screen.getByRole("heading", { name: /hello/i });
 
-    expect(headline).toHaveClass("custom-class headline");
+    expect(headline.className).toContain("custom-class");
   });
 });

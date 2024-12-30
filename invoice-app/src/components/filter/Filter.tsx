@@ -1,27 +1,39 @@
 import "./filter.styles.css";
 import Button from "../ui/button/button.tsx";
-import dropdownIcon from "../../assets/images/icon-arrow-down.svg";
+import arrowDownIcon from "../../assets/images/icon-arrow-down.svg";
 import Icon from "../ui/icon/Icon.tsx";
 import Dropdown from "../ui/dropdown/Dropdown.tsx";
-import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
+import {
+  selectDropdown,
+  toggleModal,
+} from "../../features/modal/modal.slice.tsx";
+import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 
 const Filter = () => {
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const showDropdown = useAppSelector(selectDropdown);
+  const { isMobile } = useAppSelector(mobileSelector);
 
-  const handleDropdownToggle = () => {
-    setShowDropdown((prev) => !prev);
-  };
   return (
     <div className={"filter"}>
-      <Button onClick={handleDropdownToggle}>
-        Filter by status{" "}
-        <Icon icon={dropdownIcon} description={"dropdown arrow"} />
+      <Button onClick={() => dispatch(toggleModal("showDropdown"))}>
+        {isMobile ? "Filter" : "Filter by status"}
+        <Icon
+          className={showDropdown ? "rotate180" : ""}
+          size={"sm"}
+          icon={arrowDownIcon}
+          description={"dropdown arrow"}
+        />
       </Button>
 
       {showDropdown && (
         <>
-          <div className="overlay" onClick={handleDropdownToggle}></div>
-          <Dropdown options={["halic", "hafiz", "adams"]} />
+          <div
+            className="overlay"
+            onClick={() => dispatch(toggleModal("showDropdown"))}
+          ></div>
+          <Dropdown options={["paid", "pending", "draft"]} />
         </>
       )}
     </div>

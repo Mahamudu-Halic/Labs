@@ -1,20 +1,55 @@
-import './App.css'
+import "./App.css";
 import Sidebar from "./components/sidebar/Sidebar.tsx";
-import Container from "./components/ui/container/Container.tsx";
 import Invoices from "./components/invoices/Invoices.tsx";
+import { Link, Route, Routes } from "react-router-dom";
+import NotFound from "./components/not-found/NotFound.tsx";
+import Headline from "./components/ui/typography/headline/Headline.tsx";
+import Text from "./components/ui/typography/text/Text.tsx";
+import ViewInvoice from "./components/view-invoice/ViewInvoice.tsx";
+import { useEffect } from "react";
+import { fetchInvoices } from "./features/invoice/invoice.slice.ts";
+import { useAppDispatch } from "./hooks/useRedux.ts";
+import { toggleMobile } from "./features/mobile/mobile.slice.tsx";
 
 function App() {
+  const dispatch = useAppDispatch();
 
-    return (
-        <Container container={"section"} className={"app"}>
-            <Sidebar/>
-            <Container container={"section"} className={"content"}>
-                <Container container={"div"} className={"wrapper"}>
-                    <Invoices/>
-                </Container>
-            </Container>
-        </Container>
-    )
+  useEffect(() => {
+    dispatch(fetchInvoices());
+  }, []);
+
+  useEffect(() => {
+    dispatch(toggleMobile());
+    window.addEventListener("resize", () => dispatch(toggleMobile()));
+
+    return () => {
+      window.removeEventListener("resize", () => dispatch(toggleMobile()));
+    };
+  }, []);
+  return (
+    <div className={"app"}>
+      <Sidebar />
+      <div className={"content"}>
+        <Routes>
+          <Route path="/" element={<Invoices />} />
+          <Route path="/:id" element={<ViewInvoice />} />
+          <Route
+            path="*"
+            element={
+              <NotFound>
+                <Headline variant={"h3"}>Page not found 🙁</Headline>
+                <Text>
+                  Go to dashboard by clicking the <br />
+                  <strong>Home</strong> button👇
+                </Text>
+                <Link to={"/"}>Home</Link>
+              </NotFound>
+            }
+          />
+        </Routes>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
