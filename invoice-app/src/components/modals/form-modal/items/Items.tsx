@@ -32,7 +32,6 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
   } = useFormContext();
 
   const { isMobile } = useAppSelector(mobileSelector);
-  console.log(isMobile);
   return (
     <div className={"items"}>
       <Headline variant={"h3"}>Item List</Headline>

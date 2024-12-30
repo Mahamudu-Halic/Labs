@@ -90,7 +90,7 @@ const Form = ({ initialValues, type }: FormProps) => {
     return items.reduce((total, item: ItemType) => total + item.total, 0);
   };
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = async (data: FormValues) => {
     if (!data.items.length) {
       setError("items", {
         type: "manual",
@@ -116,7 +116,10 @@ const Form = ({ initialValues, type }: FormProps) => {
       data.createdAt && data.paymentTerms
         ? calculatePaymentDue(data.createdAt, data.paymentTerms)
         : "";
-    dispatch(addInvoice(data));
+
+    dispatch(addInvoice(data)).then(() => {
+      if (loading === "success") dispatch(toggleModal("showFormDialog"));
+    });
   };
 
   const onDiscard = () => {
@@ -125,10 +128,6 @@ const Form = ({ initialValues, type }: FormProps) => {
   };
 
   const { description } = (errors as Errors) ?? {};
-
-  useEffect(() => {
-    if (loading === "success") dispatch(toggleModal("showFormDialog"));
-  }, [loading]);
 
   return (
     <DialogContainer>

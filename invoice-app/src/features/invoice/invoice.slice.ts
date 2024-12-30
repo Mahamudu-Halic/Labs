@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InitialState, Invoice } from "../../types/invoice.types.ts";
 import data from "../../data.json";
 import { RootState } from "../../store.ts";
+
 const initialState: InitialState = {
   invoices: data as Invoice[],
   currentInvoice: { loading: "idle", error: null, invoice: undefined },
@@ -166,6 +167,7 @@ const invoiceSlice = createSlice({
           );
           state.invoices[index] = { ...state.invoices[index], ...payload };
         }
+
         state.loading = "success";
         state.error = null;
       })
