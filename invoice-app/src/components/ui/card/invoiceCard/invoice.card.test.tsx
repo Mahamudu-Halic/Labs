@@ -17,10 +17,10 @@ describe("InvoiceCard Component", () => {
     renderWithProviders(<InvoiceCard {...mockProps} />);
 
     // Check if all elements renderWithProviders correctly
-    expect(screen.getByText("#12345")).toBeInTheDocument();
-    expect(screen.getByText("Due: 31 Dec 2024")).toBeInTheDocument();
+    expect(screen.getByText(mockProps.id)).toBeInTheDocument();
+    expect(screen.getByText(/Due 31 Dec 2024/i)).toBeInTheDocument();
     expect(screen.getByText("John Doe")).toBeInTheDocument();
-    expect(screen.getByText("5,000")).toBeInTheDocument();
+    expect(screen.getByText(/5,000/i)).toBeInTheDocument();
     expect(screen.getByText(/pending/i)).toBeInTheDocument();
     expect(screen.getByAltText("arrow right")).toBeInTheDocument();
   });
@@ -30,8 +30,8 @@ describe("InvoiceCard Component", () => {
 
     renderWithProviders(<InvoiceCard {...mockProps} />);
 
-    const button = screen.getByRole("button");
-    await user.click(button);
+    const cardLink = screen.getByText(mockProps.id);
+    await user.click(cardLink);
 
     expect(window.location.pathname).toEqual(`/${mockProps.id}`);
   });

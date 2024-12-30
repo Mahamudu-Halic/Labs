@@ -15,18 +15,24 @@ import {
   ItemType,
 } from "../../../../types/form.types.ts";
 import Text from "../../../ui/typography/text/Text.tsx";
+import { useAppSelector } from "../../../../hooks/useRedux.ts";
+import { mobileSelector } from "../../../../features/mobile/mobile.slice.tsx";
 
 interface ItemsProps {
   fields: FieldArrayWithId<ItemType>[];
   append: UseFieldArrayAppend<FormValues, "items">;
   remove: UseFieldArrayRemove;
 }
+
 const Items = ({ remove, fields, append }: ItemsProps) => {
   const {
     watch,
     register,
     formState: { errors },
   } = useFormContext();
+
+  const { isMobile } = useAppSelector(mobileSelector);
+  console.log(isMobile);
   return (
     <div className={"items"}>
       <Headline variant={"h3"}>Item List</Headline>
@@ -37,7 +43,11 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
           return (
             <div className={"items__list-item"} key={field.id}>
               <div className={"item__name"}>
-                <label htmlFor={"itemName" + index}>Item Name</label>
+                {isMobile || index === 0 ? (
+                  <label htmlFor={"itemName" + index}>Item Name</label>
+                ) : (
+                  ""
+                )}
                 <input
                   id={"itemName" + index}
                   className={
@@ -58,7 +68,11 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
               </div>
               <div className={"items__list-item__details"}>
                 <div className={"item__qty"}>
-                  <label htmlFor={"itemQty" + index}>Qty</label>
+                  {isMobile || index === 0 ? (
+                    <label htmlFor={"itemQty" + index}>Qty</label>
+                  ) : (
+                    ""
+                  )}
                   <input
                     className={
                       Array.isArray(errors.items) &&
@@ -79,7 +93,11 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                   />
                 </div>
                 <div className={"item__price"}>
-                  <label htmlFor={"itemPrice" + index}>Price</label>
+                  {isMobile || index === 0 ? (
+                    <label htmlFor={"itemPrice" + index}>Price</label>
+                  ) : (
+                    ""
+                  )}
                   <input
                     className={
                       Array.isArray(errors.items) && errors.items[index]?.price
@@ -99,7 +117,11 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                   />
                 </div>
                 <div className={"item__total"}>
-                  <label htmlFor="">Total</label>
+                  {isMobile || index === 0 ? (
+                    <label htmlFor="">Total</label>
+                  ) : (
+                    ""
+                  )}
                   <Text size={"sm"} bold>
                     {(qty * prc).toFixed(2)}
                   </Text>

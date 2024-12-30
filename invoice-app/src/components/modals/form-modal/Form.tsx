@@ -13,7 +13,6 @@ import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import generateRandomId from "../../../utils/generateRandomId/generateRandomId.ts";
 import calculatePaymentDue from "../../../utils/calculatePaymentDue/calculatePaymentDue.ts";
 import { toggleModal } from "../../../features/modal/modal.slice.tsx";
-import { useEffect, useRef, useState } from "react";
 import { Dialog, DialogContainer } from "../../ui/dialog/Dialog.tsx";
 import Button from "../../ui/button/button.tsx";
 import Icon from "../../ui/icon/Icon.tsx";
@@ -25,6 +24,8 @@ import BillTo from "./bill-to/BillTo.tsx";
 import DateTerms from "./date-and-terms/DateTerms.tsx";
 import Items from "./items/Items.tsx";
 import "./form.styles.css";
+import { useEffect } from "react";
+
 interface FormProps {
   type: "newInvoice" | "edit";
   initialValues?: FormValues;
@@ -104,7 +105,6 @@ const Form = ({ initialValues, type }: FormProps) => {
     data.paymentDue = calculatePaymentDue(data.createdAt, data.paymentTerms);
 
     dispatch(addInvoice(data));
-    if (loading === "success") dispatch(toggleModal("showFormDialog"));
   };
 
   const onSaveDraft = () => {
@@ -117,8 +117,6 @@ const Form = ({ initialValues, type }: FormProps) => {
         ? calculatePaymentDue(data.createdAt, data.paymentTerms)
         : "";
     dispatch(addInvoice(data));
-
-    if (loading === "success") dispatch(toggleModal("showFormDialog"));
   };
 
   const onDiscard = () => {
@@ -128,32 +126,9 @@ const Form = ({ initialValues, type }: FormProps) => {
 
   const { description } = (errors as Errors) ?? {};
 
-  const [showButtons, setShowButtons] = useState(false); // Track visibility of buttons
-  const [lastScrollTop, setLastScrollTop] = useState(0); // Track last scroll position
-  const formRef = useRef<HTMLFormElement | null>(null); // Reference to the info div
-
   useEffect(() => {
-    const formEl = formRef.current;
-
-    const handleScroll = () => {
-      if (formEl) {
-        const scrollTop = formEl.scrollTop;
-
-        if (scrollTop > lastScrollTop) {
-          setShowButtons(true);
-        } else {
-          setShowButtons(false);
-        }
-        setLastScrollTop(scrollTop);
-      }
-    };
-
-    formEl?.addEventListener("scroll", handleScroll);
-
-    return () => {
-      formEl?.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollTop]);
+    if (loading === "success") dispatch(toggleModal("showFormDialog"));
+  }, [loading]);
 
   return (
     <DialogContainer>
@@ -164,11 +139,7 @@ const Form = ({ initialValues, type }: FormProps) => {
         size={"md"}
       >
         <FormProvider {...form}>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            ref={formRef}
-            className={`${showButtons ? "visible" : ""}`}
-          >
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-info">
               <Button
                 className="go-back"
@@ -231,7 +202,7 @@ const Form = ({ initialValues, type }: FormProps) => {
               </div>
             </div>
 
-            <div className={`form__buttons ${showButtons ? "visible" : ""}`}>
+            <div className={`form__buttons`}>
               {type === "newInvoice" ? (
                 <>
                   <Button

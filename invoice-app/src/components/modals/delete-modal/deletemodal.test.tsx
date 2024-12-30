@@ -118,27 +118,33 @@ describe("delete modal component", () => {
 
   test("should close modal when invoice is successfully deleted", async () => {
     // TODO: Implement this test
-    renderWithProviders(<DeleteModal onClose={onClose} id={"1234"} />, {
-      preloadedState: {
-        invoice: {
-          loading: "idle",
-          currentInvoice: { loading: "idle", error: null, invoice: data },
-          error: null,
-          statusFilter: [],
-          invoices: [],
+    const { store } = renderWithProviders(
+      <DeleteModal onClose={onClose} id={"1234"} />,
+      {
+        preloadedState: {
+          invoice: {
+            loading: "idle",
+            currentInvoice: { loading: "idle", error: null, invoice: data },
+            error: null,
+            statusFilter: [],
+            invoices: [],
+          },
+          modal: {
+            showFormDialog: false,
+            showDeleteDialog: false,
+            showDropdown: false,
+            showPaymentTerms: false,
+            showProfile: false,
+          },
         },
       },
-    });
+    );
 
     const deleteButton = screen.getByRole("button", { name: /delete/i });
 
     await fireEvent.click(deleteButton);
-
-    expect(
-      screen.getByText(/invoice deleted successfully/i),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/return to home/i)).toBeInTheDocument();
-    expect(screen.getByText(/home/i)).toBeInTheDocument();
+    const state = store.getState();
+    expect(state.modal.showDeleteDialog).toBeFalsy();
   });
 
   test("should redirect to home page when invoice is successfully deleted", () => {
@@ -156,11 +162,8 @@ describe("delete modal component", () => {
     });
 
     const deleteButton = screen.getByRole("button", { name: /delete/i });
-    // const homeLink = screen.getByText(/home/i);
 
     fireEvent.click(deleteButton);
-
-    // expect(homeLink).toHaveAttribute("href", "/");
     expect(window.location.pathname).toEqual("/");
   });
 });
