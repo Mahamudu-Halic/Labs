@@ -10,7 +10,7 @@ const mobileSlice = createSlice({
   initialState,
   reducers: {
     toggleMobile(state) {
-      state.isMobile = window.innerWidth <= 430;
+      state.isMobile = window.innerWidth <= 540;
     },
   },
 });

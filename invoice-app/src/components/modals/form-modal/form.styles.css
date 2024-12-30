@@ -79,7 +79,7 @@
         min-width: 440px;
     }
 
-    @media (width <= 430px) {
+    @media (width <= 540px) {
         border-radius: 0;
         min-width: unset;
         width: 100%;
