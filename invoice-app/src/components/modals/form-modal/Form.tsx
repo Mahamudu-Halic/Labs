@@ -116,9 +116,9 @@ const Form = ({ initialValues, type }: FormProps) => {
         ? calculatePaymentDue(data.createdAt, data.paymentTerms)
         : "";
 
-    dispatch(addInvoice(data)).then(() => {
-      if (loading === "success") dispatch(toggleModal("showFormDialog"));
-    });
+    dispatch(addInvoice(data)).then(() =>
+      dispatch(toggleModal("showFormDialog")),
+    );
   };
 
   const onDiscard = () => {
