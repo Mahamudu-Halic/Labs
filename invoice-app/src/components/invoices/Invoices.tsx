@@ -10,25 +10,33 @@ import {
 import NotFound from "../not-found/NotFound.tsx";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import Text from "../ui/typography/text/Text.tsx";
-import { selectFormDialog } from "../../features/modal/modal.slice.tsx";
 import Form from "../modals/form-modal/Form.tsx";
+import { useState } from "react";
+import { Invoice } from "../../types/invoice.types.ts";
 
 const Invoices = () => {
   const invoices = useAppSelector(selectInvoices);
   const statusFilter = useAppSelector(selectStatusFilter);
-  const showForm = useAppSelector(selectFormDialog);
+
+  const [showForm, setShowForm] = useState<boolean>(false);
+
+  const toggleForm = () => {
+    setShowForm((prev) => !prev);
+  };
 
   const filteredInvoices = statusFilter.length
-    ? invoices.filter((invoice) => statusFilter.includes(invoice.status))
+    ? invoices.filter((invoice: Invoice) =>
+        statusFilter.includes(invoice.status),
+      )
     : [...invoices];
 
   return (
     <>
-      {showForm && <Form type={"newInvoice"} />}
+      {showForm && <Form type={"newInvoice"} toggleForm={toggleForm} />}
       <Wrapper className={"invoices"}>
-        <Header total={filteredInvoices.length} />
+        <Header total={filteredInvoices.length} toggleForm={toggleForm} />
         <div className="invoices__card-list">
-          {filteredInvoices.map((invoice) => (
+          {filteredInvoices.map((invoice: Invoice) => (
             <InvoiceCard key={invoice.id} {...invoice} />
           ))}
 

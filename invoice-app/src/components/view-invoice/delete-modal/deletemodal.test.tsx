@@ -116,35 +116,24 @@ describe("delete modal component", () => {
     expect(onClose).toBeCalledTimes(1);
   });
 
-  test("should close modal when invoice is successfully deleted", async () => {
+  test("should close modal when invoice is successfully deleted", () => {
     // TODO: Implement this test
-    const { store } = renderWithProviders(
-      <DeleteModal onClose={onClose} id={"1234"} />,
-      {
-        preloadedState: {
-          invoice: {
-            loading: "idle",
-            currentInvoice: { loading: "idle", error: null, invoice: data },
-            error: null,
-            statusFilter: [],
-            invoices: [],
-          },
-          modal: {
-            showFormDialog: false,
-            showDeleteDialog: false,
-            showDropdown: false,
-            showPaymentTerms: false,
-            showProfile: false,
-          },
+    renderWithProviders(<DeleteModal onClose={onClose} id={"1234"} />, {
+      preloadedState: {
+        invoice: {
+          loading: "idle",
+          currentInvoice: { loading: "idle", error: null, invoice: data },
+          error: null,
+          statusFilter: [],
+          invoices: [],
         },
       },
-    );
+    });
 
     const deleteButton = screen.getByRole("button", { name: /delete/i });
 
-    await fireEvent.click(deleteButton);
-    const state = store.getState();
-    expect(state.modal.showDeleteDialog).toBeFalsy();
+    fireEvent.click(deleteButton);
+    expect(onClose).toBeCalledTimes(1);
   });
 
   test("should redirect to home page when invoice is successfully deleted", () => {

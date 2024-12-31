@@ -12,7 +12,6 @@ import {
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import generateRandomId from "../../../utils/generateRandomId/generateRandomId.ts";
 import calculatePaymentDue from "../../../utils/calculatePaymentDue/calculatePaymentDue.ts";
-import { toggleModal } from "../../../features/modal/modal.slice.tsx";
 import { Dialog, DialogContainer } from "../../ui/dialog/Dialog.tsx";
 import Button from "../../ui/button/button.tsx";
 import Icon from "../../ui/icon/Icon.tsx";
@@ -28,9 +27,10 @@ import "./form.styles.css";
 interface FormProps {
   type: "newInvoice" | "edit";
   initialValues?: FormValues;
+  toggleForm: () => void;
 }
 
-const Form = ({ initialValues, type }: FormProps) => {
+const Form = ({ toggleForm, initialValues, type }: FormProps) => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectLoading);
   const form = useForm<FormValues>({
@@ -103,7 +103,7 @@ const Form = ({ initialValues, type }: FormProps) => {
     data.total = calculateTotal(data.items);
     data.paymentDue = calculatePaymentDue(data.createdAt, data.paymentTerms);
 
-    dispatch(addInvoice(data));
+    dispatch(addInvoice(data)).then(() => toggleForm());
   };
 
   const onSaveDraft = () => {
@@ -116,14 +116,12 @@ const Form = ({ initialValues, type }: FormProps) => {
         ? calculatePaymentDue(data.createdAt, data.paymentTerms)
         : "";
 
-    dispatch(addInvoice(data)).then(() =>
-      dispatch(toggleModal("showFormDialog")),
-    );
+    dispatch(addInvoice(data)).then(() => toggleForm());
   };
 
   const onDiscard = () => {
     reset();
-    dispatch(toggleModal("showFormDialog"));
+    toggleForm();
   };
 
   const { description } = (errors as Errors) ?? {};
@@ -137,13 +135,9 @@ const Form = ({ initialValues, type }: FormProps) => {
         size={"md"}
       >
         <FormProvider {...form}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="form-info">
-              <Button
-                className="go-back"
-                type={"button"}
-                onClick={() => dispatch(toggleModal("showFormDialog"))}
-              >
+              <Button className="go-back" type={"button"} onClick={toggleForm}>
                 <Icon
                   icon={arrowLeftIcon}
                   description={"arrow left"}
@@ -233,7 +227,7 @@ const Form = ({ initialValues, type }: FormProps) => {
                     }
                   >
                     Save & Send
-                  </Button>{" "}
+                  </Button>
                 </>
               ) : (
                 <>

@@ -5,7 +5,7 @@ import {
   selectInvoice,
   selectInvoices,
 } from "../../features/invoice/invoice.slice.ts";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import Text from "../ui/typography/text/Text.tsx";
 import NotFound from "../not-found/NotFound.tsx";
@@ -20,7 +20,6 @@ import Table from "./table/Table.tsx";
 import InvoiceNotice from "./invoice-notice/InvoiceNotice.tsx";
 import Address from "./address/Address.tsx";
 import InvoiceTitle from "./InvoiceTitle.tsx";
-import { selectFormDialog } from "../../features/modal/modal.slice.tsx";
 import InvoiceNoticeButtons from "./invoice-notice/InvoiceNoticeButtons.tsx";
 import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 import Form from "../modals/form-modal/Form.tsx";
@@ -32,8 +31,19 @@ const ViewInvoice = () => {
   const invoice = currentInvoice?.invoice;
   const invoices = useAppSelector(selectInvoices);
   const error = currentInvoice?.error;
-  const showForm = useAppSelector(selectFormDialog);
   const { isMobile } = useAppSelector(mobileSelector);
+
+  const [showForm, setShowForm] = useState<boolean>(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+
+  const toggleForm = () => {
+    setShowForm((prev) => !prev);
+  };
+
+  const toggleDeleteModal = () => {
+    setShowDeleteModal((prev) => !prev);
+  };
+
   useEffect(() => {
     dispatch(getInvoiceById(id ?? ""));
   }, [dispatch, id, invoices]);
@@ -41,7 +51,9 @@ const ViewInvoice = () => {
   return (
     <>
       <div className={"view__invoice-container"}>
-        {showForm && <Form type={"edit"} initialValues={invoice} />}
+        {showForm && (
+          <Form toggleForm={toggleForm} type={"edit"} initialValues={invoice} />
+        )}
         <Wrapper>
           <Link to={"/"} className={"go-back"}>
             <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
@@ -51,7 +63,13 @@ const ViewInvoice = () => {
         {invoice ? (
           <>
             <Wrapper className={"view__invoice"}>
-              <InvoiceNotice {...invoice} error={error} />
+              <InvoiceNotice
+                {...invoice}
+                error={error}
+                toggleForm={toggleForm}
+                toggleDeleteModal={toggleDeleteModal}
+                showDeleteModal={showDeleteModal}
+              />
               <CardWrapper className={"invoice__details-wrapper"}>
                 <div className={"invoice__details__sender-address__wrapper"}>
                   <div className={"invoice__details-description"}>
@@ -124,7 +142,10 @@ const ViewInvoice = () => {
               </CardWrapper>
             </Wrapper>
             <CardWrapper className="button-wrapper">
-              <InvoiceNoticeButtons />
+              <InvoiceNoticeButtons
+                toggleForm={toggleForm}
+                toggleDeleteModal={toggleDeleteModal}
+              />
             </CardWrapper>
           </>
         ) : (

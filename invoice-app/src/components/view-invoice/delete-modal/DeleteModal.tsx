@@ -11,7 +11,6 @@ import { useEffect } from "react";
 import { Dialog, DialogContainer } from "../../ui/dialog/Dialog.tsx";
 
 import "./deletemodal.styles.css";
-import { toggleModal } from "../../../features/modal/modal.slice.tsx";
 
 interface DeleteModalProps {
   onClose: () => void;
@@ -26,7 +25,7 @@ const DeleteModal = ({ onClose, id }: DeleteModalProps) => {
 
   useEffect(() => {
     if (loading === "success") {
-      dispatch(toggleModal("showDeleteDialog"));
+      onClose();
       navigate("/");
     }
   }, [loading]);

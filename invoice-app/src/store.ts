@@ -1,13 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import themeReducer from "./features/theme/theme.slice.ts";
 import invoiceReducer from "./features/invoice/invoice.slice.ts";
-import modalReducer from "./features/modal/modal.slice.tsx";
 import mobileReducer from "./features/mobile/mobile.slice.tsx";
 
 const rootReducers = combineReducers({
   theme: themeReducer,
   invoice: invoiceReducer,
-  modal: modalReducer,
   mobile: mobileReducer,
 });
 

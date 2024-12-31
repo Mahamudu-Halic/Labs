@@ -3,36 +3,37 @@ import Badge from "../../ui/badge/Badge.tsx";
 import CardWrapper from "../../ui/card/CardWrapper.tsx";
 
 import InvoiceNoticeButtons from "./InvoiceNoticeButtons.tsx";
-import DeleteModal from "../../modals/delete-modal/DeleteModal.tsx";
-import {
-  selectDeleteDialog,
-  toggleModal,
-} from "../../../features/modal/modal.slice.tsx";
-import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
+import DeleteModal from "../delete-modal/DeleteModal.tsx";
 
 interface InvoiceNoticeProps {
   status: string;
   error: string | null;
   id: string;
+  toggleForm: () => void;
+  showDeleteModal: boolean;
+  toggleDeleteModal: () => void;
 }
 
-const InvoiceNotice = ({ id, status }: InvoiceNoticeProps) => {
-  const deleteDialog = useAppSelector(selectDeleteDialog);
-  const dispatch = useAppDispatch();
-
+const InvoiceNotice = ({
+  showDeleteModal,
+  toggleDeleteModal,
+  toggleForm,
+  id,
+  status,
+}: InvoiceNoticeProps) => {
   return (
     <CardWrapper className={"invoice__notice-wrapper"}>
       <div className={"invoice__status-wrapper"}>
         <Text className={"status"}>Status</Text>
         <Badge status={status} />
       </div>
-      {deleteDialog && (
-        <DeleteModal
-          onClose={() => dispatch(toggleModal("showDeleteDialog"))}
-          id={id ?? ""}
-        />
+      {showDeleteModal && (
+        <DeleteModal onClose={toggleDeleteModal} id={id ?? ""} />
       )}
-      <InvoiceNoticeButtons />
+      <InvoiceNoticeButtons
+        toggleForm={toggleForm}
+        toggleDeleteModal={toggleDeleteModal}
+      />
     </CardWrapper>
   );
 };

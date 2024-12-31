@@ -14,49 +14,6 @@ describe("Filter Component", () => {
   });
 
   test("should toggle dropdown when button is clicked", () => {
-    const { store } = renderWithProviders(<Filter />, {
-      preloadedState: {
-        modal: {
-          showFormDialog: false,
-          showDeleteDialog: false,
-          showDropdown: false,
-          showPaymentTerms: false,
-          showProfile: false,
-        },
-      },
-    });
-
-    const state = store.getState();
-
-    expect(state.modal.showDropdown).toBe(false);
-    const button = screen.getByRole("button", { name: /filter/i });
-    fireEvent.click(button);
-
-    const stateAfterClick1 = store.getState();
-    expect(stateAfterClick1.modal.showDropdown).toBe(true);
-
-    fireEvent.click(button);
-
-    const stateAfterClick2 = store.getState();
-    expect(stateAfterClick2.modal.showDropdown).toBe(false);
-  });
-
-  test("should render dropdown when button is clicked", () => {
-    renderWithProviders(<Filter />);
-
-    const button = screen.getByRole("button", { name: /filter/i });
-    fireEvent.click(button);
-
-    const paid = screen.getByText(/paid/i);
-    const pending = screen.getByText(/pending/i);
-    const draft = screen.getByText(/draft/i);
-
-    expect(paid).toBeInTheDocument();
-    expect(pending).toBeInTheDocument();
-    expect(draft).toBeInTheDocument();
-  });
-
-  test("should close dropdown when button is clicked", () => {
     renderWithProviders(<Filter />);
 
     const button = screen.getByRole("button", { name: /filter/i });

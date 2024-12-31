@@ -1,12 +1,17 @@
 import Button from "../../ui/button/button.tsx";
-import { toggleModal } from "../../../features/modal/modal.slice.tsx";
 import {
   selectInvoice,
   updateInvoiceStatus,
 } from "../../../features/invoice/invoice.slice.ts";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
 
-const InvoiceNoticeButtons = () => {
+const InvoiceNoticeButtons = ({
+  toggleDeleteModal,
+  toggleForm,
+}: {
+  toggleDeleteModal: () => void;
+  toggleForm: () => void;
+}) => {
   const dispatch = useAppDispatch();
   const currentInvoice = useAppSelector(selectInvoice);
   const invoice = currentInvoice?.invoice;
@@ -18,7 +23,7 @@ const InvoiceNoticeButtons = () => {
           variant={"tertiary"}
           radius={"rounded-full"}
           disabled={loading === "loading"}
-          onClick={() => dispatch(toggleModal("showFormDialog"))}
+          onClick={toggleForm}
         >
           Edit
         </Button>
@@ -26,7 +31,7 @@ const InvoiceNoticeButtons = () => {
       <Button
         variant={"danger"}
         radius={"rounded-full"}
-        onClick={() => dispatch(toggleModal("showDeleteDialog"))}
+        onClick={toggleDeleteModal}
         disabled={loading === "loading"}
       >
         Delete

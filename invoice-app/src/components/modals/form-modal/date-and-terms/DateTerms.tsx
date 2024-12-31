@@ -1,12 +1,8 @@
 import { useFormContext } from "react-hook-form";
-import {
-  selectPaymentTerms,
-  toggleModal,
-} from "../../../../features/modal/modal.slice.tsx";
+
 import Icon from "../../../ui/icon/Icon.tsx";
 import arrowDownIcon from "../../../../assets/images/icon-arrow-down.svg";
 import Button from "../../../ui/button/button.tsx";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/useRedux.ts";
 import { Errors } from "../../../../types/form.types.ts";
 import Text from "../../../ui/typography/text/Text.tsx";
 import CustomSelect from "../CustomSelect.tsx";
@@ -20,15 +16,17 @@ const DateTerms = () => {
     getValues,
     formState: { errors },
   } = useFormContext();
-  const dispatch = useAppDispatch();
-  const showPaymentTerms = useAppSelector(selectPaymentTerms);
   const { createdAt, paymentTerms } = (errors as Errors) ?? {};
   const [option, setOption] = useState<number>(getValues("paymentTerms"));
+  const [showPaymentTerms, setShowPaymentTerms] = useState<boolean>(false);
 
+  const togglePaymentTerms = () => {
+    setShowPaymentTerms((prev) => !prev);
+  };
   const handleSelectOption = (value: number) => {
     setOption(value);
     setValue("paymentTerms", value);
-    dispatch(toggleModal("showPaymentTerms"));
+    togglePaymentTerms();
   };
   return (
     <div className={"date-term"}>
@@ -51,7 +49,7 @@ const DateTerms = () => {
         <Button
           className={`${showPaymentTerms ? "active" : ""}`}
           type={"button"}
-          onClick={() => dispatch(toggleModal("showPaymentTerms"))}
+          onClick={togglePaymentTerms}
         >
           Net {option} Day{option > 1 && "s"}
           <Icon
@@ -64,10 +62,7 @@ const DateTerms = () => {
 
         {showPaymentTerms && (
           <>
-            <div
-              className={"overlay"}
-              onClick={() => dispatch(toggleModal("showPaymentTerms"))}
-            ></div>
+            <div className={"overlay"} onClick={togglePaymentTerms}></div>
             <CustomSelect handleSelectOption={handleSelectOption} />
           </>
         )}

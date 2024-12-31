@@ -6,13 +6,17 @@ import Filter from "../filter/Filter.tsx";
 
 import plusIcon from "../../assets/images/icon-plus.svg";
 import "./header.styles.css";
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
-import { toggleModal } from "../../features/modal/modal.slice.tsx";
+import { useAppSelector } from "../../hooks/useRedux.ts";
 import { selectStatusFilter } from "../../features/invoice/invoice.slice.ts";
 import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 
-const Header = ({ total }: { total?: number }) => {
-  const dispatch = useAppDispatch();
+const Header = ({
+  total,
+  toggleForm,
+}: {
+  total?: number;
+  toggleForm: () => void;
+}) => {
   const statusFilter = useAppSelector(selectStatusFilter);
   const { isMobile } = useAppSelector(mobileSelector);
 
@@ -38,7 +42,7 @@ const Header = ({ total }: { total?: number }) => {
           variant={"primary"}
           radius={"rounded-lg"}
           className={"new__invoice-button"}
-          onClick={() => dispatch(toggleModal("showFormDialog"))}
+          onClick={toggleForm}
         >
           <div className={"new__invoice-plus-icon"}>
             <Icon icon={plusIcon} description={"plus icon"} size={"xs"} />
