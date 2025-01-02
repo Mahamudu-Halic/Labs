@@ -18,16 +18,14 @@ const InvoiceNoticeButtons = ({
   const loading = currentInvoice?.loading;
   return (
     <div className={"invoice__button-wrapper"}>
-      {invoice?.status !== "paid" && (
-        <Button
-          variant={"tertiary"}
-          radius={"rounded-full"}
-          disabled={loading === "loading"}
-          onClick={toggleForm}
-        >
-          Edit
-        </Button>
-      )}
+      <Button
+        variant={"tertiary"}
+        radius={"rounded-full"}
+        disabled={loading === "loading"}
+        onClick={toggleForm}
+      >
+        Edit
+      </Button>
       <Button
         variant={"danger"}
         radius={"rounded-full"}

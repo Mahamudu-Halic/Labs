@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
-import BillTo from "./BillTo";
+import BillTo from "./BillTo.tsx";
 import { describe, expect, test } from "vitest";
 
 const renderWithFormProvider = (defaultValues = {}) => {

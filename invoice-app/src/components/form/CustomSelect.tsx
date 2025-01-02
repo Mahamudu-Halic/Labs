@@ -1,3 +1,6 @@
+import Dropdown from "../ui/dropdown/Dropdown.tsx";
+import Button from "../ui/button/button.tsx";
+
 const Options = [
   {
     value: 1,
@@ -19,19 +22,25 @@ const Options = [
 
 interface CustomSelectProps {
   handleSelectOption: (value: number) => void;
+  selectedOption: number;
 }
-const CustomSelect = ({ handleSelectOption }: CustomSelectProps) => {
+const CustomSelect = ({
+  selectedOption,
+  handleSelectOption,
+}: CustomSelectProps) => {
   return (
-    <ul className={"custom-select"}>
+    <Dropdown className={"custom-select"}>
       {Options.map((option) => (
-        <li
+        <Button
+          type={"button"}
           key={option.description}
           onClick={() => handleSelectOption(option.value)}
+          className={`${option.value === selectedOption ? "active" : ""}`}
         >
           {option.description}
-        </li>
+        </Button>
       ))}
-    </ul>
+    </Dropdown>
   );
 };
 

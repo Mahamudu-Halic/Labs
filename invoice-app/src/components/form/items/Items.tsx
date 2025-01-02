@@ -1,8 +1,8 @@
-import Headline from "../../../ui/typography/headline/Headline.tsx";
-import Button from "../../../ui/button/button.tsx";
+import Headline from "../../ui/typography/headline/Headline.tsx";
+import Button from "../../ui/button/button.tsx";
 import "./items.styles.css";
-import Icon from "../../../ui/icon/Icon.tsx";
-import plusIcon from "../../../../assets/images/icon-plus.svg";
+import Icon from "../../ui/icon/Icon.tsx";
+import plusIcon from "../../../assets/images/icon-plus.svg";
 import {
   FieldArrayWithId,
   UseFieldArrayAppend,
@@ -13,10 +13,11 @@ import {
   FormValues,
   initialItems,
   ItemType,
-} from "../../../../types/form.types.ts";
-import Text from "../../../ui/typography/text/Text.tsx";
-import { useAppSelector } from "../../../../hooks/useRedux.ts";
-import { mobileSelector } from "../../../../features/mobile/mobile.slice.tsx";
+} from "../../../types/form.types.ts";
+import Text from "../../ui/typography/text/Text.tsx";
+import { useAppSelector } from "../../../hooks/useRedux.ts";
+import { mobileSelector } from "../../../features/mobile/mobile.slice.tsx";
+import TextField from "../../ui/text-field/TextField.tsx";
 
 interface ItemsProps {
   fields: FieldArrayWithId<ItemType>[];
@@ -27,7 +28,6 @@ interface ItemsProps {
 const Items = ({ remove, fields, append }: ItemsProps) => {
   const {
     watch,
-    register,
     formState: { errors },
   } = useFormContext();
 
@@ -47,22 +47,22 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                 ) : (
                   ""
                 )}
-                <input
+                <TextField
                   id={"itemName" + index}
                   className={
                     Array.isArray(errors.items) && errors.items[index]?.name
                       ? "error"
                       : ""
                   }
-                  type="text"
-                  {...register(`items.${index}.name`, {
-                    required: "Item name is required",
+                  name={`items.${index}.name`}
+                  validationRules={{
+                    required: "Item price is required",
                     pattern: {
                       value: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
                       message:
                         "Item name cannot contain numbers or invalid characters",
                     },
-                  })}
+                  }}
                 />
               </div>
               <div className={"items__list-item__details"}>
@@ -72,7 +72,7 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                   ) : (
                     ""
                   )}
-                  <input
+                  <TextField
                     className={
                       Array.isArray(errors.items) &&
                       errors.items[index]?.quantity
@@ -81,14 +81,18 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                     }
                     type="number"
                     id={"itemQty" + index}
-                    {...register(`items.${index}.quantity`, {
+                    name={`items.${index}.quantity`}
+                    validationRules={{
                       required: "Quantity is required",
-                      // valueAsNumber: true,
                       pattern: {
                         value: /^\d+$/,
                         message: "must be a number",
                       } as const,
-                    })}
+                      min: {
+                        value: 1,
+                        message: "must be at least 1",
+                      },
+                    }}
                   />
                 </div>
                 <div className={"item__price"}>
@@ -97,7 +101,7 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                   ) : (
                     ""
                   )}
-                  <input
+                  <TextField
                     className={
                       Array.isArray(errors.items) && errors.items[index]?.price
                         ? "error"
@@ -105,14 +109,14 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                     }
                     type="number"
                     id={"itemPrice" + index}
-                    {...register(`items.${index}.price`, {
+                    name={`items.${index}.price`}
+                    validationRules={{
                       required: "Price is required",
-                      // valueAsNumber: true,
                       pattern: {
                         value: /^\d+(\.\d{1,2})?$/,
                         message: "Price must be a valid number",
                       } as const,
-                    })}
+                    }}
                   />
                 </div>
                 <div className={"item__total"}>

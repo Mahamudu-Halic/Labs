@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { InitialState, Invoice } from "../../types/invoice.types.ts";
 import data from "../../data.json";
 import { RootState } from "../../store.ts";
+import { toast } from "sonner";
 
 const initialState: InitialState = {
   invoices: data as Invoice[],
@@ -108,11 +109,16 @@ const invoiceSlice = createSlice({
             (invoice) => invoice.id !== action.payload,
           );
           state.currentInvoice.loading = "success";
+          toast.success("invoice deleted successfully");
         },
       )
       .addCase(deleteInvoice.rejected, (state, action) => {
         state.loading = "idle";
         state.error = action.payload as string;
+        toast.error(
+          (action.payload as string) ??
+            "an error occurred while deleting invoice",
+        );
       })
 
       //updateInvoiceStatus
@@ -137,43 +143,51 @@ const invoiceSlice = createSlice({
             state.currentInvoice.invoice.status = "paid";
             state.currentInvoice.loading = "success";
             state.currentInvoice.error = null;
+            toast.success("status updated successfully");
           }
           state.currentInvoice.loading = "idle";
           state.currentInvoice.error = "something went wrong";
+          toast.error("something went wrong");
         },
       )
       .addCase(updateInvoiceStatus.rejected, (state, action) => {
         state.loading = "idle";
         state.error = action.payload as string;
+        toast.error(action.payload as string);
       })
 
       //addInvoice
       .addCase(addInvoice.pending, (state) => {
         state.loading = "loading";
         state.error = null;
+        toast.loading("adding invoice...");
       })
       .addCase(addInvoice.fulfilled, (state, action) => {
         const { payload } = action;
-
+        toast.dismiss();
         const payloadExists = state.invoices.find(
           (invoice) => invoice.id === payload.id,
         );
 
         if (!payloadExists) {
           state.invoices = [action.payload, ...state.invoices];
+          toast.success("invoice added successfully");
         } else {
           const index = state.invoices.findIndex(
             (invoice) => invoice.id === payload.id,
           );
           state.invoices[index] = { ...state.invoices[index], ...payload };
+          toast.success("invoice updated successfully");
         }
 
         state.loading = "success";
         state.error = null;
       })
       .addCase(addInvoice.rejected, (state, action) => {
+        toast.dismiss();
         state.loading = "idle";
         state.error = action.payload as string;
+        toast.error(action.payload as string);
       });
   },
 });

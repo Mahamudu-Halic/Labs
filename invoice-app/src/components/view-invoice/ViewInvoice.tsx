@@ -22,7 +22,7 @@ import Address from "./address/Address.tsx";
 import InvoiceTitle from "./InvoiceTitle.tsx";
 import InvoiceNoticeButtons from "./invoice-notice/InvoiceNoticeButtons.tsx";
 import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
-import Form from "../modals/form-modal/Form.tsx";
+import Form from "../form/Form.tsx";
 
 const ViewInvoice = () => {
   const { id } = useParams();

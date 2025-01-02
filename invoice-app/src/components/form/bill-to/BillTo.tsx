@@ -1,11 +1,11 @@
 import { useFormContext } from "react-hook-form";
-import Text from "../../../ui/typography/text/Text.tsx";
+import Text from "../../ui/typography/text/Text.tsx";
 import FormAddress from "../address/FormAddress.tsx";
-import { Errors } from "../../../../types/form.types.ts";
+import { Errors } from "../../../types/form.types.ts";
+import TextField from "../../ui/text-field/TextField.tsx";
 
 const BillTo = () => {
   const {
-    register,
     formState: { errors },
   } = useFormContext();
 
@@ -22,17 +22,17 @@ const BillTo = () => {
             </Text>
           )}
         </label>
-        <input
+        <TextField
           className={clientName && "error"}
-          type={"text"}
           id="clientName"
-          {...register("clientName", {
+          name="clientName"
+          validationRules={{
             required: "can't be empty",
             pattern: {
               value: /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/,
               message: "can't contain numbers or symbols",
             },
-          })}
+          }}
         />
       </div>
       <div>
@@ -44,17 +44,18 @@ const BillTo = () => {
             </Text>
           )}
         </label>
-        <input
+        <TextField
           className={clientEmail && "error"}
           id={"clientEmail"}
           type="email"
-          {...register("clientEmail", {
+          name="clientEmail"
+          validationRules={{
             required: "can't be empty",
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
               message: "invalid email address",
             },
-          })}
+          }}
         />
       </div>
       <FormAddress field="clientAddress" />

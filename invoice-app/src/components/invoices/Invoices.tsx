@@ -10,7 +10,7 @@ import {
 import NotFound from "../not-found/NotFound.tsx";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import Text from "../ui/typography/text/Text.tsx";
-import Form from "../modals/form-modal/Form.tsx";
+import Form from "../form/Form.tsx";
 import { useState } from "react";
 import { Invoice } from "../../types/invoice.types.ts";
 

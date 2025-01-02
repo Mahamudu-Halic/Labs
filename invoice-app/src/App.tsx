@@ -10,24 +10,26 @@ import { useEffect } from "react";
 import { fetchInvoices } from "./features/invoice/invoice.slice.ts";
 import { useAppDispatch } from "./hooks/useRedux.ts";
 import { toggleMobile } from "./features/mobile/mobile.slice.tsx";
+import { Toaster } from "sonner";
 
 function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(fetchInvoices());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(toggleMobile());
     window.addEventListener("resize", () => dispatch(toggleMobile()));
 
     return () => {
       window.removeEventListener("resize", () => dispatch(toggleMobile()));
     };
-  }, []);
+  }, [dispatch]);
+
   return (
     <div className={"app"}>
+      <Toaster position={"top-right"} />
       <Sidebar />
       <div className={"content"}>
         <Routes>

@@ -1,7 +1,8 @@
 import { useFormContext } from "react-hook-form";
 import "./formaddress.styles.css";
-import Text from "../../../ui/typography/text/Text.tsx";
-import { Errors } from "../../../../types/form.types.ts";
+import Text from "../../ui/typography/text/Text.tsx";
+import { Errors } from "../../../types/form.types.ts";
+import TextField from "../../ui/text-field/TextField.tsx";
 
 interface FormAddressProps {
   field: string;
@@ -9,7 +10,6 @@ interface FormAddressProps {
 
 const FormAddress = ({ field }: FormAddressProps) => {
   const {
-    register,
     formState: { errors },
   } = useFormContext();
   const { street, postCode, city, country } = (errors[field] as Errors) ?? {};
@@ -28,13 +28,13 @@ const FormAddress = ({ field }: FormAddressProps) => {
             </Text>
           )}
         </label>
-        <input
+        <TextField
           className={street ? "error" : ""}
           id={field + "streetAddress"}
-          type="text"
-          {...register(`${field}.street`, {
+          name={`${field}.street`}
+          validationRules={{
             required: "can't be empty",
-          })}
+          }}
         />
       </div>
       <div className={"form-address__info"}>
@@ -43,13 +43,13 @@ const FormAddress = ({ field }: FormAddressProps) => {
             <label htmlFor={field + "city"} className={city ? "error" : ""}>
               City
             </label>
-            <input
+            <TextField
               className={city ? "error" : ""}
               id={field + "city"}
-              type="text"
-              {...register(`${field}.city`, {
-                required: "required",
-              })}
+              name={`${field}.city`}
+              validationRules={{
+                required: "can't be empty",
+              }}
             />
           </div>
           <div>
@@ -59,13 +59,13 @@ const FormAddress = ({ field }: FormAddressProps) => {
             >
               Postal Code
             </label>
-            <input
+            <TextField
               className={postCode ? "error" : ""}
               id={field + "postalCode"}
-              type="text"
-              {...register(`${field}.postCode`, {
-                required: "required",
-              })}
+              name={`${field}.postCode`}
+              validationRules={{
+                required: "can't be empty",
+              }}
             />
           </div>
         </div>
@@ -73,13 +73,13 @@ const FormAddress = ({ field }: FormAddressProps) => {
           <label htmlFor={field + "country"} className={country ? "error" : ""}>
             Country
           </label>
-          <input
+          <TextField
             className={country ? "error" : ""}
             id={field + "country"}
-            type="text"
-            {...register(`${field}.country`, {
-              required: "required",
-            })}
+            name={`${field}.country`}
+            validationRules={{
+              required: "can't be empty",
+            }}
           />
         </div>
       </div>

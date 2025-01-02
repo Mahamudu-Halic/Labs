@@ -3,26 +3,27 @@ import {
   FormValues,
   initialItems,
   ItemType,
-} from "../../../types/form.types.ts";
-import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
+} from "../../types/form.types.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
 import {
   addInvoice,
   selectLoading,
-} from "../../../features/invoice/invoice.slice.ts";
+} from "../../features/invoice/invoice.slice.ts";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import generateRandomId from "../../../utils/generateRandomId/generateRandomId.ts";
-import calculatePaymentDue from "../../../utils/calculatePaymentDue/calculatePaymentDue.ts";
-import { Dialog, DialogContainer } from "../../ui/dialog/Dialog.tsx";
-import Button from "../../ui/button/button.tsx";
-import Icon from "../../ui/icon/Icon.tsx";
-import arrowLeftIcon from "../../../assets/images/icon-arrow-left.svg";
-import Text from "../../ui/typography/text/Text.tsx";
-import Headline from "../../ui/typography/headline/Headline.tsx";
+import generateRandomId from "../../utils/generateRandomId/generateRandomId.ts";
+import calculatePaymentDue from "../../utils/calculatePaymentDue/calculatePaymentDue.ts";
+import { Dialog, DialogContainer } from "../ui/dialog/Dialog.tsx";
+import Button from "../ui/button/button.tsx";
+import Icon from "../ui/icon/Icon.tsx";
+import arrowLeftIcon from "../../assets/images/icon-arrow-left.svg";
+import Text from "../ui/typography/text/Text.tsx";
+import Headline from "../ui/typography/headline/Headline.tsx";
 import FormAddress from "./address/FormAddress.tsx";
 import BillTo from "./bill-to/BillTo.tsx";
 import DateTerms from "./date-and-terms/DateTerms.tsx";
 import Items from "./items/Items.tsx";
 import "./form.styles.css";
+import TextField from "../ui/text-field/TextField.tsx";
 
 interface FormProps {
   type: "newInvoice" | "edit";
@@ -38,7 +39,7 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
       id: generateRandomId(),
       clientName: "",
       clientEmail: "",
-      createdAt: "",
+      createdAt: `${new Date().toISOString().split("T")[0]}`,
       paymentDue: "",
       description: "",
       paymentTerms: 1,
@@ -65,7 +66,6 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
     mode: "onTouched",
   });
   const {
-    register,
     control,
     handleSubmit,
     setError,
@@ -168,13 +168,14 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
                   Project Description{" "}
                   <Text size={"sm"}>{description?.message}</Text>{" "}
                 </label>
-                <input
+
+                <TextField
+                  name={"description"}
                   id={"description"}
                   className={description && "error"}
-                  type="text"
-                  {...register("description", {
+                  validationRules={{
                     required: "can't be empty",
-                  })}
+                  }}
                 />
               </div>
 
@@ -223,6 +224,7 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
                       !isValid ||
                       !isDirty ||
                       !getValues("items").length ||
+                      !getValues("createdAt") ||
                       loading === "loading"
                     }
                   >
@@ -246,6 +248,7 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
                     disabled={
                       !isValid ||
                       !getValues("items").length ||
+                      !getValues("createdAt") ||
                       loading === "loading"
                     }
                   >

@@ -2,7 +2,7 @@ import { describe, test, expect } from "vitest";
 import { fireEvent, screen } from "@testing-library/react";
 import { FormProvider, useForm } from "react-hook-form";
 import DateTerms from "./DateTerms.tsx";
-import { renderWithProviders } from "../../../../utils/renderwithproviders.tsx";
+import { renderWithProviders } from "../../../utils/renderwithproviders.tsx";
 
 const renderWithFormProvider = (defaultValues = {}) => {
   const Wrapper = ({ children }: { children: React.ReactNode }) => {

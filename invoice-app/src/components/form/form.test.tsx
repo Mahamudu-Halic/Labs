@@ -1,6 +1,6 @@
 import { describe, test, expect, vi } from "vitest";
 import { fireEvent, screen } from "@testing-library/react";
-import { renderWithProviders } from "../../../utils/renderwithproviders.tsx";
+import { renderWithProviders } from "../../utils/renderwithproviders.tsx";
 import Form from "./Form.tsx";
 
 describe("Form component", () => {
