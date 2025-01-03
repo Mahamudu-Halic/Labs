@@ -28,6 +28,20 @@
                     align-items: center;
                     justify-content: center;
                 }
+
+                .new__invoice-mobile {
+                    display: none;
+                }
+
+                @media (max-width: 540px) {
+                    .new__invoice-mobile {
+                        display: block;
+                    }
+
+                    .new__invoice-desktop {
+                        display: none;
+                    }
+                }
             }
         }
     }

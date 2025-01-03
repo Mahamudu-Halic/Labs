@@ -1,9 +1,10 @@
 import Button from "../button/button.tsx";
 import Icon from "../icon/Icon.tsx";
-import { HTMLAttributes, useState } from "react";
-import styles from "./avatar.module.css";
+import { HTMLAttributes, useEffect, useState } from "react";
+import "./avatar.styles.css";
 import Text from "../typography/text/Text.tsx";
-import Headline from "../typography/headline/Headline.tsx";
+import Dropdown from "../dropdown/Dropdown.tsx";
+import { userInfo } from "../../../constants.ts";
 
 interface AvatarProps extends HTMLAttributes<HTMLButtonElement> {
   image: string;
@@ -22,34 +23,67 @@ const Avatar = ({
   size = "md",
   className,
 }: AvatarProps) => {
-  const combinedClassName = `${styles.avatar} ${className ?? ""}`.trim();
-
   const [showProfile, setShowProfile] = useState<boolean>(false);
 
   const handleToggleProfile = () => setShowProfile((prev) => !prev);
 
+  useEffect(() => {
+    const disablePopup = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".avatar__container")) {
+        setShowProfile(false);
+      }
+    };
+    document.addEventListener("click", disablePopup);
+    return () => {
+      document.removeEventListener("click", disablePopup);
+    };
+  }, []);
+
   return (
-    <div className={`${styles.avatar__container}`}>
+    <div className={`avatar__container`}>
       {showProfile && (
         <>
-          <div className={styles.overlay} onClick={handleToggleProfile} />
-          <div className={styles.profile}>
-            <Headline variant={"h3"}>Mahamudu Halic</Headline>
-            <Text>halic.mahamudu@amalitech.com</Text>
-            <Button variant={"danger"} radius={"rounded-md"}>
+          <Dropdown className={`profile__dropdown`}>
+            <div className={`profile__dropdown__user-info`}>
+              <Icon
+                icon={userInfo?.profileImg ?? ""}
+                description={"profile pic"}
+                radius={radius}
+                size={"xl"}
+              />
+              <div className={`profile__dropdown__user-info__details`}>
+                <Text bold>
+                  {userInfo?.name ?? "anonymous"} ({userInfo?.role})
+                </Text>
+                <Text size={"sm"}>{userInfo?.position ?? "unknown"}</Text>
+                <Text size={"sm"} className={`email`}>
+                  {userInfo?.email ?? "unknown"}
+                </Text>
+              </div>
+            </div>
+
+            <Button variant={"secondary"} radius={"rounded-md"}>
+              edit profile
+            </Button>
+            <Button
+              variant={"danger"}
+              radius={"rounded-md"}
+              onClick={handleToggleProfile}
+            >
               logout
             </Button>
-          </div>
+          </Dropdown>
         </>
       )}
       <Button
         radius={radius}
-        className={combinedClassName}
+        className={`avatar ${className ?? ""}`}
         onClick={handleToggleProfile}
       >
         <Icon
           icon={image}
-          description={"profile"}
+          description={"profile pic"}
           radius={radius}
           size={size}
         />

@@ -9,7 +9,6 @@ import ViewInvoice from "./components/view-invoice/ViewInvoice.tsx";
 import { useEffect } from "react";
 import { fetchInvoices } from "./features/invoice/invoice.slice.ts";
 import { useAppDispatch } from "./hooks/useRedux.ts";
-import { toggleMobile } from "./features/mobile/mobile.slice.tsx";
 import { Toaster } from "sonner";
 
 function App() {
@@ -17,14 +16,6 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchInvoices());
-  }, [dispatch]);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => dispatch(toggleMobile()));
-
-    return () => {
-      window.removeEventListener("resize", () => dispatch(toggleMobile()));
-    };
   }, [dispatch]);
 
   return (

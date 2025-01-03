@@ -29,13 +29,6 @@ export type FormValues = {
   total: number;
 };
 
-export const initialItems: ItemType = {
-  name: "",
-  quantity: 0,
-  price: 0,
-  total: 0,
-};
-
 export type Errors = {
   street?: FieldError;
   postCode?: FieldError;

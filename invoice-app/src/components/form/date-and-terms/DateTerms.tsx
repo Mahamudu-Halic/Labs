@@ -18,7 +18,9 @@ const DateTerms = () => {
     getValues,
     formState: { errors },
   } = useFormContext();
+
   const { createdAt, paymentTerms } = (errors as Errors) ?? {};
+
   const [option, setOption] = useState<number>(getValues("paymentTerms"));
   const [showPaymentTerms, setShowPaymentTerms] = useState<boolean>(false);
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
@@ -46,21 +48,30 @@ const DateTerms = () => {
   };
 
   useEffect(() => {
-    const disablePopup = (e: any) => {
-      if (!e.target.closest(".payment-terms")) {
+    const disablePopup = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+
+      if (!target.closest(".payment-terms")) {
         setShowPaymentTerms(false);
       }
 
-      if (!e.target.closest(".invoice-date")) {
+      if (!target.closest(".invoice-date")) {
         setShowDatePicker(false);
       }
     };
+
     document.addEventListener("click", disablePopup);
-    document
-      .getElementsByTagName("form")[0]
-      .addEventListener("click", disablePopup);
+    const form = document.getElementsByTagName("form")[0];
+    if (form) {
+      form.addEventListener("click", disablePopup);
+    }
+
     return () => {
       document.removeEventListener("click", disablePopup);
+
+      if (form) {
+        form.removeEventListener("click", disablePopup);
+      }
     };
   }, []);
 

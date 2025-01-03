@@ -1,5 +1,6 @@
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import "./textfield.styles.css";
+
 interface TextFieldProps {
   type?: string;
   name: string;
@@ -7,6 +8,7 @@ interface TextFieldProps {
   className?: string;
   validationRules?: RegisterOptions;
 }
+
 const TextField = ({
   type = "text",
   className,
@@ -15,6 +17,7 @@ const TextField = ({
   validationRules,
 }: TextFieldProps) => {
   const { register } = useFormContext();
+
   return (
     <input
       className={`text-field ${className ?? ""}`}

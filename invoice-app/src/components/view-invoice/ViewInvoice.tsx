@@ -21,7 +21,6 @@ import InvoiceNotice from "./invoice-notice/InvoiceNotice.tsx";
 import Address from "./address/Address.tsx";
 import InvoiceTitle from "./InvoiceTitle.tsx";
 import InvoiceNoticeButtons from "./invoice-notice/InvoiceNoticeButtons.tsx";
-import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 import Form from "../form/Form.tsx";
 
 const ViewInvoice = () => {
@@ -31,7 +30,6 @@ const ViewInvoice = () => {
   const invoice = currentInvoice?.invoice;
   const invoices = useAppSelector(selectInvoices);
   const error = currentInvoice?.error;
-  const { isMobile } = useAppSelector(mobileSelector);
 
   const [showForm, setShowForm] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
@@ -132,8 +130,11 @@ const ViewInvoice = () => {
                   <CardWrapper
                     className={"invoice__details-receipt__amount-due"}
                   >
-                    <Text size={"sm"} className={"amount-due"}>
-                      {isMobile ? "Grand Total" : "Amount Due"}
+                    <Text size={"sm"} className={"amount-due-desktop"}>
+                      Amount Due
+                    </Text>
+                    <Text size={"sm"} className={"amount-due-mobile"}>
+                      Grand Total
                     </Text>
 
                     <Headline variant={"h2"}>£{invoice.total}</Headline>

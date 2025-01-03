@@ -9,15 +9,10 @@ import {
   UseFieldArrayRemove,
   useFormContext,
 } from "react-hook-form";
-import {
-  FormValues,
-  initialItems,
-  ItemType,
-} from "../../../types/form.types.ts";
+import { FormValues, ItemType } from "../../../types/form.types.ts";
 import Text from "../../ui/typography/text/Text.tsx";
-import { useAppSelector } from "../../../hooks/useRedux.ts";
-import { mobileSelector } from "../../../features/mobile/mobile.slice.tsx";
 import TextField from "../../ui/text-field/TextField.tsx";
+import { initialItems } from "../../../constants.ts";
 
 interface ItemsProps {
   fields: FieldArrayWithId<ItemType>[];
@@ -31,7 +26,6 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
     formState: { errors },
   } = useFormContext();
 
-  const { isMobile } = useAppSelector(mobileSelector);
   return (
     <div className={"items"}>
       <Headline variant={"h3"}>Item List</Headline>
@@ -40,17 +34,17 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
           const qty = watch(`items.${index}.quantity`) || 0; // Default to 0 if undefined
           const prc = watch(`items.${index}.price`) || 0;
           return (
-            <div className={"items__list-item"} key={field.id}>
+            <div
+              className={`items__list-item ${index !== 0 ? "hidden" : ""}`}
+              key={field?.id}
+            >
               <div className={"item__name"}>
-                {isMobile || index === 0 ? (
-                  <label htmlFor={"itemName" + index}>Item Name</label>
-                ) : (
-                  ""
-                )}
+                <label htmlFor={"itemName" + index}>Item Name</label>
+
                 <TextField
                   id={"itemName" + index}
                   className={
-                    Array.isArray(errors.items) && errors.items[index]?.name
+                    Array.isArray(errors?.items) && errors?.items[index]?.name
                       ? "error"
                       : ""
                   }
@@ -67,15 +61,12 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
               </div>
               <div className={"items__list-item__details"}>
                 <div className={"item__qty"}>
-                  {isMobile || index === 0 ? (
-                    <label htmlFor={"itemQty" + index}>Qty</label>
-                  ) : (
-                    ""
-                  )}
+                  <label htmlFor={"itemQty" + index}>Qty</label>
+
                   <TextField
                     className={
-                      Array.isArray(errors.items) &&
-                      errors.items[index]?.quantity
+                      Array.isArray(errors?.items) &&
+                      errors?.items[index]?.quantity
                         ? "error"
                         : ""
                     }
@@ -96,14 +87,12 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                   />
                 </div>
                 <div className={"item__price"}>
-                  {isMobile || index === 0 ? (
-                    <label htmlFor={"itemPrice" + index}>Price</label>
-                  ) : (
-                    ""
-                  )}
+                  <label htmlFor={"itemPrice" + index}>Price</label>
+
                   <TextField
                     className={
-                      Array.isArray(errors.items) && errors.items[index]?.price
+                      Array.isArray(errors?.items) &&
+                      errors?.items[index]?.price
                         ? "error"
                         : ""
                     }
@@ -120,11 +109,8 @@ const Items = ({ remove, fields, append }: ItemsProps) => {
                   />
                 </div>
                 <div className={"item__total"}>
-                  {isMobile || index === 0 ? (
-                    <label htmlFor="">Total</label>
-                  ) : (
-                    ""
-                  )}
+                  <label htmlFor="">Total</label>
+
                   <Text size={"sm"} bold>
                     {(qty * prc).toFixed(2)}
                   </Text>

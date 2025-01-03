@@ -8,7 +8,6 @@ import plusIcon from "../../assets/images/icon-plus.svg";
 import "./header.styles.css";
 import { useAppSelector } from "../../hooks/useRedux.ts";
 import { selectStatusFilter } from "../../features/invoice/invoice.slice.ts";
-import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 
 const Header = ({
   total,
@@ -18,7 +17,6 @@ const Header = ({
   toggleForm: () => void;
 }) => {
   const statusFilter = useAppSelector(selectStatusFilter);
-  const { isMobile } = useAppSelector(mobileSelector);
 
   return (
     <header className={"invoice__header"}>
@@ -47,7 +45,12 @@ const Header = ({
           <div className={"new__invoice-plus-icon"}>
             <Icon icon={plusIcon} description={"plus icon"} size={"xs"} />
           </div>
-          {isMobile ? "New" : "New Invoice"}
+          <Text bold className={"new__invoice-desktop"}>
+            New Invoice
+          </Text>
+          <Text bold className={"new__invoice-mobile"}>
+            New
+          </Text>
         </Button>
       </div>
     </header>

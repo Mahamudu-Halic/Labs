@@ -39,7 +39,7 @@
         display: none;
         position: sticky;
         bottom: 0;
-        
+
 
         @media (width <= 540px) {
             display: block;
@@ -196,6 +196,22 @@
                 color: var(--text-white);
                 flex-direction: row;
                 justify-content: space-between;
+
+                .amount-due-mobile {
+                    display: none;
+                }
+
+                @media (width <= 540px) {
+                    .amount-due-mobile {
+                        display: block;
+                    }
+
+                    .amount-due-desktop {
+                        display: none;
+                    }
+                }
+
+
             }
         }
     }

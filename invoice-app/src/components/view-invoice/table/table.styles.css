@@ -1,61 +1,70 @@
-.table {
-  width: 100%;
-  gap: 20px;
-  border-collapse: collapse;
+.table-desktop {
+    width: 100%;
+    gap: 20px;
+    border-collapse: collapse;
 
-  thead {
-    color: var(--text-tertiary);
+    thead {
+        color: var(--text-tertiary);
 
-    .table__title-quantity {
-      text-align: center;
+        .table__title-quantity {
+            text-align: center;
+        }
+
+        .table__title-price,
+        .table__title-total {
+            text-align: right;
+        }
     }
 
-    .table__title-price,
-    .table__title-total {
-      text-align: right;
-    }
-  }
+    tbody {
+        td {
+            padding-top: 30px;
+        }
 
-  tbody {
-    td {
-      padding-top: 30px;
-    }
-    .table__quantity {
-      color: var(--text-tertiary);
-      text-align: center;
+        .table__quantity {
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+
+        .table__price {
+            color: var(--text-tertiary);
+            text-align: right;
+        }
+
+        .table__total {
+            text-align: right;
+        }
     }
 
-    .table__price {
-      color: var(--text-tertiary);
-      text-align: right;
+    @media (width <= 540px) {
+        display: none;
     }
-
-    .table__total {
-      text-align: right;
-    }
-  }
 }
 
-.mobile-table {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-
-  .table-item {
-    display: flex;
+.table-mobile {
+    display: none;
+    flex-direction: column;
     gap: 20px;
-    justify-content: space-between;
-    align-items: center;
+    width: 100%;
 
-    .table-item__details {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .table-item {
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+        align-items: center;
 
-      .qty-price {
-        color: var(--text-tertiary);
-      }
+        .table-item__details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .qty-price {
+                color: var(--text-tertiary);
+            }
+        }
     }
-  }
+
+    @media (width <= 540px) {
+        display: flex;
+    }
 }

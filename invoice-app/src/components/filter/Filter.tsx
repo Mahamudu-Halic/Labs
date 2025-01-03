@@ -2,20 +2,19 @@ import "./filter.styles.css";
 import Button from "../ui/button/button.tsx";
 import arrowDownIcon from "../../assets/images/icon-arrow-down.svg";
 import Icon from "../ui/icon/Icon.tsx";
-import { useAppSelector } from "../../hooks/useRedux.ts";
-import { mobileSelector } from "../../features/mobile/mobile.slice.tsx";
 import { useEffect, useState } from "react";
 import FilterDropdown from "./filter-dropdown.tsx";
+import Text from "../ui/typography/text/Text.tsx";
 
 const Filter = () => {
   const [showDropdown, setShowDropdown] = useState<boolean>(false);
-  const { isMobile } = useAppSelector(mobileSelector);
 
   const toggleDropdown = () => setShowDropdown((prev) => !prev);
 
   useEffect(() => {
-    const disablePopup = (e: any) => {
-      if (!e.target.closest(".filter")) {
+    const disablePopup = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".filter")) {
         setShowDropdown(false);
       }
     };
@@ -24,10 +23,17 @@ const Filter = () => {
       document.removeEventListener("click", disablePopup);
     };
   }, []);
+
   return (
     <div className={"filter"}>
       <Button onClick={toggleDropdown}>
-        {isMobile ? "Filter" : "Filter by status"}
+        <Text bold className={`filter__by-status-desktop`}>
+          Filter by status
+        </Text>
+        <Text bold className={`filter__by-status-mobile`}>
+          Filter
+        </Text>
+        {/*Filter by status*/}
         <Icon
           className={showDropdown ? "rotate180" : ""}
           size={"sm"}

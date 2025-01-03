@@ -1,16 +1,10 @@
-import {
-  Errors,
-  FormValues,
-  initialItems,
-  ItemType,
-} from "../../types/form.types.ts";
+import { Errors, FormValues, ItemType } from "../../types/form.types.ts";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
 import {
   addInvoice,
   selectLoading,
 } from "../../features/invoice/invoice.slice.ts";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import generateRandomId from "../../utils/generateRandomId/generateRandomId.ts";
 import calculatePaymentDue from "../../utils/calculatePaymentDue/calculatePaymentDue.ts";
 import { Dialog, DialogContainer } from "../ui/dialog/Dialog.tsx";
 import Button from "../ui/button/button.tsx";
@@ -24,6 +18,7 @@ import DateTerms from "./date-and-terms/DateTerms.tsx";
 import Items from "./items/Items.tsx";
 import "./form.styles.css";
 import TextField from "../ui/text-field/TextField.tsx";
+import { formDefaultValues } from "../../constants.ts";
 
 interface FormProps {
   type: "newInvoice" | "edit";
@@ -35,34 +30,7 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectLoading);
   const form = useForm<FormValues>({
-    defaultValues: initialValues ?? {
-      id: generateRandomId(),
-      clientName: "",
-      clientEmail: "",
-      createdAt: `${new Date().toISOString().split("T")[0]}`,
-      paymentDue: "",
-      description: "",
-      paymentTerms: 1,
-      clientAddress: {
-        street: "",
-        city: "",
-        postCode: "",
-        country: "",
-      },
-      senderAddress: {
-        street: "",
-        city: "",
-        postCode: "",
-        country: "",
-      },
-      items: [
-        {
-          ...initialItems,
-        },
-      ],
-      status: "",
-      total: 0,
-    },
+    defaultValues: initialValues ?? formDefaultValues,
     mode: "onTouched",
   });
   const {
@@ -129,7 +97,7 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
   return (
     <DialogContainer>
       <Dialog
-        className={`${"form-dialog"}`}
+        className={`form-dialog`}
         variant={"primary"}
         radius={"rounded-lg"}
         size={"md"}
