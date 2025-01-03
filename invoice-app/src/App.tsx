@@ -9,7 +9,8 @@ import ViewInvoice from "./components/view-invoice/ViewInvoice.tsx";
 import { useEffect } from "react";
 import { fetchInvoices } from "./features/invoice/invoice.slice.ts";
 import { useAppDispatch } from "./hooks/useRedux.ts";
-import { Toaster } from "sonner";
+
+// import { Toaster } from "sonner";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -20,7 +21,7 @@ function App() {
 
   return (
     <div className={"app"}>
-      <Toaster position={"top-right"} />
+      {/*<Toaster position={"top-right"} />*/}
       <Sidebar />
       <div className={"content"}>
         <Routes>
