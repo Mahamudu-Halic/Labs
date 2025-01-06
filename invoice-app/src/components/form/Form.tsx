@@ -4,7 +4,7 @@ import {
   addInvoice,
   selectLoading,
 } from "../../features/invoice/invoice.slice.ts";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import calculatePaymentDue from "../../utils/calculatePaymentDue/calculatePaymentDue.ts";
 import { Dialog, DialogContainer } from "../ui/dialog/Dialog.tsx";
 import Button from "../ui/button/button.tsx";
@@ -34,17 +34,12 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
     mode: "onTouched",
   });
   const {
-    control,
     handleSubmit,
     setError,
     getValues,
     reset,
     formState: { errors, isValid, isDirty },
   } = form;
-  const { fields, append, remove } = useFieldArray<FormValues>({
-    name: "items",
-    control,
-  });
 
   const calculateItemsTotal = (items: ItemType[]) => {
     return items.map((item: ItemType) => ({
@@ -147,7 +142,7 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
                 />
               </div>
 
-              <Items fields={fields} append={append} remove={remove} />
+              <Items />
 
               <div>
                 {!!Object.keys(errors).length && (

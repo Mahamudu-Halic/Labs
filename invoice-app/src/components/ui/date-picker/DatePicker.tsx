@@ -34,9 +34,8 @@ const DatePicker = ({ selectedDate, handleSelection }: DatePickerProps) => {
     const days = [];
     const firstDayOfMonth = new Date(year, month, 1);
     const lastDayOfMonth = new Date(year, month + 1, 0);
-
-    // Add days from the previous month
     const prevMonthLastDay = new Date(year, month, 0).getDate();
+
     for (let i = firstDayOfMonth.getDay() - 1; i >= 0; i--) {
       const day = new Date(year, month - 1, prevMonthLastDay - i)
         .toISOString()
@@ -44,13 +43,11 @@ const DatePicker = ({ selectedDate, handleSelection }: DatePickerProps) => {
       days.push({ date: day, isCurrentMonth: false });
     }
 
-    // Add all days in the current month
     for (let date = 1; date <= lastDayOfMonth.getDate(); date++) {
       const day = new Date(year, month, date).toISOString().split("T")[0];
       days.push({ date: day, isCurrentMonth: true });
     }
 
-    // Add days from the next month
     const remainingSlots = 7 - (days.length % 7);
     if (remainingSlots < 7) {
       for (let i = 1; i <= remainingSlots; i++) {
@@ -59,7 +56,6 @@ const DatePicker = ({ selectedDate, handleSelection }: DatePickerProps) => {
       }
     }
 
-    // Group days into weeks
     for (let i = 0; i < days.length; i += 7) {
       const week = days.slice(i, i + 7);
       weeks.push({ weekNumber: weeks.length + 1, days: week });
