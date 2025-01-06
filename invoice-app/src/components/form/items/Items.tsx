@@ -3,28 +3,21 @@ import Button from "../../ui/button/button.tsx";
 import "./items.styles.css";
 import Icon from "../../ui/icon/Icon.tsx";
 import plusIcon from "../../../assets/images/icon-plus.svg";
-import {
-  FieldArrayWithId,
-  UseFieldArrayAppend,
-  UseFieldArrayRemove,
-  useFormContext,
-} from "react-hook-form";
-import { FormValues, ItemType } from "../../../types/form.types.ts";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { FormValues } from "../../../types/form.types.ts";
 import Text from "../../ui/typography/text/Text.tsx";
 import TextField from "../../ui/text-field/TextField.tsx";
 import { initialItems } from "../../../constants.ts";
 
-interface ItemsProps {
-  fields: FieldArrayWithId<ItemType>[];
-  append: UseFieldArrayAppend<FormValues, "items">;
-  remove: UseFieldArrayRemove;
-}
-
-const Items = ({ remove, fields, append }: ItemsProps) => {
+const Items = () => {
   const {
     watch,
     formState: { errors },
   } = useFormContext();
+
+  const { fields, append, remove } = useFieldArray<FormValues>({
+    name: "items",
+  });
 
   return (
     <div className={"items"}>

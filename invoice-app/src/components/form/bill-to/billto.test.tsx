@@ -5,11 +5,11 @@ import { describe, expect, test } from "vitest";
 
 const renderWithFormProvider = (defaultValues = {}) => {
   const Wrapper = ({ children }: { children: React.ReactNode }) => {
-    const methods = useForm({
+    const form = useForm({
       defaultValues,
       mode: "onTouched",
     });
-    return <FormProvider {...methods}>{children}</FormProvider>;
+    return <FormProvider {...form}>{children}</FormProvider>;
   };
 
   render(

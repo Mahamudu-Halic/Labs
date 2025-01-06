@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
 import {
   getInvoiceById,
@@ -22,9 +22,11 @@ import Address from "./address/Address.tsx";
 import InvoiceTitle from "./InvoiceTitle.tsx";
 import InvoiceNoticeButtons from "./invoice-notice/InvoiceNoticeButtons.tsx";
 import Form from "../form/Form.tsx";
+import Button from "../ui/button/button.tsx";
 
 const ViewInvoice = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentInvoice = useAppSelector(selectInvoice);
   const invoice = currentInvoice?.invoice;
@@ -53,10 +55,10 @@ const ViewInvoice = () => {
           <Form toggleForm={toggleForm} type={"edit"} initialValues={invoice} />
         )}
         <Wrapper>
-          <Link to={"/"} className={"go-back"}>
+          <Button className={"go-back"} onClick={() => navigate("/")}>
             <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
-            <Text bold={true}>Go back</Text>
-          </Link>
+            Go back
+          </Button>
         </Wrapper>
         {invoice ? (
           <>
