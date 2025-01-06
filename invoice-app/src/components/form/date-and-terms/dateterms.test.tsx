@@ -1,89 +1,147 @@
 import { describe, test, expect } from "vitest";
-import { fireEvent, screen } from "@testing-library/react";
-import { FormProvider, useForm } from "react-hook-form";
 import DateTerms from "./DateTerms.tsx";
-import { renderWithProviders } from "../../../utils/renderwithproviders.tsx";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { FormProvider, useForm } from "react-hook-form";
+import userEvent from "@testing-library/user-event";
+import { ReactNode } from "react";
 
-const renderWithFormProvider = (defaultValues = {}) => {
-  const Wrapper = ({ children }: { children: React.ReactNode }) => {
-    const methods = useForm({
-      defaultValues,
-      mode: "onTouched",
-    });
-    return <FormProvider {...methods}>{children}</FormProvider>;
+describe("DateTerms Component", () => {
+  const renderwithProviders = () => {
+    const Wrapper = ({ children }: { children: ReactNode }) => {
+      const form = useForm({
+        defaultValues: {
+          createdAt: "2023-01-06",
+          paymentTerms: 30,
+        },
+        mode: "onTouched",
+      });
+      return <FormProvider {...form}>{children}</FormProvider>;
+    };
+
+    return render(
+      <Wrapper>
+        <DateTerms />
+      </Wrapper>,
+    );
   };
 
-  renderWithProviders(
-    <Wrapper>
-      <DateTerms />
-    </Wrapper>,
-    // {
-    //   preloadedState: {
-    //     modal: {
-    //       showPaymentTerms: true,
-    //     },
-    //   },
-    // },
-  );
-};
-describe("Date and Terms component", () => {
-  test("should render date and terms components", () => {
-    renderWithFormProvider({ paymentTerms: 1 });
+  test("renders invoice date and payment terms sections", () => {
+    renderwithProviders();
 
-    const dateInput = screen.getByLabelText(/invoice date/i);
-    const termsSelector = screen.getByText(/payment terms/i);
-    const currentTerm = screen.getByRole("button", { name: /net 1 day/i });
+    const invoiceDateLabel = screen.getByText(/Invoice Date/i);
+    expect(invoiceDateLabel).toBeInTheDocument();
 
-    expect(dateInput).toBeInTheDocument();
-    expect(termsSelector).toBeInTheDocument();
-    expect(currentTerm).toBeInTheDocument();
-  });
-
-  test("should validate date input", async () => {
-    renderWithFormProvider();
-
-    const dateInput = screen.getByLabelText(/invoice date/i);
-    fireEvent.click(dateInput);
-    fireEvent.blur(dateInput);
-
-    expect(await screen.findByText(/required/i)).toBeInTheDocument();
-
-    fireEvent.click(dateInput);
-    fireEvent.change(dateInput, { target: { value: "2023-01-01" } });
-    fireEvent.blur(dateInput);
-
-    expect(await screen.findByText(/required/i)).not.toBeInTheDocument();
-  });
-
-  test("should render select plan correctly", () => {
-    renderWithFormProvider({ paymentTerms: 1 });
-
-    const planSelector = screen.getByRole("button", { name: /net 1 day/i });
-    fireEvent.click(planSelector);
-
-    const list = screen.getByRole("list");
-    expect(list).toBeInTheDocument();
-    expect(list.children.length).toBe(4);
-  });
-
-  test("should display selected plan and hide plan selector", () => {
-    renderWithFormProvider({ paymentTerms: 1 });
-
-    const planSelectorButton = screen.getByRole("button", {
-      name: /net 1 day/i,
+    const datePickerButton = screen.getByRole("button", {
+      name: /calendar icon/i,
     });
-    fireEvent.click(planSelectorButton);
+    expect(datePickerButton).toBeInTheDocument();
 
-    const list = screen.getByRole("list");
-    expect(list).toBeInTheDocument();
-    expect(list.children.length).toBe(4);
+    const paymentTermsLabel = screen.getByText(/Payment Terms/i);
+    expect(paymentTermsLabel).toBeInTheDocument();
 
-    const selectPlan = screen.getByText(/net 7 day/i);
-    fireEvent.click(selectPlan);
+    const paymentTermsButton = screen.getByRole("button", {
+      name: /dropdown arrow/i,
+    });
+    expect(paymentTermsButton).toBeInTheDocument();
+  });
 
-    const list1 = screen.queryByRole("list");
-    const newPlan = screen.getByRole("button", { name: /net 7 days/i });
-    expect(newPlan).toBeInTheDocument();
-    expect(list1).not.toBeInTheDocument();
+  test("toggles the date picker when the date button is clicked", async () => {
+    renderwithProviders();
+
+    const datePickerButton = screen.getByRole("button", {
+      name: /06 Jan 2023/i,
+    });
+
+    await userEvent.click(datePickerButton);
+    expect(
+      screen.getByRole("button", { name: /left arrow icon/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: /right arrow icon/i }),
+    ).toBeInTheDocument();
+    await userEvent.click(datePickerButton);
+    expect(
+      screen.queryByRole("button", { name: /left arrow icon/i }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /right arrow icon/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  test("toggles the payment terms dropdown when the button is clicked", async () => {
+    renderwithProviders();
+
+    const paymentTermsButton = screen.getByRole("button", {
+      name: /Net 30 Days/i,
+    });
+    expect(screen.queryByText(/Net 15 Days/i)).not.toBeInTheDocument();
+
+    await userEvent.click(paymentTermsButton);
+    expect(
+      screen.getByRole("button", { name: /Net 14 Days/i }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(paymentTermsButton);
+    expect(
+      screen.queryByRole("button", { name: /Net 14 Days/i }),
+    ).not.toBeInTheDocument();
+  });
+
+  test("updates the form value when a date is selected", async () => {
+    renderwithProviders();
+
+    const datePickerButton = screen.getByRole("button", {
+      name: /06 Jan/i,
+    });
+
+    await userEvent.click(datePickerButton);
+
+    const dateButton = screen.getByRole("button", { name: "20" });
+    await userEvent.click(dateButton);
+
+    expect(datePickerButton).toHaveTextContent(/20 Jan/i);
+  });
+
+  test("updates the form value when a payment term is selected", async () => {
+    renderwithProviders();
+
+    const paymentTermsButton = screen.getByRole("button", {
+      name: /Net 30 Days/i,
+    });
+
+    await userEvent.click(paymentTermsButton);
+
+    const paymentOption = screen.getByText(/Net 14 Days/i);
+    await userEvent.click(paymentOption);
+
+    expect(paymentTermsButton).toHaveTextContent(/Net 14 Days/i);
+  });
+
+  test("hides the dropdowns when clicking outside", async () => {
+    renderwithProviders();
+
+    const paymentTermsButton = screen.getByRole("button", {
+      name: /Net 30 Days/i,
+    });
+
+    await userEvent.click(paymentTermsButton);
+    expect(screen.getByText(/Net 14 Days/i)).toBeInTheDocument();
+
+    fireEvent.click(document.body);
+    expect(screen.queryByText(/Net 14 Days/i)).not.toBeInTheDocument();
+
+    const datePickerButton = screen.getByRole("button", {
+      name: /06 Jan/i,
+    });
+
+    await userEvent.click(datePickerButton);
+    expect(
+      screen.getByRole("button", { name: /left arrow icon/i }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(document.body);
+    expect(
+      screen.queryByRole("button", { name: /left arrow icon/i }),
+    ).not.toBeInTheDocument();
   });
 });

@@ -86,7 +86,9 @@ const DatePicker = ({ selectedDate, handleSelection }: DatePickerProps) => {
         <Button type={"button"} onClick={handlePrevMonth}>
           <Icon icon={arrowLeftIcon} description={"left arrow icon"} />
         </Button>
-        <Text bold>{months[month] + year}</Text>
+        <Text bold>
+          {months[month]} {year}
+        </Text>
         <Button type={"button"} onClick={handleNextMonth}>
           <Icon icon={arrowRightIcon} description={"right arrow icon"} />
         </Button>
