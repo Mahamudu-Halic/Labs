@@ -124,11 +124,13 @@ const invoiceSlice = createSlice({
       //updateInvoiceStatus
       .addCase(updateInvoiceStatus.pending, (state) => {
         state.currentInvoice.loading = "loading";
+        toast.loading("updating status...");
         state.currentInvoice.error = null;
       })
       .addCase(
         updateInvoiceStatus.fulfilled,
         (state, action: PayloadAction<string>) => {
+          toast.dismiss();
           const index = state.invoices.findIndex(
             (invoice) => invoice.id === action.payload,
           );
@@ -144,6 +146,7 @@ const invoiceSlice = createSlice({
             state.currentInvoice.loading = "success";
             state.currentInvoice.error = null;
             toast.success("status updated successfully");
+            return;
           }
           state.currentInvoice.loading = "idle";
           state.currentInvoice.error = "something went wrong";
@@ -153,7 +156,7 @@ const invoiceSlice = createSlice({
       .addCase(updateInvoiceStatus.rejected, (state, action) => {
         state.loading = "idle";
         state.error = action.payload as string;
-        toast.error(action.payload as string);
+        toast.error((action.payload as string) ?? "something went wrong");
       })
 
       //addInvoice
@@ -187,7 +190,7 @@ const invoiceSlice = createSlice({
         toast.dismiss();
         state.loading = "idle";
         state.error = action.payload as string;
-        toast.error(action.payload as string);
+        toast.error((action.payload as string) ?? "something went wrong");
       });
   },
 });

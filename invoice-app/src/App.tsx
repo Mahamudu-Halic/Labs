@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className={"app"}>
-      <Toaster position={"top-right"} />
+      <Toaster position={"top-right"} richColors />
       <Sidebar />
       <div className={"content"}>
         <Routes>

@@ -29,7 +29,6 @@ describe("header component", () => {
 
   test("should render 'Total' when total is 1 and status filter is empty", () => {
     renderWithProviders(<Header toggleForm={toggleForm} total={1} />);
-    screen.debug();
     const totalText = screen.getByText(/there is 1 total/i);
 
     expect(totalText).toBeInTheDocument();
