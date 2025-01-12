@@ -1,51 +1,82 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setCredentials, logout } from "../features/auth/auth.slice.ts";
+import { Invoice } from "../types/invoice.types.ts";
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: "https://invoice-app-bknd-strapi-cloud.onrender.com",
-  prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
-    console.log(getState);
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
-      console.log(token);
-    }
-    console.log(headers);
-    return headers;
-  },
-});
+export const invoiceApi = createApi({
+  reducerPath: "invoiceApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://invoice-app-bknd-strapi-cloud.onrender.com",
 
-const baseQueryWithReauth = async (args, api, extraOptions) => {
-  console.log(`args: ${args}, api: ${api}, extraOptions: ${extraOptions}`);
-  let result = await baseQuery(args, api, extraOptions);
-  console.log(result);
-  if (result?.error?.status === 401) {
-    console.log("sending refresh token");
-    const refreshResult = await baseQuery("/login", api, extraOptions);
+    prepareHeaders: (headers) => {
+      // Retrieve token and token expiration from localStorage
+      const token = localStorage.getItem("token");
+      const tokenExpiry = localStorage.getItem("tokenExpiry");
 
-    if (refreshResult?.data) {
-      const user = api.getState().auth.user;
-      api.dispatch(setCredentials({ user, ...refreshResult.data }));
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      api.dispatch(logout());
-    }
-  }
-  return result;
-};
+      // Check if the token has expired
+      if (token && tokenExpiry && new Date().getTime() < Number(tokenExpiry)) {
+        headers.set("Authorization", `Bearer ${token}`);
+      } else {
+        // Token expired: remove from localStorage
+        localStorage.removeItem("token");
+        localStorage.removeItem("tokenExpiry");
+      }
 
-export const authApi = createApi({
-  reducerPath: "authApi",
-  baseQuery: baseQueryWithReauth,
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     login: builder.mutation({
-      query: (credentials) => ({
+      query: (credentials: { username: string; password: string }) => ({
         url: `/login`,
         method: "POST",
         body: { ...credentials },
+      }),
+      // async onQueryStarted(credentials, { queryFulfilled }) {
+      //   try {
+      //     const { data } = await queryFulfilled;
+      //     console.log(credentials);
+      //
+      //     // Save token and expiration time (1 hour from now)
+      //     const token = data.token;
+      //     const expiryTime = new Date().getTime() + 60 * 60 * 1000; // 1 hour in milliseconds
+      //     localStorage.setItem("token", token);
+      //     localStorage.setItem("tokenExpiry", expiryTime.toString());
+      //   } catch (error) {
+      //     console.error("Login failed:", error);
+      //   }
+      // },
+    }),
+
+    getInvoices: builder.query({
+      query: () => `/invoices`,
+    }),
+
+    getInvoiceById: builder.query({
+      query: (id: string) => `/invoices/${id}`,
+    }),
+
+    createInvoice: builder.mutation({
+      query: (invoice: Invoice) => ({
+        url: `/invoices`,
+        method: "POST",
+        body: { ...invoice },
+      }),
+    }),
+
+    updateInvoice: builder.mutation({
+      query: (invoice: Invoice) => ({
+        url: `/invoices/${invoice.id}`,
+        method: "PUT",
+        body: { ...invoice },
+      }),
+    }),
+
+    deleteInvoice: builder.mutation({
+      query: (id: string) => ({
+        url: `/invoices/${id}`,
+        method: "DELETE",
       }),
     }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const { useLoginMutation } = invoiceApi;

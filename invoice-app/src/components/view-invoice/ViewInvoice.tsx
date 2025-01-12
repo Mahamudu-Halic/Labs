@@ -55,7 +55,7 @@ const ViewInvoice = () => {
           <Form toggleForm={toggleForm} type={"edit"} initialValues={invoice} />
         )}
         <Wrapper>
-          <Button className={"go-back"} onClick={() => navigate("/")}>
+          <Button className={"go-back"} onClick={() => navigate("/invoices")}>
             <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
             Go back
           </Button>

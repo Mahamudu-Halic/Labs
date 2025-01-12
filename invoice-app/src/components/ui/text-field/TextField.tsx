@@ -6,6 +6,7 @@ interface TextFieldProps {
   name: string;
   id: string;
   className?: string;
+  disabled?: boolean;
   validationRules?: RegisterOptions;
 }
 
@@ -15,6 +16,7 @@ const TextField = ({
   id,
   name,
   validationRules,
+  disabled = false,
 }: TextFieldProps) => {
   const { register } = useFormContext();
 
@@ -22,6 +24,7 @@ const TextField = ({
     <input
       className={`text-field ${className ?? ""}`}
       type={type}
+      disabled={disabled}
       id={id}
       {...register(name, validationRules)}
     />
