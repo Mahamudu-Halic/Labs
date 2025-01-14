@@ -18,6 +18,11 @@
         border-color: var(--primary);
     }
 
+    &:disabled {
+        background: var(--bg-paid);
+        cursor: not-allowed;
+    }
+
     &.error {
         border-color: var(--bg-danger);
         outline-color: var(--bg-danger);

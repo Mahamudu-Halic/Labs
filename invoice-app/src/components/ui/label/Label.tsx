@@ -3,7 +3,7 @@ import "./label.styles.css";
 
 interface LabelProps {
   htmlFor: string;
-  label: string;
+  label: string | JSX.Element;
   error?: string;
   showError?: boolean;
   className?: string;

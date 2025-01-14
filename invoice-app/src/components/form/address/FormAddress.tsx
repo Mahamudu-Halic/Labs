@@ -1,8 +1,8 @@
 import { useFormContext } from "react-hook-form";
 import "./formaddress.styles.css";
-import Text from "../../ui/typography/text/Text.tsx";
 import { Errors } from "../../../types/form.types.ts";
 import TextField from "../../ui/text-field/TextField.tsx";
+import Label from "../../ui/label/Label.tsx";
 
 interface FormAddressProps {
   field: string;
@@ -17,17 +17,12 @@ const FormAddress = ({ field }: FormAddressProps) => {
   return (
     <div className={"form-address"}>
       <div>
-        <label
+        <Label
           htmlFor={field + "streetAddress"}
-          className={street ? "error" : ""}
-        >
-          Street Address
-          {street && (
-            <Text size={"sm"} type={"span"}>
-              {street?.message}
-            </Text>
-          )}
-        </label>
+          label={"Street Address"}
+          error={street?.message}
+          showError
+        />
         <TextField
           className={street ? "error" : ""}
           id={field + "streetAddress"}
@@ -40,9 +35,11 @@ const FormAddress = ({ field }: FormAddressProps) => {
       <div className={"form-address__info"}>
         <div className={"form-address__info-left"}>
           <div>
-            <label htmlFor={field + "city"} className={city ? "error" : ""}>
-              City
-            </label>
+            <Label
+              htmlFor={field + "state"}
+              error={city?.message}
+              label={"City"}
+            />
             <TextField
               className={city ? "error" : ""}
               id={field + "city"}
@@ -53,12 +50,11 @@ const FormAddress = ({ field }: FormAddressProps) => {
             />
           </div>
           <div>
-            <label
+            <Label
               htmlFor={field + "postalCode"}
-              className={postCode ? "error" : ""}
-            >
-              Postal Code
-            </label>
+              label={"Postal Code"}
+              error={postCode?.message}
+            />
             <TextField
               className={postCode ? "error" : ""}
               id={field + "postalCode"}
@@ -70,9 +66,11 @@ const FormAddress = ({ field }: FormAddressProps) => {
           </div>
         </div>
         <div className={"form-address__info-country"}>
-          <label htmlFor={field + "country"} className={country ? "error" : ""}>
-            Country
-          </label>
+          <Label
+            htmlFor={field + "country"}
+            label={"Country"}
+            error={country?.message}
+          />
           <TextField
             className={country ? "error" : ""}
             id={field + "country"}

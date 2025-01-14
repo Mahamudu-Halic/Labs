@@ -4,7 +4,7 @@ import Button from "../ui/button/button.tsx";
 import { useLoginMutation } from "../../api/invoice.api.ts";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/useRedux.ts";
-import { setToken } from "../../features/auth/auth.slice.ts";
+import { setCredentials } from "../../features/auth/auth.slice.ts";
 import TextField from "../ui/text-field/TextField.tsx";
 import { toast } from "sonner";
 import Label from "../ui/label/Label.tsx";
@@ -40,25 +40,19 @@ const LoginAuth = () => {
     if (!username.trim() || !password.trim()) return;
 
     try {
-      const response = await login({ username, password });
+      const response = await login({ username, password }).unwrap();
 
-      if (response?.data) {
-        dispatch(
-          setToken({
-            ...response.data,
-          }),
-        );
-        navigate("/invoices");
-        return;
-      }
-
-      if (response?.error?.status === "FETCH_ERROR")
+      dispatch(
+        setCredentials({
+          ...response,
+          user: username,
+        }),
+      );
+      navigate("/invoices");
+    } catch (error: any) {
+      if (error?.originalStatus === 403) return toast.error(error?.data);
+      if (error?.status === "FETCH_ERROR")
         return toast.error("check internet connection");
-
-      if (response?.error?.originalStatus === 403)
-        return toast.error(response?.error?.data);
-    } catch (error) {
-      console.log(error);
     }
   };
 
@@ -111,7 +105,7 @@ const LoginAuth = () => {
             variant={"primary"}
             disabled={!isValid || !isDirty || isLoading}
           >
-            Login
+            {isLoading ? "Loading..." : "Login"}
           </Button>
         </form>
       </FormProvider>

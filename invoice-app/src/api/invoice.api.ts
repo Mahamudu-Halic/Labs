@@ -6,23 +6,16 @@ export const invoiceApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://invoice-app-bknd-strapi-cloud.onrender.com",
 
-    prepareHeaders: (headers) => {
-      // Retrieve token and token expiration from localStorage
-      const token = localStorage.getItem("token");
-      const tokenExpiry = localStorage.getItem("tokenExpiry");
-
-      // Check if the token has expired
-      if (token && tokenExpiry && new Date().getTime() < Number(tokenExpiry)) {
+    prepareHeaders: (headers, { getState }) => {
+      // @ts-expect-error: get auth token
+      const token = getState().auth.token;
+      if (token) {
         headers.set("Authorization", `Bearer ${token}`);
-      } else {
-        // Token expired: remove from localStorage
-        localStorage.removeItem("token");
-        localStorage.removeItem("tokenExpiry");
       }
-
       return headers;
     },
   }),
+
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials: { username: string; password: string }) => ({
@@ -30,24 +23,11 @@ export const invoiceApi = createApi({
         method: "POST",
         body: { ...credentials },
       }),
-      // async onQueryStarted(credentials, { queryFulfilled }) {
-      //   try {
-      //     const { data } = await queryFulfilled;
-      //     console.log(credentials);
-      //
-      //     // Save token and expiration time (1 hour from now)
-      //     const token = data.token;
-      //     const expiryTime = new Date().getTime() + 60 * 60 * 1000; // 1 hour in milliseconds
-      //     localStorage.setItem("token", token);
-      //     localStorage.setItem("tokenExpiry", expiryTime.toString());
-      //   } catch (error) {
-      //     console.error("Login failed:", error);
-      //   }
-      // },
     }),
 
     getInvoices: builder.query({
       query: () => `/invoices`,
+      // keepUnusedDataFor: 5,
     }),
 
     getInvoiceById: builder.query({
@@ -79,4 +59,11 @@ export const invoiceApi = createApi({
   }),
 });
 
-export const { useLoginMutation } = invoiceApi;
+export const {
+  useLoginMutation,
+  useCreateInvoiceMutation,
+  useDeleteInvoiceMutation,
+  useUpdateInvoiceMutation,
+  useGetInvoiceByIdQuery,
+  useGetInvoicesQuery,
+} = invoiceApi;

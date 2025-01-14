@@ -3,32 +3,42 @@ import "./invoices.styles.css";
 import Header from "../header/Header.tsx";
 import InvoiceCard from "../ui/card/invoiceCard/Invoice.Card.tsx";
 import { useAppSelector } from "../../hooks/useRedux.ts";
-import {
-  selectInvoices,
-  selectStatusFilter,
-} from "../../features/invoice/invoice.slice.ts";
+import { selectFilteredInvoices } from "../../features/invoice/invoice.slice.ts";
 import NotFound from "../not-found/NotFound.tsx";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import Text from "../ui/typography/text/Text.tsx";
 import Form from "../form/Form.tsx";
 import { useState } from "react";
 import { Invoice } from "../../types/invoice.types.ts";
+import { useGetInvoicesQuery } from "../../api/invoice.api.ts";
+import Button from "../ui/button/button.tsx";
+import Error from "../error/Error.tsx";
 
 const Invoices = () => {
-  const invoices = useAppSelector(selectInvoices);
-  const statusFilter = useAppSelector(selectStatusFilter);
-
+  const { isError, error } = useGetInvoicesQuery();
+  const filteredInvoices = useAppSelector(selectFilteredInvoices);
   const [showForm, setShowForm] = useState<boolean>(false);
-
   const toggleForm = () => {
     setShowForm((prev) => !prev);
   };
 
-  const filteredInvoices = statusFilter.length
-    ? invoices.filter((invoice: Invoice) =>
-        statusFilter.includes(invoice.status),
-      )
-    : [...invoices];
+  if (isError) {
+    if (error?.originalStatus === 404) {
+      return (
+        // <NotFound>
+        //   <Headline variant={"h3"}>Invoive not found 🙁</Headline>
+        //   <Text>
+        //     Go to dashboard by clicking the{" "}
+        //     <Text bold={true} type={"span"}>
+        //       Go back
+        //     </Text>{" "}
+        //     button to go back
+        //   </Text>
+        // </NotFound>
+        <Error />
+      );
+    }
+  }
 
   return (
     <>

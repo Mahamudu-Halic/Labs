@@ -5,26 +5,27 @@ const token = localStorage.getItem("token");
 const tokenExpiry = localStorage.getItem("tokenExpiry");
 
 const initialState = {
-  token: token && new Date().getTime() < Number(tokenExpiry) ? token : null,
+  token: new Date().getTime() < Number(tokenExpiry) ? token : null,
+  user: null,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setToken: (state, action) => {
-      const { token } = action.payload;
+    setCredentials: (state, action) => {
+      const { token, user } = action.payload;
       state.token = token;
+      state.user = user;
 
-      // Save token and expiry to localStorage
-      const expiryTime = new Date().getTime() + 60 * 60 * 1000;
       localStorage.setItem("token", token);
-      localStorage.setItem("tokenExpiry", expiryTime.toString());
+      const expiry = new Date().getTime() + 60 * 1000 * 60;
+      localStorage.setItem("tokenExpiry", expiry.toString());
     },
     logout: (state) => {
       state.token = null;
+      state.user = null;
 
-      // Clear token and expiry from localStorage
       localStorage.removeItem("token");
       localStorage.removeItem("tokenExpiry");
     },
@@ -32,5 +33,5 @@ const authSlice = createSlice({
 });
 
 export const selectToken = (state: RootState) => state.auth.token;
-export const { setToken, logout } = authSlice.actions;
+export const { setCredentials, logout } = authSlice.actions;
 export default authSlice.reducer;

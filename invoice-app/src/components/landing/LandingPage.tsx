@@ -1,5 +1,5 @@
 import Button from "../ui/button/button.tsx";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./landingpage.styles.css";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import { useAppSelector } from "../../hooks/useRedux.ts";
@@ -35,8 +35,9 @@ const LandingPage = () => {
               </Button>
             ) : (
               <Button
-                variant={"tertiary"}
+                variant={"secondary"}
                 onClick={() => navigate("/auth/login")}
+                className={"login-button"}
               >
                 Login
               </Button>
@@ -69,19 +70,23 @@ const LandingPage = () => {
         <div className={"feature-list"}>
           <div className={"feature"}>
             {/*<Icon size={"xxl"} icon={checkIcon} description="check" />*/}
-            Create and edit invoices
+            icon
+            <Text>Create invoice</Text>
           </div>
           <div className={"feature"}>
             {/*<Icon size={"xxl"} icon={listIcon} description="list" />*/}
-            Customize invoice templates
+            icon
+            <Text>Edit invoice</Text>
           </div>
           <div className={"feature"}>
             {/*<Icon size={"xxl"} icon={chartIcon} description="chart" />*/}
-            Track your expenses and income
+            icon
+            <Text>Delete invoice</Text>
           </div>
           <div className={"feature"}>
             {/*<Icon size={"xxl"} icon={lockIcon} description="lock" />*/}
-            Secure your data
+            icon
+            <Text>Secure your data</Text>
           </div>
         </div>
       </section>
