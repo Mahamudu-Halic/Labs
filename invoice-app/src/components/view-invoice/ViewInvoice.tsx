@@ -22,12 +22,15 @@ import InvoiceNoticeButtons from "./invoice-notice/InvoiceNoticeButtons.tsx";
 import Form from "../form/Form.tsx";
 import Button from "../ui/button/button.tsx";
 import "./viewinvoice.styles.css";
+import Loader from "../ui/loader/Loader.tsx";
 
 const ViewInvoice = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError, error } = useGetInvoiceByIdQuery(id ?? "");
+  const { data, isLoading, isError, error, refetch } = useGetInvoiceByIdQuery(
+    id ?? "",
+  );
   const [showForm, setShowForm] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
@@ -45,21 +48,10 @@ const ViewInvoice = () => {
     dispatch(setInvoice(data));
   }, [data, dispatch]);
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <Loader />;
 
-  if (isError && error?.originalStatus !== 404) {
-    // if (error?.originalStatus === 401) {
-    //   return (
-    //     <NotFound>
-    //       <Headline variant={"h3"}>
-    //         You are not authorized to view this page
-    //       </Headline>
-    //       <Button onClick={() => navigate("/invoices")}>Go to home</Button>
-    //     </NotFound>
-    //   );
-    // }
-
-    if (error?.status === "FETCH_ERROR") {
+  if (isError) {
+    if ("status" in error && error?.status === "FETCH_ERROR") {
       return (
         <NotFound>
           <Headline variant={"h3"}>Check internet connection 🙁</Headline>
@@ -67,13 +59,18 @@ const ViewInvoice = () => {
       );
     }
 
-    return (
-      <NotFound>
-        <Headline variant={"h3"}>An unexpected error occurred 🙁</Headline>
-        {/*<Button onClick={() => refetch()}>Reload page</Button>*/}
-      </NotFound>
-    );
+    if ("originalStatus" in error) {
+      if (error.originalStatus === 401) {
+        return (
+          <NotFound>
+            <Headline variant={"h3"}>An unexpected error occurred 🙁</Headline>
+            <Button onClick={() => refetch()}>Reload page</Button>
+          </NotFound>
+        );
+      }
+    }
   }
+
   return (
     <>
       <div className={"view__invoice-container"}>
@@ -86,7 +83,7 @@ const ViewInvoice = () => {
             Go back
           </Button>
         </Wrapper>
-        {error && error?.originalStatus === 404 ? (
+        {error && "originalStatus" in error && error?.originalStatus === 404 ? (
           <NotFound>
             <Headline variant={"h3"}>Invoive not found 🙁</Headline>
             <Text>

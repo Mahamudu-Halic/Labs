@@ -2,7 +2,6 @@ import Button from "../../ui/button/button.tsx";
 import {
   selectInvoice,
   setInvoice,
-  updateInvoice as updateInvoiceAction,
 } from "../../../features/invoice/invoice.slice.ts";
 import { useAppDispatch, useAppSelector } from "../../../hooks/useRedux.ts";
 import { useUpdateInvoiceMutation } from "../../../api/invoice.api.ts";
@@ -34,15 +33,32 @@ const InvoiceNoticeButtons = ({
 
       dispatch(setInvoice(response));
       toast.success("Invoice updated successfully");
-    } catch (error: any) {
+    } catch (error) {
       toast.dismiss();
-      if (error?.originalStatus === 404)
-        return toast.error("Invoice not found");
-      if (error?.status === "FETCH_ERROR")
-        return toast.error("Check internet connection");
-      if (error?.originalStatus === 403) return toast.error(error?.data);
-      if (error?.originalStatus === 401) return toast.error("Unauthorized");
-      toast.error("An unexpected error occurred");
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "originalStatus" in error
+      ) {
+        const rtkError = error as { originalStatus: number; data?: string };
+
+        if (rtkError.originalStatus === 403) {
+          toast.error(rtkError.data || "Forbidden");
+        } else if (rtkError.originalStatus === 401) {
+          toast.error(rtkError.data || "Unauthorized");
+        }
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "status" in error
+      ) {
+        const networkError = error as { status: string };
+        if (networkError.status === "FETCH_ERROR") {
+          toast.error("Check internet connection");
+        }
+      } else {
+        toast.error("An unexpected error occurred");
+      }
     }
   };
 

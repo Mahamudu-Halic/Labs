@@ -174,10 +174,9 @@ describe("Form component", () => {
       preloadedState: {
         invoice: {
           invoices: [],
-          currentInvoice: { invoice: undefined, loading: "idle", error: null },
           statusFilter: [],
-          loading: "idle",
-          error: null,
+          invoice: undefined,
+          filteredInvoices: [],
         },
       },
     });

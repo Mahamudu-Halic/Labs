@@ -8,7 +8,7 @@ export const invoiceApi = createApi({
 
     prepareHeaders: (headers, { getState }) => {
       // @ts-expect-error: get auth token
-      const token = getState().auth.token;
+      const token: string = getState().auth.token;
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
       }

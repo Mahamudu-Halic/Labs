@@ -57,9 +57,8 @@ describe("delete modal component", () => {
     renderWithProviders(<DeleteModal onClose={onClose} id={"1234"} />, {
       preloadedState: {
         invoice: {
-          loading: "idle",
-          currentInvoice: { loading: "idle", error: null, invoice: data },
-          error: null,
+          invoice: data,
+          filteredInvoices: [],
           statusFilter: [],
           invoices: [],
         },
@@ -83,9 +82,8 @@ describe("delete modal component", () => {
     renderWithProviders(<DeleteModal onClose={onClose} id={"1234"} />, {
       preloadedState: {
         invoice: {
-          loading: "idle",
-          currentInvoice: { loading: "idle", error: null, invoice: data },
-          error: null,
+          invoice: data,
+          filteredInvoices: [],
           statusFilter: [],
           invoices: [],
         },
@@ -121,9 +119,8 @@ describe("delete modal component", () => {
     renderWithProviders(<DeleteModal onClose={onClose} id={"1234"} />, {
       preloadedState: {
         invoice: {
-          loading: "idle",
-          currentInvoice: { loading: "idle", error: null, invoice: data },
-          error: null,
+          invoice: data,
+          filteredInvoices: [],
           statusFilter: [],
           invoices: [],
         },
@@ -141,9 +138,8 @@ describe("delete modal component", () => {
     renderWithProviders(<DeleteModal onClose={onClose} id={"1234"} />, {
       preloadedState: {
         invoice: {
-          loading: "idle",
-          currentInvoice: { loading: "idle", error: null, invoice: data },
-          error: null,
+          invoice: data,
+          filteredInvoices: [],
           statusFilter: [],
           invoices: [],
         },
