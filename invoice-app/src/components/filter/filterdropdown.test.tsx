@@ -36,14 +36,9 @@ describe("Filter dropdown component", () => {
         preloadedState: {
           invoice: {
             invoices: [],
-            currentInvoice: {
-              invoice: undefined,
-              loading: "idle",
-              error: null,
-            },
             statusFilter: ["paid"],
-            loading: "idle",
-            error: null,
+            invoice: undefined,
+            filteredInvoices: [],
           },
         },
       },
@@ -68,14 +63,9 @@ describe("Filter dropdown component", () => {
         preloadedState: {
           invoice: {
             invoices: [],
-            currentInvoice: {
-              invoice: undefined,
-              loading: "idle",
-              error: null,
-            },
             statusFilter: [],
-            loading: "idle",
-            error: null,
+            invoice: undefined,
+            filteredInvoices: [],
           },
         },
       },

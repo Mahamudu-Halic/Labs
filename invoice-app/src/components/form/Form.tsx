@@ -17,7 +17,6 @@ import { formDefaultValues } from "../../constants.ts";
 import Label from "../ui/label/Label.tsx";
 import {
   useCreateInvoiceMutation,
-  useGetInvoiceByIdQuery,
   useGetInvoicesQuery,
   useUpdateInvoiceMutation,
 } from "../../api/invoice.api.ts";
@@ -50,7 +49,7 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
   } = form;
 
   const [createInvoice, { isLoading }] = useCreateInvoiceMutation();
-  const { refetch } = useGetInvoicesQuery();
+  const { refetch } = useGetInvoicesQuery("");
   const dispatch = useAppDispatch();
   const [updateInvoice, { isLoading: updateLoading }] =
     useUpdateInvoiceMutation();
@@ -99,14 +98,29 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
       refetch();
       if (type === "edit") dispatch(setInvoice(response));
       toggleForm();
-    } catch (error: any) {
+    } catch (error) {
       toast.dismiss();
-      if (error?.originalStatus === 403) {
-        toast.error(error?.data);
-      } else if (error?.originalStatus === 401) {
-        toast.error(error?.data);
-      } else if (error?.status === "FETCH_ERROR") {
-        toast.error("Check internet connection");
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "originalStatus" in error
+      ) {
+        const rtkError = error as { originalStatus: number; data?: string };
+
+        if (rtkError.originalStatus === 403) {
+          toast.error(rtkError.data || "Forbidden");
+        } else if (rtkError.originalStatus === 401) {
+          toast.error(rtkError.data || "Unauthorized");
+        }
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "status" in error
+      ) {
+        const networkError = error as { status: string };
+        if (networkError.status === "FETCH_ERROR") {
+          toast.error("Check internet connection");
+        }
       } else {
         toast.error("An unexpected error occurred");
       }
@@ -123,12 +137,29 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
       toast.success("Draft saved successfully");
       refetch();
       toggleForm();
-    } catch (error: any) {
+    } catch (error) {
       toast.dismiss();
-      if (error?.originalStatus === 403) {
-        toast.error(error?.data);
-      } else if (error?.status === "FETCH_ERROR") {
-        toast.error("Check internet connection");
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "originalStatus" in error
+      ) {
+        const rtkError = error as { originalStatus: number; data?: string };
+
+        if (rtkError.originalStatus === 403) {
+          toast.error(rtkError.data || "Forbidden");
+        } else if (rtkError.originalStatus === 401) {
+          toast.error(rtkError.data || "Unauthorized");
+        }
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "status" in error
+      ) {
+        const networkError = error as { status: string };
+        if (networkError.status === "FETCH_ERROR") {
+          toast.error("Check internet connection");
+        }
       } else {
         toast.error("An unexpected error occurred");
       }

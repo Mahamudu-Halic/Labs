@@ -11,11 +11,10 @@ import Form from "../form/Form.tsx";
 import { useState } from "react";
 import { Invoice } from "../../types/invoice.types.ts";
 import { useGetInvoicesQuery } from "../../api/invoice.api.ts";
-import Button from "../ui/button/button.tsx";
 import Error from "../error/Error.tsx";
 
 const Invoices = () => {
-  const { isError, error } = useGetInvoicesQuery();
+  const { isError, error } = useGetInvoicesQuery("");
   const filteredInvoices = useAppSelector(selectFilteredInvoices);
   const [showForm, setShowForm] = useState<boolean>(false);
   const toggleForm = () => {
@@ -23,20 +22,16 @@ const Invoices = () => {
   };
 
   if (isError) {
-    if (error?.originalStatus === 404) {
-      return (
-        // <NotFound>
-        //   <Headline variant={"h3"}>Invoive not found 🙁</Headline>
-        //   <Text>
-        //     Go to dashboard by clicking the{" "}
-        //     <Text bold={true} type={"span"}>
-        //       Go back
-        //     </Text>{" "}
-        //     button to go back
-        //   </Text>
-        // </NotFound>
-        <Error />
-      );
+    if (
+      error &&
+      "originalStatus" in error &&
+      typeof error.originalStatus === "number"
+    ) {
+      if (error.originalStatus === 404) {
+        return <Error />;
+      }
+    } else {
+      return <div>An unexpected error occurred</div>;
     }
   }
 

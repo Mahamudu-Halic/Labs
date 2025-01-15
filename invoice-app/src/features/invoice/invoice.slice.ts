@@ -8,7 +8,6 @@ const initialState: InitialState = {
   filteredInvoices: data as Invoice[],
   invoice: undefined,
   statusFilter: [],
-  error: null,
 };
 
 const invoiceSlice = createSlice({
@@ -36,33 +35,11 @@ const invoiceSlice = createSlice({
         ? state.statusFilter.filter((status) => status !== action.payload)
         : [...state.statusFilter, action.payload];
     },
-
-    updateInvoice: (state, action) => {
-      const { payload } = action;
-      const index = state.invoices.findIndex(
-        (invoice) => invoice.id === payload.id,
-      );
-      state.invoices[index] = { ...payload };
-      state.invoice = { ...payload };
-    },
-
-    deleteInvoice: (state, action: PayloadAction<string>) => {
-      state.invoices = state.invoices.filter(
-        (invoice) => invoice.id !== action.payload,
-      );
-    },
   },
 });
 
-export const {
-  filterInvoices,
-  // addInvoice,
-  updateInvoice,
-  addStatusFilter,
-  deleteInvoice,
-  setInvoices,
-  setInvoice,
-} = invoiceSlice.actions;
+export const { filterInvoices, addStatusFilter, setInvoices, setInvoice } =
+  invoiceSlice.actions;
 
 export const selectInvoice = (state: RootState) => state.invoice.invoice;
 export const selectInvoices = (state: RootState) => state.invoice.invoices;

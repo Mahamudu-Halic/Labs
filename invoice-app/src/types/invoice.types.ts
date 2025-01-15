@@ -32,5 +32,4 @@ export type InitialState = {
   filteredInvoices: Invoice[];
   invoice: Invoice | undefined;
   statusFilter: string[];
-  error: string | null;
 };

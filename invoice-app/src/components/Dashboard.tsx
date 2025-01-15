@@ -11,9 +11,10 @@ import {
 } from "../features/invoice/invoice.slice.ts";
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux.ts";
 import Button from "./ui/button/button.tsx";
+import Loader from "./ui/loader/Loader.tsx";
 
 const Dashboard = () => {
-  const { isLoading, isError, error, data, refetch } = useGetInvoicesQuery();
+  const { isLoading, isError, error, data, refetch } = useGetInvoicesQuery("");
   const statusFilter = useAppSelector(selectStatusFilter);
   const invoices = useAppSelector(selectInvoices);
 
@@ -31,12 +32,24 @@ const Dashboard = () => {
   }, [dispatch, invoices, statusFilter]);
 
   if (isError) {
-    if (error?.originalStatus === 401) return <Navigate to={"/unauthorized"} />;
+    if (
+      error &&
+      "originalStatus" in error &&
+      typeof error.originalStatus === "number"
+    ) {
+      if (error.originalStatus === 401) {
+        return <Navigate to={"/unauthorized"} />;
+      }
+    }
 
-    if (error?.status === "FETCH_ERROR")
-      return <Error error={"Check internet connection🙁"} />;
+    if (error && "status" in error && error.status === "FETCH_ERROR") {
+      return (
+        <Error error={"Check internet connection 🙁"}>
+          <Button onClick={() => refetch()}>Reload page</Button>
+        </Error>
+      );
+    }
 
-    // return <Error error={error?.data ?? error?.error ?? ""} />;
     return (
       <Error>
         <Button onClick={() => refetch()}>Reload page</Button>
@@ -45,7 +58,7 @@ const Dashboard = () => {
   }
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -54,6 +67,7 @@ const Dashboard = () => {
       <div className={"content"}>
         <Outlet />
       </div>
+      {/*<Loader />*/}
     </>
   );
 };
