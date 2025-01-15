@@ -1,9 +1,4 @@
 import { Errors, FormValues, ItemType } from "../../types/form.types.ts";
-import { useAppDispatch, useAppSelector } from "../../hooks/useRedux.ts";
-import {
-  addInvoice,
-  selectLoading,
-} from "../../features/invoice/invoice.slice.ts";
 import { FormProvider, useForm } from "react-hook-form";
 import calculatePaymentDue from "../../utils/calculatePaymentDue/calculatePaymentDue.ts";
 import { Dialog, DialogContainer } from "../ui/dialog/Dialog.tsx";
@@ -19,6 +14,17 @@ import Items from "./items/Items.tsx";
 import "./form.styles.css";
 import TextField from "../ui/text-field/TextField.tsx";
 import { formDefaultValues } from "../../constants.ts";
+import Label from "../ui/label/Label.tsx";
+import {
+  useCreateInvoiceMutation,
+  useGetInvoiceByIdQuery,
+  useGetInvoicesQuery,
+  useUpdateInvoiceMutation,
+} from "../../api/invoice.api.ts";
+import generateRandomId from "../../utils/generateRandomId/generateRandomId.ts";
+import { toast } from "sonner";
+import { setInvoice } from "../../features/invoice/invoice.slice.ts";
+import { useAppDispatch } from "../../hooks/useRedux.ts";
 
 interface FormProps {
   type: "newInvoice" | "edit";
@@ -27,12 +33,14 @@ interface FormProps {
 }
 
 const Form = ({ toggleForm, initialValues, type }: FormProps) => {
-  const dispatch = useAppDispatch();
-  const loading = useAppSelector(selectLoading);
   const form = useForm<FormValues>({
-    defaultValues: initialValues ?? formDefaultValues,
+    defaultValues: initialValues ?? {
+      ...formDefaultValues,
+      id: generateRandomId(),
+    },
     mode: "onTouched",
   });
+
   const {
     handleSubmit,
     setError,
@@ -41,15 +49,24 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
     formState: { errors, isValid, isDirty },
   } = form;
 
-  const calculateItemsTotal = (items: ItemType[]) => {
-    return items.map((item: ItemType) => ({
-      ...item,
-      total: Number((item?.price * item?.quantity).toFixed(2)),
-    }));
-  };
+  const [createInvoice, { isLoading }] = useCreateInvoiceMutation();
+  const { refetch } = useGetInvoicesQuery();
+  const dispatch = useAppDispatch();
+  const [updateInvoice, { isLoading: updateLoading }] =
+    useUpdateInvoiceMutation();
 
-  const calculateTotal = (items: ItemType[]) => {
-    return items.reduce((total, item: ItemType) => total + item.total, 0);
+  console.log(getValues("id"));
+
+  const prepareInvoiceData = (status: "draft" | "pending"): FormValues => {
+    const data = getValues();
+    data.status = status;
+    data.items = data.items.map((item: ItemType) => ({
+      ...item,
+      total: Number((item.price * item.quantity).toFixed(2)),
+    }));
+    data.total = data.items.reduce((total, item) => total + item.total, 0);
+    data.paymentDue = calculatePaymentDue(data.createdAt, data.paymentTerms);
+    return data;
   };
 
   const onSubmit = async (data: FormValues) => {
@@ -61,25 +78,61 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
       return;
     }
 
-    data.status = "pending";
-    data.items = calculateItemsTotal(data.items);
-    data.total = calculateTotal(data.items);
-    data.paymentDue = calculatePaymentDue(data.createdAt, data.paymentTerms);
+    try {
+      toast.loading(
+        type === "newInvoice" ? "Adding invoice..." : "Updating invoice...",
+      );
+      const invoiceData = prepareInvoiceData("pending");
 
-    dispatch(addInvoice(data)).then(() => toggleForm());
+      const response =
+        type === "newInvoice"
+          ? await createInvoice(invoiceData).unwrap()
+          : await updateInvoice(invoiceData).unwrap();
+
+      toast.dismiss();
+      toast.success(
+        type === "newInvoice"
+          ? "Invoice added successfully"
+          : "Invoice updated successfully",
+      );
+
+      refetch();
+      if (type === "edit") dispatch(setInvoice(response));
+      toggleForm();
+    } catch (error: any) {
+      toast.dismiss();
+      if (error?.originalStatus === 403) {
+        toast.error(error?.data);
+      } else if (error?.originalStatus === 401) {
+        toast.error(error?.data);
+      } else if (error?.status === "FETCH_ERROR") {
+        toast.error("Check internet connection");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    }
   };
 
-  const onSaveDraft = () => {
-    const data: FormValues = getValues();
-    data.status = "draft";
-    data.items = calculateItemsTotal(data.items);
-    data.total = calculateTotal(data.items);
-    data.paymentDue =
-      data.createdAt && data.paymentTerms
-        ? calculatePaymentDue(data.createdAt, data.paymentTerms)
-        : "";
+  const onSaveDraft = async () => {
+    try {
+      toast.loading("Saving draft...");
+      const draftData = prepareInvoiceData("draft");
+      await createInvoice(draftData).unwrap();
 
-    dispatch(addInvoice(data)).then(() => toggleForm());
+      toast.dismiss();
+      toast.success("Draft saved successfully");
+      refetch();
+      toggleForm();
+    } catch (error: any) {
+      toast.dismiss();
+      if (error?.originalStatus === 403) {
+        toast.error(error?.data);
+      } else if (error?.status === "FETCH_ERROR") {
+        toast.error("Check internet connection");
+      } else {
+        toast.error("An unexpected error occurred");
+      }
+    }
   };
 
   const onDiscard = () => {
@@ -92,130 +145,120 @@ const Form = ({ toggleForm, initialValues, type }: FormProps) => {
   return (
     <DialogContainer>
       <Dialog
-        className={`form-dialog`}
-        variant={"primary"}
-        radius={"rounded-lg"}
-        size={"md"}
+        className="form-dialog"
+        variant="primary"
+        radius="rounded-lg"
+        size="md"
       >
         <FormProvider {...form}>
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <div className="form-info">
-              <Button className="go-back" type={"button"} onClick={toggleForm}>
-                <Icon
-                  icon={arrowLeftIcon}
-                  description={"arrow left"}
-                  size={"xs"}
-                />
-                <Text bold={true}>Go back</Text>
+              <Button className="go-back" type="button" onClick={toggleForm}>
+                <Icon icon={arrowLeftIcon} description="arrow left" size="xs" />
+                <Text bold>Go back</Text>
               </Button>
+
               {type === "newInvoice" ? (
-                <Headline variant={"h2"}>New Invoice</Headline>
+                <Headline variant="h2">New Invoice</Headline>
               ) : (
-                <Headline variant={"h2"}>
+                <Headline variant="h2">
                   Edit <span>#</span>
                   {initialValues?.id}
                 </Headline>
               )}
 
-              <div className={"bill-from"}>
-                <Text bold={true}>Bill From</Text>
-                <FormAddress field={"senderAddress"} />
+              <div className="bill-from">
+                <Text bold>Bill From</Text>
+                <FormAddress field="senderAddress" />
               </div>
 
               <BillTo />
-
               <DateTerms />
 
               <div>
-                <label htmlFor="description" className={description && "error"}>
-                  Project Description{" "}
-                  <Text size={"sm"}>{description?.message}</Text>{" "}
-                </label>
-
+                <Label
+                  htmlFor="description"
+                  label="Project Description"
+                  error={description?.message}
+                  showError
+                />
                 <TextField
-                  name={"description"}
-                  id={"description"}
-                  className={description && "error"}
-                  validationRules={{
-                    required: "can't be empty",
-                  }}
+                  name="description"
+                  id="description"
+                  className={description ? "error" : ""}
+                  validationRules={{ required: "Can't be empty" }}
                 />
               </div>
 
               <Items />
 
-              <div>
-                {!!Object.keys(errors).length && (
-                  <Text size={"sm"} className={"error"}>
-                    -All fields must be added
-                  </Text>
-                )}
-                {!getValues("items").length && (
-                  <Text size={"sm"} className={"error"}>
-                    -An item must be added
-                  </Text>
-                )}
-              </div>
+              {!!Object.keys(errors).length && (
+                <Text size="sm" className="error">
+                  - All fields must be added
+                </Text>
+              )}
             </div>
 
-            <div className={`form__buttons`}>
+            <div className="form__buttons">
               {type === "newInvoice" ? (
                 <>
                   <Button
-                    type={"button"}
-                    radius={"rounded-full"}
-                    variant={"tertiary"}
-                    className={"discard__button"}
+                    type="button"
+                    radius="rounded-full"
+                    variant="tertiary"
+                    className="discard__button"
                     onClick={onDiscard}
-                    disabled={loading === "loading"}
+                    disabled={isLoading}
                   >
                     Discard
                   </Button>
                   <Button
-                    type={"button"}
-                    radius={"rounded-full"}
-                    variant={"secondary"}
+                    type="button"
+                    radius="rounded-full"
+                    variant="secondary"
                     onClick={onSaveDraft}
-                    disabled={loading === "loading"}
+                    disabled={isLoading}
                   >
-                    Save as Draft
+                    {isLoading ? "Saving..." : "Save as Draft"}
                   </Button>
                   <Button
-                    radius={"rounded-full"}
-                    variant={"primary"}
+                    type="submit"
+                    radius="rounded-full"
+                    variant="primary"
                     disabled={
                       !isValid ||
                       !isDirty ||
                       !getValues("items").length ||
                       !getValues("createdAt") ||
-                      loading === "loading"
+                      isLoading
                     }
                   >
-                    Save & Send
+                    {isLoading ? "Saving..." : "Save & Send"}
                   </Button>
                 </>
               ) : (
                 <>
                   <Button
-                    type={"button"}
-                    radius={"rounded-full"}
-                    variant={"secondary"}
+                    type="button"
+                    radius="rounded-full"
+                    variant="secondary"
                     onClick={onDiscard}
-                    disabled={loading === "loading"}
+                    disabled={updateLoading}
                   >
                     Cancel
                   </Button>
                   <Button
-                    radius={"rounded-full"}
-                    variant={"primary"}
+                    type="submit"
+                    radius="rounded-full"
+                    variant="primary"
                     disabled={
                       !isValid ||
                       !getValues("items").length ||
                       !getValues("createdAt") ||
-                      loading === "loading"
+                      updateLoading
                     }
                   >
-                    Save changes
+                    {updateLoading ? "Saving..." : "Save changes"}
                   </Button>
                 </>
               )}

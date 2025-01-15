@@ -1,4 +1,4 @@
-import generateRandomId from "./utils/generateRandomId/generateRandomId.ts";
+// import generateRandomId from "./utils/generateRandomId/generateRandomId.ts";
 import { ItemType } from "./types/form.types.ts";
 import profileImg from "./assets/images/image-avatar.jpg";
 
@@ -10,7 +10,7 @@ export const initialItems: ItemType = {
 };
 
 export const formDefaultValues = {
-  id: generateRandomId(),
+  id: "",
   clientName: "",
   clientEmail: "",
   createdAt: `${new Date().toISOString().split("T")[0]}`,

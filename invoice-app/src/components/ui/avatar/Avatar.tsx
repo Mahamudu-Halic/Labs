@@ -5,6 +5,8 @@ import "./avatar.styles.css";
 import Text from "../typography/text/Text.tsx";
 import Dropdown from "../dropdown/Dropdown.tsx";
 import { userInfo } from "../../../constants.ts";
+import { useAppDispatch } from "../../../hooks/useRedux.ts";
+import { logout } from "../../../features/auth/auth.slice.ts";
 
 interface AvatarProps extends HTMLAttributes<HTMLButtonElement> {
   image: string;
@@ -24,6 +26,7 @@ const Avatar = ({
   className,
 }: AvatarProps) => {
   const [showProfile, setShowProfile] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
   const handleToggleProfile = () => setShowProfile((prev) => !prev);
 
@@ -69,7 +72,7 @@ const Avatar = ({
             <Button
               variant={"danger"}
               radius={"rounded-md"}
-              onClick={handleToggleProfile}
+              onClick={() => dispatch(logout())}
             >
               logout
             </Button>

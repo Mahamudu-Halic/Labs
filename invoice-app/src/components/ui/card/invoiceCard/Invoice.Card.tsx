@@ -25,7 +25,7 @@ const InvoiceCard = ({
   total,
 }: InvoiceCardProps) => {
   return (
-    <Link to={`/${id}`}>
+    <Link to={`/invoices/${id}`}>
       <CardWrapper className={styles.invoice__card}>
         <div className={styles["invoice__card-left"]}>
           <div className={styles["invoice__card-left__details"]}>

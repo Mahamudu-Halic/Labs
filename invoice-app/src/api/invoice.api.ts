@@ -1,51 +1,69 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setCredentials, logout } from "../features/auth/auth.slice.ts";
+import { Invoice } from "../types/invoice.types.ts";
 
-const baseQuery = fetchBaseQuery({
-  baseUrl: "https://invoice-app-bknd-strapi-cloud.onrender.com",
-  prepareHeaders: (headers, { getState }) => {
-    const token = getState().auth.token;
-    console.log(getState);
-    if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
-      console.log(token);
-    }
-    console.log(headers);
-    return headers;
-  },
-});
+export const invoiceApi = createApi({
+  reducerPath: "invoiceApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://invoice-app-bknd-strapi-cloud.onrender.com",
 
-const baseQueryWithReauth = async (args, api, extraOptions) => {
-  console.log(`args: ${args}, api: ${api}, extraOptions: ${extraOptions}`);
-  let result = await baseQuery(args, api, extraOptions);
-  console.log(result);
-  if (result?.error?.status === 401) {
-    console.log("sending refresh token");
-    const refreshResult = await baseQuery("/login", api, extraOptions);
+    prepareHeaders: (headers, { getState }) => {
+      // @ts-expect-error: get auth token
+      const token = getState().auth.token;
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
+      return headers;
+    },
+  }),
 
-    if (refreshResult?.data) {
-      const user = api.getState().auth.user;
-      api.dispatch(setCredentials({ user, ...refreshResult.data }));
-      result = await baseQuery(args, api, extraOptions);
-    } else {
-      api.dispatch(logout());
-    }
-  }
-  return result;
-};
-
-export const authApi = createApi({
-  reducerPath: "authApi",
-  baseQuery: baseQueryWithReauth,
   endpoints: (builder) => ({
     login: builder.mutation({
-      query: (credentials) => ({
+      query: (credentials: { username: string; password: string }) => ({
         url: `/login`,
         method: "POST",
         body: { ...credentials },
       }),
     }),
+
+    getInvoices: builder.query({
+      query: () => `/invoices`,
+      // keepUnusedDataFor: 5,
+    }),
+
+    getInvoiceById: builder.query({
+      query: (id: string) => `/invoices/${id}`,
+    }),
+
+    createInvoice: builder.mutation({
+      query: (invoice: Invoice) => ({
+        url: `/invoices`,
+        method: "POST",
+        body: { ...invoice },
+      }),
+    }),
+
+    updateInvoice: builder.mutation({
+      query: (invoice: Invoice) => ({
+        url: `/invoices/${invoice.id}`,
+        method: "PUT",
+        body: { ...invoice },
+      }),
+    }),
+
+    deleteInvoice: builder.mutation({
+      query: (id: string) => ({
+        url: `/invoices/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useLoginMutation } = authApi;
+export const {
+  useLoginMutation,
+  useCreateInvoiceMutation,
+  useDeleteInvoiceMutation,
+  useUpdateInvoiceMutation,
+  useGetInvoiceByIdQuery,
+  useGetInvoicesQuery,
+} = invoiceApi;

@@ -10,7 +10,7 @@ interface IconProps {
     | "rounded-lg"
     | "rounded-full";
   className?: string;
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl";
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "xxl" | "xxxl";
 }
 
 const Icon = ({

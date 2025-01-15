@@ -1,61 +1,58 @@
-.invoices {
-    .invoice__header {
+.invoice__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .heading {
         display: flex;
-        justify-content: space-between;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .invoice__header-right__container {
+        display: flex;
         align-items: center;
-        width: 100%;
+        gap: 10px;
 
-        .heading {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .invoice__header-right__container {
-            display: flex;
-            align-items: center;
+        .new__invoice-button {
             gap: 10px;
 
-            .new__invoice-button {
-                gap: 10px;
+            .new__invoice-plus-icon {
+                background: var(--text-white);
+                border-radius: 50px;
+                width: 25px;
+                height: 25px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-                .new__invoice-plus-icon {
-                    background: var(--text-white);
-                    border-radius: 50px;
-                    width: 25px;
-                    height: 25px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
+            .new__invoice-mobile {
+                display: none;
+            }
 
+            @media (max-width: 540px) {
                 .new__invoice-mobile {
-                    display: none;
+                    display: block;
                 }
 
-                @media (max-width: 540px) {
-                    .new__invoice-mobile {
-                        display: block;
-                    }
-
-                    .new__invoice-desktop {
-                        display: none;
-                    }
+                .new__invoice-desktop {
+                    display: none;
                 }
             }
         }
     }
 
     @media (width <= 540px) {
-        .invoice__header {
-            .heading {
-                gap: 5px;
+        .heading {
+            gap: 5px;
 
-                .invoice__header-right__container {
-                    .new__invoice-button {
-                    }
+            .invoice__header-right__container {
+                .new__invoice-button {
                 }
             }
         }
     }
 }
+

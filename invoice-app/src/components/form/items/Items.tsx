@@ -8,6 +8,7 @@ import { FormValues } from "../../../types/form.types.ts";
 import Text from "../../ui/typography/text/Text.tsx";
 import TextField from "../../ui/text-field/TextField.tsx";
 import { initialItems } from "../../../constants.ts";
+import Label from "../../ui/label/Label.tsx";
 
 const Items = () => {
   const {
@@ -32,8 +33,14 @@ const Items = () => {
               key={field?.id}
             >
               <div className={"item__name"}>
-                <label htmlFor={"itemName" + index}>Item Name</label>
-
+                <Label
+                  htmlFor={"itemName" + index}
+                  label={"Item Name"}
+                  error={
+                    Array.isArray(errors?.items) &&
+                    errors?.items[index]?.name?.message
+                  }
+                />
                 <TextField
                   id={"itemName" + index}
                   className={
@@ -54,8 +61,14 @@ const Items = () => {
               </div>
               <div className={"items__list-item__details"}>
                 <div className={"item__qty"}>
-                  <label htmlFor={"itemQty" + index}>Qty</label>
-
+                  <Label
+                    htmlFor={"itemQty" + index}
+                    label={"Qty"}
+                    error={
+                      Array.isArray(errors?.items) &&
+                      errors?.items[index]?.quantity?.message
+                    }
+                  />
                   <TextField
                     className={
                       Array.isArray(errors?.items) &&
@@ -80,8 +93,14 @@ const Items = () => {
                   />
                 </div>
                 <div className={"item__price"}>
-                  <label htmlFor={"itemPrice" + index}>Price</label>
-
+                  <Label
+                    htmlFor={"itemPrice" + index}
+                    label={"Price"}
+                    error={
+                      Array.isArray(errors?.items) &&
+                      errors?.items[index]?.price?.message
+                    }
+                  />
                   <TextField
                     className={
                       Array.isArray(errors?.items) &&
@@ -102,8 +121,7 @@ const Items = () => {
                   />
                 </div>
                 <div className={"item__total"}>
-                  <label htmlFor="">Total</label>
-
+                  <Label htmlFor={"total" + index} label={"Total"} />
                   <Text size={"sm"} bold>
                     {(qty * prc).toFixed(2)}
                   </Text>

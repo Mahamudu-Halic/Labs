@@ -4,13 +4,13 @@ import Icon from "../../ui/icon/Icon.tsx";
 import arrowDownIcon from "../../../assets/images/icon-arrow-down.svg";
 import Button from "../../ui/button/button.tsx";
 import { Errors } from "../../../types/form.types.ts";
-import Text from "../../ui/typography/text/Text.tsx";
 import CustomSelect from "../CustomSelect.tsx";
 import { useEffect, useState } from "react";
 import "./dateterms.styles.css";
 import DatePicker from "../../ui/date-picker/DatePicker.tsx";
 import calendarIcon from "../../../assets/images/icon-calendar.svg";
 import formatDate from "../../../utils/formatDate/formatDate.ts";
+import Label from "../../ui/label/Label.tsx";
 
 const DateTerms = () => {
   const {
@@ -78,11 +78,12 @@ const DateTerms = () => {
   return (
     <div className={"date-term"}>
       <div className={"invoice-date"}>
-        <label htmlFor={"date"} className={createdAt && "error"}>
-          Invoice Date
-          {createdAt && <Text type={"span"}>{createdAt?.message}</Text>}
-        </label>
-
+        <Label
+          htmlFor={"date"}
+          label={"Invoice Date"}
+          error={createdAt?.message}
+          showError
+        />
         <Button
           type={"button"}
           onClick={toggleDatePicker}
@@ -100,7 +101,12 @@ const DateTerms = () => {
         )}
       </div>
       <div className={`payment-terms`}>
-        <label className={paymentTerms ? "error" : ""}>Payment Terms</label>
+        <Label
+          htmlFor={"paymentTerms"}
+          label={"Payment Terms"}
+          error={paymentTerms?.message}
+          showError
+        />
         <Button
           className={`${showPaymentTerms ? "active" : ""}`}
           type={"button"}

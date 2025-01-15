@@ -3,6 +3,7 @@ import Text from "../../ui/typography/text/Text.tsx";
 import FormAddress from "../address/FormAddress.tsx";
 import { Errors } from "../../../types/form.types.ts";
 import TextField from "../../ui/text-field/TextField.tsx";
+import Label from "../../ui/label/Label.tsx";
 
 const BillTo = () => {
   const {
@@ -14,14 +15,12 @@ const BillTo = () => {
     <div className={"bill-to"}>
       <Text bold={true}>Bill to</Text>
       <div>
-        <label htmlFor={"clientName"} className={clientName ? "error" : ""}>
-          Client's Name{" "}
-          {clientName && (
-            <Text size={"sm"} type={"span"}>
-              {clientName?.message ?? ""}
-            </Text>
-          )}
-        </label>
+        <Label
+          htmlFor={"clientName"}
+          label={"Client Name"}
+          error={clientName?.message}
+          showError
+        />
         <TextField
           className={clientName && "error"}
           id="clientName"
@@ -36,14 +35,12 @@ const BillTo = () => {
         />
       </div>
       <div>
-        <label htmlFor={"clientEmail"} className={clientEmail ? "error" : ""}>
-          Client's Email{" "}
-          {clientEmail && (
-            <Text size={"sm"} type={"span"}>
-              {clientEmail?.message ?? ""}
-            </Text>
-          )}
-        </label>
+        <Label
+          htmlFor={"clientEmail"}
+          label={"Client Email"}
+          error={clientEmail?.message}
+          showError
+        />
         <TextField
           className={clientEmail && "error"}
           id={"clientEmail"}

@@ -6,9 +6,8 @@ import InvoiceNoticeButtons from "./InvoiceNoticeButtons.tsx";
 import DeleteModal from "../delete-modal/DeleteModal.tsx";
 
 interface InvoiceNoticeProps {
-  status: string;
-  error: string | null;
-  id: string;
+  status?: string;
+  id?: string;
   toggleForm: () => void;
   showDeleteModal: boolean;
   toggleDeleteModal: () => void;
@@ -25,7 +24,7 @@ const InvoiceNotice = ({
     <CardWrapper className={"invoice__notice-wrapper"}>
       <div className={"invoice__status-wrapper"}>
         <Text className={"status"}>Status</Text>
-        <Badge status={status} />
+        <Badge status={status ?? ""} />
       </div>
       {showDeleteModal && (
         <DeleteModal onClose={toggleDeleteModal} id={id ?? ""} />

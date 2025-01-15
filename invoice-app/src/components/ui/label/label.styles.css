@@ -1,0 +1,11 @@
+.label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &.error {
+        color: var(--bg-danger);
+    }
+}
