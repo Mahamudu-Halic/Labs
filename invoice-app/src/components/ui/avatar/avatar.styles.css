@@ -1,0 +1,41 @@
+.avatar {
+    position: relative;
+    z-index: 100;
+}
+
+.avatar__container {
+    position: relative;
+
+
+    .profile__dropdown {
+        position: fixed;
+        bottom: 60px;
+        top: unset;
+        left: 0;
+        width: 250px;
+        word-wrap: break-word;
+
+
+        @media (width <= 800px) {
+            right: 0;
+            left: unset;
+            bottom: unset;
+            top: 70px;
+        }
+
+        .profile__dropdown__user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 10px;
+
+            .profile__dropdown__user-info__details {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    }
+}
+
