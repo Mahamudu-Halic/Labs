@@ -4,14 +4,13 @@ import Header from "../header/Header.tsx";
 import InvoiceCard from "../ui/card/invoiceCard/Invoice.Card.tsx";
 import { useAppSelector } from "../../hooks/useRedux.ts";
 import { selectFilteredInvoices } from "../../features/invoice/invoice.slice.ts";
-import NotFound from "../not-found/NotFound.tsx";
+import Error from "../error/Error.tsx";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import Text from "../ui/typography/text/Text.tsx";
 import Form from "../form/Form.tsx";
 import { useState } from "react";
 import { Invoice } from "../../types/invoice.types.ts";
 import { useGetInvoicesQuery } from "../../api/invoice.api.ts";
-import Error from "../error/Error.tsx";
 
 const Invoices = () => {
   const { isError, error } = useGetInvoicesQuery("");
@@ -28,7 +27,11 @@ const Invoices = () => {
       typeof error.originalStatus === "number"
     ) {
       if (error.originalStatus === 404) {
-        return <Error />;
+        return (
+          <Error>
+            <Headline variant={"h2"}>Invoice not found</Headline>
+          </Error>
+        );
       }
     } else {
       return <div>An unexpected error occurred</div>;
@@ -46,7 +49,7 @@ const Invoices = () => {
           ))}
 
           {filteredInvoices.length === 0 && (
-            <NotFound>
+            <Error>
               <Headline variant={"h2"}>There is nothing here</Headline>
               <Text>
                 Create an invoice by clicking the{" "}
@@ -55,7 +58,7 @@ const Invoices = () => {
                 </Text>{" "}
                 button and get started
               </Text>
-            </NotFound>
+            </Error>
           )}
         </div>
       </Wrapper>

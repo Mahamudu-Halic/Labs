@@ -20,7 +20,7 @@
 }
 
 html[data-theme="light"] {
-    --bg-primary: #f8f8fb;
+    --bg-primary: rgb(248, 248, 251);
     --bg-secondary: #ffffff;
     --bg-tertiary: #373b53;
     --bg-accent: #f9fafe;
@@ -40,6 +40,7 @@ html[data-theme="light"] {
     --text-draft: #373b53;
     --text-name: #858bb2;
     --text-status: #858bb2;
+    --loader: #1e2139;
 }
 
 html[data-theme="dark"] {
@@ -63,6 +64,7 @@ html[data-theme="dark"] {
     --text-draft: #dfe3fa;
     --text-status: #dfe3fa;
     --text-name: #ffffff;
+    --loader: #ffffff;
 
     input {
         outline: none;

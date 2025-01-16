@@ -1,6 +1,5 @@
 import Sidebar from "./sidebar/Sidebar.tsx";
 import { Navigate, Outlet } from "react-router-dom";
-import Error from "./error/Error.tsx";
 import { useGetInvoicesQuery } from "../api/invoice.api.ts";
 import { useEffect } from "react";
 import {
@@ -12,6 +11,8 @@ import {
 import { useAppDispatch, useAppSelector } from "../hooks/useRedux.ts";
 import Button from "./ui/button/button.tsx";
 import Loader from "./ui/loader/Loader.tsx";
+import Error from "./error/Error.tsx";
+import Headline from "./ui/typography/headline/Headline.tsx";
 
 const Dashboard = () => {
   const { isLoading, isError, error, data, refetch } = useGetInvoicesQuery("");
@@ -40,11 +41,17 @@ const Dashboard = () => {
       if (error.originalStatus === 401) {
         return <Navigate to={"/unauthorized"} />;
       }
+      if (error.originalStatus === 404) {
+        return <Navigate to={"/error"} />;
+      }
+
+      if (error.originalStatus === 403) return <Navigate to={"/forbidden"} />;
     }
 
     if (error && "status" in error && error.status === "FETCH_ERROR") {
       return (
-        <Error error={"Check internet connection 🙁"}>
+        <Error>
+          <Headline variant={"h3"}>Check internet connection 🙁</Headline>
           <Button onClick={() => refetch()}>Reload page</Button>
         </Error>
       );
@@ -52,6 +59,7 @@ const Dashboard = () => {
 
     return (
       <Error>
+        <Headline variant={"h3"}>An unexpected error occurred ��</Headline>
         <Button onClick={() => refetch()}>Reload page</Button>
       </Error>
     );

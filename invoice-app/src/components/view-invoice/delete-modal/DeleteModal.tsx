@@ -12,6 +12,7 @@ import {
 import { toast } from "sonner";
 import { useAppDispatch } from "../../../hooks/useRedux.ts";
 import { setInvoice } from "../../../features/invoice/invoice.slice.ts";
+import catchError from "../../../utils/catchError.tsx";
 
 interface DeleteModalProps {
   onClose: () => void;
@@ -34,25 +35,28 @@ const DeleteModal = ({ onClose, id }: DeleteModalProps) => {
       toast.success("Invoice deleted successfully");
       dispatch(setInvoice(undefined));
       refetch();
-      navigate("/invoices");
-    } catch (error: any) {
-      toast.dismiss();
-      if (error?.originalStatus === 404) return toast.error(error?.data);
-      if (error?.status === "FETCH_ERROR")
-        return toast.error("Check internet connection");
-      if (error?.originalStatus === 403) return toast.error(error?.data);
-      if (error?.originalStatus === 401) return toast.error("Unauthorized");
-      toast.error("An unexpected error occurred");
-      toast.error("An unexpected error occurred");
+      navigate("/dashboard");
+    } catch (error) {
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "originalStatus" in error
+      )
+        return catchError(
+          error as {
+            originalStatus: number;
+            data: string;
+          },
+        );
+      if (typeof error === "object" && error !== null && "status" in error)
+        return catchError(
+          error as {
+            status: string | number;
+            error: string;
+          },
+        );
     }
   };
-
-  // useEffect(() => {
-  //   if (loading === "success") {
-  //     onClose();
-  //     navigate("/");
-  //   }
-  // }, [loading]);
 
   return (
     <DialogContainer center={true}>

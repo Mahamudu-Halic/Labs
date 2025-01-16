@@ -49,10 +49,16 @@ const LoginAuth = () => {
         }),
       );
       navigate("/invoices");
-    } catch (error: any) {
-      if (error?.originalStatus === 403) return toast.error(error?.data);
-      if (error?.status === "FETCH_ERROR")
-        return toast.error("check internet connection");
+    } catch (error) {
+      if (typeof error === "object") {
+        if (error && "originalStatus" in error) {
+          const rtkError = error as { originalStatus: number; data?: string };
+          if (rtkError?.originalStatus === 401)
+            return toast.error(rtkError?.data);
+        }
+        if (error && "status" in error && error?.status === "FETCH_ERROR")
+          return toast.error("check internet connection");
+      }
     }
   };
 
@@ -106,6 +112,14 @@ const LoginAuth = () => {
             disabled={!isValid || !isDirty || isLoading}
           >
             {isLoading ? "Loading..." : "Login"}
+          </Button>
+
+          <Button
+            type={"button"}
+            disabled={isLoading}
+            onClick={() => navigate("/")}
+          >
+            Back Home
           </Button>
         </form>
       </FormProvider>

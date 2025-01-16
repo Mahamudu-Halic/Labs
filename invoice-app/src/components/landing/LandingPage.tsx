@@ -8,6 +8,7 @@ import Text from "../ui/typography/text/Text.tsx";
 import landingImage from "../../assets/images/landing-image.png";
 import logo from "../../assets/images/logo.svg";
 import Icon from "../ui/icon/Icon.tsx";
+import ToggleTheme from "../sidebar/toggle-theme/ToggleTheme.tsx";
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -30,7 +31,10 @@ const LandingPage = () => {
 
           <div>
             {token ? (
-              <Button variant={"primary"} onClick={() => navigate("/invoices")}>
+              <Button
+                variant={"primary"}
+                onClick={() => navigate("/dashboard")}
+              >
                 Get started
               </Button>
             ) : (
@@ -42,6 +46,7 @@ const LandingPage = () => {
                 Login
               </Button>
             )}
+            <ToggleTheme />
           </div>
         </nav>
 
@@ -58,7 +63,7 @@ const LandingPage = () => {
               create, edit, and delete invoices in one place.
             </Text>
           </div>
-          <Button variant={"primary"} onClick={() => navigate("/invoices")}>
+          <Button variant={"primary"} onClick={() => navigate("/dashboard")}>
             Get Started
           </Button>
           <Icon size={"xxxl"} icon={landingImage} description="money" />

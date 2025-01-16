@@ -9,7 +9,7 @@ import { useGetInvoiceByIdQuery } from "../../api/invoice.api.ts";
 import arrowLeftIcon from "../../assets/images/icon-arrow-left.svg";
 import Headline from "../ui/typography/headline/Headline.tsx";
 import Text from "../ui/typography/text/Text.tsx";
-import NotFound from "../not-found/NotFound.tsx";
+import Error from "../error/Error.tsx";
 import Wrapper from "../ui/wrapper/Wrapper.tsx";
 import Icon from "../ui/icon/Icon.tsx";
 import CardWrapper from "../ui/card/CardWrapper.tsx";
@@ -53,19 +53,19 @@ const ViewInvoice = () => {
   if (isError) {
     if ("status" in error && error?.status === "FETCH_ERROR") {
       return (
-        <NotFound>
+        <Error>
           <Headline variant={"h3"}>Check internet connection 🙁</Headline>
-        </NotFound>
+        </Error>
       );
     }
 
     if ("originalStatus" in error) {
       if (error.originalStatus === 401) {
         return (
-          <NotFound>
+          <Error>
             <Headline variant={"h3"}>An unexpected error occurred 🙁</Headline>
             <Button onClick={() => refetch()}>Reload page</Button>
-          </NotFound>
+          </Error>
         );
       }
     }
@@ -78,13 +78,13 @@ const ViewInvoice = () => {
           <Form toggleForm={toggleForm} type={"edit"} initialValues={invoice} />
         )}
         <Wrapper>
-          <Button className={"go-back"} onClick={() => navigate("/invoices")}>
+          <Button className={"go-back"} onClick={() => navigate("/dashboard")}>
             <Icon icon={arrowLeftIcon} description={"arrow left"} size={"xs"} />
             Go back
           </Button>
         </Wrapper>
         {error && "originalStatus" in error && error?.originalStatus === 404 ? (
-          <NotFound>
+          <Error>
             <Headline variant={"h3"}>Invoive not found 🙁</Headline>
             <Text>
               Go to dashboard by clicking the{" "}
@@ -93,7 +93,7 @@ const ViewInvoice = () => {
               </Text>{" "}
               button to go back
             </Text>
-          </NotFound>
+          </Error>
         ) : (
           <>
             <Wrapper className={"view__invoice"}>

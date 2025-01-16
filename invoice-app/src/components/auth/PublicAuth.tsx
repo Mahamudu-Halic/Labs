@@ -5,6 +5,6 @@ import { Navigate, Outlet } from "react-router-dom";
 const PublicAuth = () => {
   const token = useAppSelector(selectToken);
 
-  return token ? <Navigate to={"/invoices"} /> : <Outlet />;
+  return token ? <Navigate to={"/dashboard"} /> : <Outlet />;
 };
 export default PublicAuth;

@@ -43,6 +43,10 @@ const Avatar = ({
     };
   }, []);
 
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <div className={`avatar__container`}>
       {showProfile && (
@@ -72,7 +76,7 @@ const Avatar = ({
             <Button
               variant={"danger"}
               radius={"rounded-md"}
-              onClick={() => dispatch(logout())}
+              onClick={handleLogout}
             >
               logout
             </Button>
