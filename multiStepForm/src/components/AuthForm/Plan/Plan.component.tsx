@@ -2,10 +2,7 @@ import Header from "../Header/Header.component.tsx";
 import Cards from "./Card/Cards.component.tsx";
 import TimeFrameToogler from "./TimeFrameToggler/TimeFrameToggler.component.tsx";
 import { useAppSelector } from "../../../hooks/useAppSelector.ts";
-import {
-  selectFormData,
-  selectFormErrors,
-} from "../../../features/Form/FormSlice.tsx";
+import { selectFormErrors } from "../../../features/Form/FormSlice.tsx";
 
 const Plan = () => {
   const { planErr } = useAppSelector(selectFormErrors);
